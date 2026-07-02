@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<title>David Gheorghita — Design leader & photographer</title>
+<meta name="description" content="David Gheorghita — Head of UX Design at Volvo Group, photographer for Leica, and the solo studio behind Echo Frame. Design leadership at scale, and the light in between.">
+<meta name="theme-color" content="#141009">
+<link rel="canonical" href="https://departive.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141009'/%3E%3Ccircle cx='16' cy='16' r='4.4' fill='%23b0835a'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="departive">
+<meta property="og:title" content="David Gheorghita — Design leader & photographer">
+<meta property="og:description" content="Head of UX Design at Volvo Group, photographer for Leica, and the solo studio behind Echo Frame.">
+<meta property="og:url" content="https://departive.com/">
+<meta property="og:image" content="https://departive.com/images/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="David Gheorghita — Design leader & photographer">
+<meta name="twitter:description" content="Head of UX Design at Volvo Group, photographer for Leica, and the solo studio behind Echo Frame.">
+<meta name="twitter:image" content="https://departive.com/images/og-cover.jpg">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  ::selection { background: #b0835a; color: #141009; }
+  @keyframes heroDrift { from { transform: scale(1.03); } to { transform: scale(1.13); } }
+  @keyframes cueMove { 0% { transform: translateY(0); opacity: 0.75; } 50% { transform: translateY(9px); opacity: 0.2; } 100% { transform: translateY(0); opacity: 0.75; } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+  @keyframes heroKen { 0% { transform: scale(1.06) translate3d(1%, 0.6%, 0); } 100% { transform: scale(1.17) translate3d(-1.6%, -1.8%, 0); } }
+  @keyframes dotBreath { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.78); } }
+</style>
+</helmet>
+
+<div data-departive-root style="--accent:#b0835a; --bone:#f2eee6; --dark:#141009; --dark2:#100c06; --ink:#1a150d; --onDark:#ede7db; --muted:#9e9484; --mutedInk:#6b6252; --line-d:rgba(237,231,219,0.14); --line-i:rgba(26,21,13,0.13); --serif:'Instrument Serif',Georgia,'Times New Roman',serif; --sans:'Instrument Sans',system-ui,-apple-system,sans-serif; --mono:ui-monospace,'SF Mono',Menlo,monospace; background:var(--bone); color:var(--ink); font-family:var(--sans); overflow-x:hidden; -webkit-font-smoothing:antialiased;">
+
+  <!-- ==================== HERO ==================== -->
+  <section style="position:relative; min-height:100vh; background:var(--dark); overflow:hidden; display:flex; flex-direction:column;">
+    <div data-hero-bg style="position:absolute; inset:-8%; will-change:transform;">
+      <div data-hero-inner style="position:absolute; inset:0; background:radial-gradient(130% 120% at 22% 88%, #191208, #0c0906 72%), #141009;">
+        <img data-hero-kb src="images/leicafeature4.jpg" alt="A figure walking a cliff edge above the ocean at dusk" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 45%; animation:heroKen 36s ease-in-out infinite alternate; will-change:transform;">
+      </div>
+    </div>
+    <div style="position:absolute; inset:0; z-index:1; background:linear-gradient(to right, rgba(16,12,6,0.72), rgba(16,12,6,0.06) 58%), linear-gradient(to bottom, rgba(16,12,6,0.46) 0%, rgba(16,12,6,0.05) 30%, rgba(16,12,6,0.34) 62%, rgba(16,12,6,0.8) 100%);"></div>
+    <span style="position:absolute; bottom:26px; right:clamp(22px,5vw,64px); z-index:4; font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(237,231,219,0.5);">Nazaré, Portugal · Leica Q3 43</span>
+
+    <!-- top bar -->
+    <header style="position:relative; z-index:4; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; padding:clamp(24px,3vw,40px) clamp(22px,5vw,64px);">
+      <a href="#top" style="text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-family:var(--sans); font-weight:500; font-size:15px; letter-spacing:0.14em; color:var(--onDark); transition:letter-spacing 0.6s cubic-bezier(0.22,1,0.36,1);" style-hover="letter-spacing:0.26em">departive<span style="color:var(--accent); display:inline-block; animation:dotBreath 5s ease-in-out infinite;">.</span></a>
+      <nav style="display:flex; flex-wrap:wrap; justify-content:flex-end; gap:clamp(14px,2.4vw,34px); font-family:var(--sans); font-size:clamp(10px,2.6vw,11px); font-weight:500; letter-spacing:0.18em; text-transform:uppercase;">
+        <a href="#work" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Work</a>
+        <a href="#photography" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Photography</a>
+        <a href="#studio" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Craft</a>
+        <a href="#contact" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Contact</a>
+      </nav>
+    </header>
+
+    <!-- hero content -->
+    <div style="position:relative; z-index:4; margin-top:auto; padding:0 clamp(22px,5vw,64px) clamp(72px,12vh,130px); max-width:1180px;">
+      <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(20px,3vh,34px);">
+        <span style="width:30px; height:1px; background:var(--accent);"></span>
+        <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(237,231,219,0.72);">Design leader &nbsp;·&nbsp; Photographer</span>
+      </div>
+      <h1 data-reveal style="margin:0; font-family:var(--serif); font-weight:400; color:var(--onDark); font-size:clamp(60px,12.5vw,200px); line-height:0.92; letter-spacing:-0.01em;">David</h1>
+      <p data-reveal style="margin:clamp(22px,3vh,34px) 0 0; max-width:640px; font-family:var(--serif); font-weight:400; font-size:clamp(22px,2.5vw,34px); line-height:1.28; color:rgba(237,231,219,0.86);">I lead design for 70+ people at Volvo Group — and I photograph the quiet in between.</p>
+    </div>
+
+    <div data-scroll-cue style="position:absolute; left:clamp(22px,5vw,64px); bottom:26px; z-index:4; display:flex; align-items:center; gap:12px;">
+      <span style="display:block; width:1px; height:34px; background:linear-gradient(to bottom, rgba(237,231,219,0.6), transparent); animation:cueMove 2.6s ease-in-out infinite;"></span>
+      <span style="font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(237,231,219,0.55);">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ==================== OPENING STATEMENT ==================== -->
+  <section id="top" style="background:var(--bone); padding:clamp(110px,18vh,220px) clamp(22px,7vw,150px);">
+    <p data-reveal style="margin:0; max-width:24ch; font-family:var(--serif); font-weight:400; font-size:clamp(34px,5vw,78px); line-height:1.08; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">I've spent twenty years working on the part of design that <em style="font-style:italic;">disappears</em> when it works.</p>
+    <p data-reveal style="margin:clamp(28px,4vh,48px) 0 0; max-width:600px; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.65; color:var(--mutedInk);">The moment a system already knows what you need before you've had to ask — for a rail passenger who just missed a connection, a patient managing a chronic condition, or a designer finding their footing in a global organisation. Photography is the counterweight: where I slow down and pay attention to what stays.</p>
+  </section>
+
+  <!-- ==================== PHOTOGRAPHY — I ==================== -->
+  <section id="photography" style="background:var(--dark2); padding:clamp(90px,14vh,150px) 0 clamp(30px,5vh,60px);">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; padding:0 clamp(22px,5vw,64px) clamp(48px,7vh,80px);">
+      <div>
+        <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:22px;">
+          <span style="width:30px; height:1px; background:var(--accent);"></span>
+          <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">Photography — I</span>
+        </div>
+        <h2 data-reveal style="margin:0; font-family:var(--serif); font-weight:400; font-size:clamp(34px,5vw,72px); line-height:1.02; letter-spacing:-0.01em; color:var(--onDark);">Field notes, on the move.</h2>
+      </div>
+      <span data-reveal style="font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--muted); padding-bottom:8px;">Selected frames · 2023—2026</span>
+    </div>
+
+    <!-- travel gallery (uncropped) -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:clamp(8px,1.4vw,16px); align-items:start; padding:clamp(8px,1.5vw,18px) 0;">
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1040688.jpg" loading="lazy" alt="Tuk-tuks on a Bangkok street at dusk" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Yaowarat · Bangkok<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1050010.jpg" loading="lazy" alt="Two monks with an umbrella on a red bridge" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Ancient Siam · Thailand<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1041279.jpg" loading="lazy" alt="A vendor's tricycle glimpsed through leaves in Bangkok" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Bangkok<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1041218.jpg" loading="lazy" alt="Fried fish at a Bangkok night market" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Night market · Bangkok<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1050072.jpg" loading="lazy" alt="A Thai temple spire against blossom" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Ancient Siam · Thailand<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/img-5184-3.jpg" loading="lazy" alt="Aerial of a boat cutting through drift ice" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Riddarfjärden · Stockholm<br><span style="color:var(--muted);">iPhone 14 Pro</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ==================== THE WORK ==================== -->
+  <section id="work" style="background:var(--bone); padding:clamp(110px,18vh,220px) clamp(22px,7vw,150px);">
+    <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(32px,5vh,56px);">
+      <span style="width:30px; height:1px; background:var(--accent);"></span>
+      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--mutedInk);">The work</span>
+    </div>
+    <div style="display:flex; gap:clamp(40px,7vw,120px); flex-wrap:wrap; align-items:flex-start;">
+      <h2 data-reveal style="margin:0; flex:1 1 420px; font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Building the operating system for how design scales.</h2>
+      <p data-reveal style="margin:8px 0 0; flex:1 1 360px; max-width:520px; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--mutedInk);">At Volvo Group I lead UX Design — 70+ designers, design leads, and managers across Europe, the US, and Asia. The work I care most about is systemic: building the operating system for how a function this size defines its process, grows its people, and adapts its skill model as AI reshapes what design work actually is. My best work is the work I can hand away.</p>
+    </div>
+
+    <!-- editorial index -->
+    <div data-reveal style="margin-top:clamp(64px,10vh,120px);">
+      <a href="#work" style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease;" style-hover="padding-left:14px">
+        <span style="font-family:var(--serif); font-size:clamp(26px,3vw,44px); line-height:1;">Volvo Group</span>
+        <span style="font-family:var(--sans); font-size:14px; color:var(--mutedInk);">Head of UX Design</span>
+        <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">2023 —</span>
+      </a>
+      <a href="#studio" style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
+        <span style="font-family:var(--serif); font-size:clamp(26px,3vw,44px); line-height:1;">Electrolux</span>
+        <span style="font-family:var(--sans); font-size:14px; color:var(--mutedInk);">Design Lead, Digital Experience</span>
+        <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">2020 — 2023</span>
+      </a>
+      <a href="#studio" style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
+        <span style="font-family:var(--serif); font-size:clamp(26px,3vw,44px); line-height:1;">Patents</span>
+        <span style="font-family:var(--sans); font-size:14px; color:var(--mutedInk);">Appliance interaction & AI</span>
+        <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">4 filed</span>
+      </a>
+      <a href="#studio" style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); border-bottom:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
+        <span style="font-family:var(--serif); font-size:clamp(26px,3vw,44px); line-height:1;">Solo studio</span>
+        <span style="font-family:var(--sans); font-size:14px; color:var(--mutedInk);">iOS apps</span>
+        <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">Recent</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== PHOTOGRAPHY — II ==================== -->
+  <section style="background:var(--dark); padding:clamp(90px,14vh,150px) clamp(22px,5vw,64px);">
+    <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(40px,6vh,72px);">
+      <span style="width:30px; height:1px; background:var(--accent);"></span>
+      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">Photography — II</span>
+    </div>
+    <div style="display:flex; gap:clamp(32px,5vw,80px); flex-wrap:wrap; align-items:stretch;">
+      <figure data-reveal style="position:relative; margin:0; flex:1 1 380px; min-height:clamp(460px,72vh,760px); background:#0c0906; overflow:hidden;">
+        <img src="images/l1020620-2.jpg" loading="lazy" alt="Self-portrait" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 22%; transition:transform 1.8s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 40%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:22px; bottom:22px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Self-portrait<br><span style="color:var(--muted);">Leica Q3 43 · natural light</span></figcaption>
+      </figure>
+      <div style="flex:1 1 320px; display:flex; flex-direction:column; justify-content:center; max-width:520px;">
+        <blockquote data-reveal style="margin:0; font-family:var(--serif); font-weight:400; font-size:clamp(30px,3.8vw,58px); line-height:1.1; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance;">One of Leica's <em style="font-style:italic;">100 Photographers.</em></blockquote>
+        <p data-reveal style="margin:clamp(24px,3vh,36px) 0 0; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.3vw,18px); line-height:1.68; color:rgba(237,231,219,0.72);">A humbling place to land for someone who mostly likes to walk slowly and look. The frames below are the ones that stayed with me — where the light was doing something I couldn't have planned.</p>
+        <a data-reveal href="https://www.threads.com/@leica_camera/post/DNOViuPPX79" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; width:fit-content; margin-top:clamp(28px,4vh,44px); text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--muted); border-top:1px solid var(--line-d); padding-top:18px; transition:color 0.4s ease;" style-hover="color:var(--accent)">Leica · 100 Photographers series · 2025 <span style="font-family:var(--sans);">&#8599;</span></a>
+      </div>
+    </div>
+
+    <!-- featured frames (uncropped) -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:clamp(8px,1.4vw,16px); align-items:start; margin-top:clamp(12px,2vw,20px);">
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/leicafeature2.jpg" loading="lazy" alt="Featured photograph — gulls over Stockholm" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.45), transparent 46%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--onDark); pointer-events:none;">Stockholm</figcaption>
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/leicafeature3.jpg" loading="lazy" alt="Featured photograph — Chicago Theatre" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.45), transparent 46%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--onDark); pointer-events:none;">Chicago</figcaption>
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/leicafeature5.jpg" loading="lazy" alt="Featured photograph — Atlantic surf" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.45), transparent 46%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--onDark); pointer-events:none;">Portugal</figcaption>
+      </figure>
+    </div>
+
+    <!-- portraits -->
+    <div data-reveal style="display:flex; align-items:center; gap:14px; margin-top:clamp(52px,8vh,88px); margin-bottom:clamp(18px,3vh,30px);">
+      <span style="width:30px; height:1px; background:var(--accent);"></span>
+      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">Portraits</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:clamp(8px,1.4vw,16px); align-items:start;">
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/02-2.jpg" loading="lazy" alt="Portrait — a monk in a doorway" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1050282.jpg" loading="lazy" alt="Portrait — traditional Thai dress" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1000935.jpg" loading="lazy" alt="Portrait in a park, late light" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ==================== CRAFT & RECOGNITION ==================== -->
+  <section id="studio" style="background:var(--bone); padding:clamp(110px,18vh,220px) clamp(22px,7vw,150px);">
+    <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(32px,5vh,56px);">
+      <span style="width:30px; height:1px; background:var(--accent);"></span>
+      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--mutedInk);">Craft & recognition</span>
+    </div>
+    <div style="display:flex; gap:clamp(40px,7vw,120px); flex-wrap:wrap; align-items:flex-start;">
+      <h2 data-reveal style="margin:0; flex:1 1 420px; font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Leadership never cured the urge to build.</h2>
+      <p data-reveal style="margin:8px 0 0; flex:1 1 360px; max-width:520px; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--mutedInk);">At Electrolux I led interaction design across the connected portfolio — setting the Smart Home UX direction and building universal interaction models that held across product categories and brands. The goal was always to make complexity invisible. That work became a handful of filed patents. These days I ship iOS apps — starting with Echo Frame, a study in sight and sound that pairs a photograph with the music that resonates with it. More are in the works with an occupational therapist, built for the small everyday moments that matter.</p>
+    </div>
+
+    <!-- threads -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:clamp(24px,4vw,64px); margin-top:clamp(56px,9vh,110px); border-top:1px solid var(--line-i); padding-top:clamp(40px,6vh,64px);">
+      <div data-reveal style="">
+        <div style="font-family:var(--serif); font-size:clamp(30px,3.4vw,48px); line-height:1; color:var(--ink); margin-bottom:14px;">Invisible</div>
+        <p style="margin:0; font-family:var(--sans); font-size:15px; line-height:1.6; color:var(--mutedInk);">One UX logic scaling across hardware, software, and operating systems — regardless of category or brand. Complexity, made to disappear.</p>
+      </div>
+      <div data-reveal style="">
+        <div style="font-family:var(--serif); font-size:clamp(30px,3.4vw,48px); line-height:1; color:var(--ink); margin-bottom:14px;">Patents</div>
+        <p style="margin:0; font-family:var(--sans); font-size:15px; line-height:1.6; color:var(--mutedInk);">Four filed patents from the Electrolux work: a proximity-aware adaptive display, user recognition with personalised preferences, a safety mode that detects unauthorised users, and an appliance interface design.</p>
+      </div>
+      <div data-reveal style="">
+        <div style="font-family:var(--serif); font-size:clamp(30px,3.4vw,48px); line-height:1; color:var(--ink); margin-bottom:14px;">Echo Frame</div>
+        <p style="margin:0; font-family:var(--sans); font-size:15px; line-height:1.6; color:var(--mutedInk);">Echo Frame studies a photograph — its story, and everything from colour to light to composition — then surfaces the song that resonates, from your own library or the whole catalogue. Sight and sound, made in the low light of Stockholm.</p>
+      </div>
+    </div>
+
+    <!-- app tile -->
+    <div style="display:flex; gap:clamp(14px,2vw,24px); flex-wrap:wrap; margin-top:clamp(40px,6vh,72px);">
+      <a href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" style="flex:0 1 560px; width:100%; text-decoration:none; display:block;">
+        <figure data-reveal style="position:relative; margin:0; width:100%; aspect-ratio:16/10; background:#0c0906; border:1px solid rgba(26,21,13,0.1); overflow:hidden;">
+          <img src="images/echo-frame-mockup.jpg" loading="lazy" alt="Echo Frame on iPhone, pairing a Nazaré cliff frame with a Max Richter track" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.6s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 46%); pointer-events:none;"></div>
+          <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.06em; line-height:1.6; color:var(--onDark); text-shadow:0 1px 8px rgba(0,0,0,0.6); pointer-events:none;">Echo Frame · Tonal Resonance<br><span style="color:rgba(237,231,219,0.85);">iOS · App Store &#8599;</span></figcaption>
+        </figure>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== CLOSE / COLOPHON ==================== -->
+  <section id="contact" style="background:var(--dark); padding:clamp(110px,18vh,200px) clamp(22px,7vw,150px) clamp(48px,7vh,72px); min-height:82vh; display:flex; flex-direction:column;">
+    <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(32px,5vh,56px);">
+      <span style="width:30px; height:1px; background:var(--accent);"></span>
+      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">Colophon</span>
+    </div>
+    <h2 data-reveal style="margin:0; font-family:var(--serif); font-weight:400; font-size:clamp(52px,9vw,150px); line-height:0.98; letter-spacing:-0.015em; color:var(--onDark);">Say hello.</h2>
+    <a href="mailto:david@departive.com" data-reveal style="margin-top:clamp(28px,4vh,44px); text-decoration:none; font-family:var(--serif); font-size:clamp(26px,4vw,54px); line-height:1; color:rgba(237,231,219,0.7); width:fit-content; border-bottom:1px solid rgba(237,231,219,0.2); padding-bottom:6px; transition:color 0.4s ease, border-color 0.4s ease;" style-hover="color:var(--accent); border-color:var(--accent)">david@departive.com</a>
+
+    <div data-reveal style="display:flex; gap:clamp(22px,3vw,40px); flex-wrap:wrap; margin-top:clamp(44px,7vh,80px);">
+      <a href="https://www.instagram.com/departive/" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,231,219,0.6);" style-hover="color:var(--onDark)">Instagram</a>
+      <a href="https://www.linkedin.com/in/davidgheorghita/" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,231,219,0.6);" style-hover="color:var(--onDark)">LinkedIn</a>
+    </div>
+
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-top:auto; padding-top:clamp(64px,10vh,120px);">
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span style="font-family:var(--serif); font-size:24px; line-height:1; color:var(--onDark);">David Gheorghita</span>
+        <span style="font-family:var(--sans); font-weight:500; font-size:13px; letter-spacing:0.14em; color:var(--muted);">departive<span style="color:var(--accent);">.</span></span>
+      </div>
+      <span style="font-family:var(--mono); font-size:10px; letter-spacing:0.08em; line-height:1.7; color:var(--muted); text-align:right;">Made in Stockholm · 59.3293° N, 18.0686° E<br>Set in Instrument Serif & Instrument Sans · © 2026</span>
+    </div>
+  </section>
+
+  <!-- film grain overlay -->
+  <div data-grain style="position:fixed; inset:0; pointer-events:none; z-index:9999; mix-blend-mode:soft-light; opacity:0.06; background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); background-size:140px 140px;"></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#b0835a&quot;, &quot;options&quot;: [&quot;#b0835a&quot;, &quot;#a9714b&quot;, &quot;#8c7b5a&quot;, &quot;#6e7a63&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Look&quot; },
+  &quot;filmGrain&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Look&quot; },
+  &quot;reduceMotion&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Motion&quot; }
+}">
+class Component extends DCLogic {
+  componentDidMount() {
+    this._scope = document.querySelector('[data-departive-root]');
+    this.applyProps();
+    const scope = this._scope || document;
+    const reduce = this.props.reduceMotion === true;
+    const reveals = Array.prototype.slice.call(scope.querySelectorAll('[data-reveal]'));
+
+    // Default state is fully visible (set in template). The rise-in is a pure
+    // enhancement: when an element enters the viewport we assign an inline CSS
+    // animation. If JS/the runtime strips it, the element simply stays visible.
+    if (!reduce) {
+      let pending = reveals.slice();
+      const sweep = () => {
+        if (!pending.length) return;
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const entering = [];
+        pending = pending.filter(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < vh * 0.9 && r.bottom > -40) { entering.push(el); return false; }
+          return true;
+        });
+        entering.forEach((el, i) => {
+          const d = i * 0.07;
+          el.style.animation = 'riseIn 1.1s cubic-bezier(0.22,1,0.36,1) ' + d.toFixed(2) + 's both';
+          // Once the rise-in is done (or if the timeline never advances), drop the
+          // animation so the element rests at its default, guaranteed-visible state.
+          const clear = () => { el.style.animation = ''; };
+          el.addEventListener('animationend', clear, { once: true });
+          setTimeout(clear, (d + 1.1) * 1000 + 500);
+        });
+      };
+      this._sweep = sweep;
+      sweep();
+    }
+
+    const bg = scope.querySelector('[data-hero-bg]');
+    const cue = scope.querySelector('[data-scroll-cue]');
+    this.initHeroCanvas(reduce);
+    const _kb = scope.querySelector('[data-hero-kb]'); if (_kb && reduce) _kb.style.animation = 'none';
+    const onScroll = () => {
+      const y = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      const vh = window.innerHeight || 800;
+      this._heroProg = Math.max(0, Math.min(1, y / vh));
+      if (bg && !reduce && y < vh * 1.3) {
+        bg.style.transform = 'translateY(' + (y * 0.12) + 'px)';
+      }
+      if (cue) cue.style.opacity = String(Math.max(0, 1 - y / 320));
+      if (this._sweep) this._sweep();
+    };
+    this._onScroll = onScroll;
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  }
+
+  initHeroCanvas(reduce) {
+    const scope = this._scope || document;
+    const canvas = scope.querySelector('[data-hero-canvas]');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const host = canvas.parentElement;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let W = 1, H = 1;
+    const resize = () => {
+      const rect = host.getBoundingClientRect();
+      W = Math.max(1, rect.width); H = Math.max(1, rect.height);
+      canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    this._heroResize = resize;
+    window.addEventListener('resize', resize, { passive: true });
+
+    // Warm light pools drifting slowly through the near-black.
+    const blobs = [
+      { x:0.68, y:0.30, r:0.58, col:[184,131,90], a:0.20, sx:0.011, sy:0.008, ax:0.05, ay:0.04, ph:0.0, depth:0.10 },
+      { x:0.22, y:0.72, r:0.64, col:[120,74,34],  a:0.22, sx:0.008, sy:0.013, ax:0.06, ay:0.05, ph:1.7, depth:0.18 },
+      { x:0.46, y:0.18, r:0.42, col:[150,108,58], a:0.13, sx:0.014, sy:0.010, ax:0.04, ay:0.06, ph:3.1, depth:0.06 },
+      { x:0.86, y:0.82, r:0.50, col:[92,86,72],   a:0.10, sx:0.009, sy:0.011, ax:0.05, ay:0.04, ph:4.4, depth:0.14 },
+      { x:0.09, y:0.28, r:0.44, col:[176,120,70], a:0.12, sx:0.012, sy:0.007, ax:0.05, ay:0.05, ph:2.2, depth:0.09 }
+    ];
+    const motes = [];
+    for (let i = 0; i < 40; i++) motes.push({ x:Math.random(), y:Math.random(), r:0.4 + Math.random()*1.2, v:0.004 + Math.random()*0.010, a:0.04 + Math.random()*0.15, ph:Math.random()*6.2832, sw:0.2 + Math.random()*0.5 });
+
+    const draw = (tSec) => {
+      if (!W || !H || canvas.width === 0) resize();
+      const prog = this._heroProg || 0;
+      const g = ctx.createLinearGradient(0, 0, W, H);
+      g.addColorStop(0, '#161009'); g.addColorStop(1, '#0c0906');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter';
+      const minWH = Math.min(W, H);
+      for (const b of blobs) {
+        const cx = (b.x + Math.sin(tSec * b.sx * 6.2832 + b.ph) * b.ax) * W;
+        const cy = (b.y + Math.cos(tSec * b.sy * 6.2832 + b.ph) * b.ay) * H - prog * H * b.depth * 1.6;
+        const rr = b.r * minWH * 1.4;
+        const rad = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
+        const al = b.a * (1 - prog * 0.5);
+        rad.addColorStop(0, 'rgba(' + b.col[0] + ',' + b.col[1] + ',' + b.col[2] + ',' + al + ')');
+        rad.addColorStop(1, 'rgba(' + b.col[0] + ',' + b.col[1] + ',' + b.col[2] + ',0)');
+        ctx.fillStyle = rad; ctx.beginPath(); ctx.arc(cx, cy, rr, 0, 6.2832); ctx.fill();
+      }
+      for (const m of motes) {
+        const mx = (m.x + Math.sin(tSec * 0.2 + m.ph) * 0.02 * m.sw) * W;
+        ctx.fillStyle = 'rgba(224,206,178,' + (m.a * (1 - prog * 0.7)) + ')';
+        ctx.beginPath(); ctx.arc(mx, m.y * H, m.r, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      if (prog > 0) { ctx.fillStyle = 'rgba(12,9,6,' + (prog * 0.55) + ')'; ctx.fillRect(0, 0, W, H); }
+    };
+
+    if (reduce) { draw(0); return; }
+    let last = performance.now();
+    const loop = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      const speed = 1 + (this._heroProg || 0) * 0.5;
+      for (const m of motes) { m.y -= m.v * dt * speed; if (m.y < -0.02) { m.y = 1.02; m.x = Math.random(); } }
+      draw(now / 1000);
+      this._heroRaf = requestAnimationFrame(loop);
+    };
+    this._heroRaf = requestAnimationFrame(loop);
+  }
+
+  componentDidUpdate() { this.applyProps(); }
+
+  applyProps() {
+    const scope = this._scope;
+    if (!scope) return;
+    if (this.props.accentColor) scope.style.setProperty('--accent', this.props.accentColor);
+    const grain = scope.querySelector('[data-grain]');
+    if (grain) grain.style.display = (this.props.filmGrain === false) ? 'none' : 'block';
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) {
+      window.removeEventListener('scroll', this._onScroll);
+      window.removeEventListener('resize', this._onScroll);
+    }
+    if (this._heroResize) window.removeEventListener('resize', this._heroResize);
+    if (this._heroRaf) cancelAnimationFrame(this._heroRaf);
+  }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
