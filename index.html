@@ -38,6 +38,11 @@
   @keyframes riseIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
   @keyframes heroKen { 0% { transform: scale(1.06) translate3d(1%, 0.6%, 0); } 100% { transform: scale(1.17) translate3d(-1.6%, -1.8%, 0); } }
   @keyframes dotBreath { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.78); } }
+  [data-gallery="travel"] { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { [data-gallery="travel"] { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { [data-gallery="travel"] { grid-template-columns: 1fr; } }
+  [data-apps-grid] { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 900px) { [data-apps-grid] { grid-template-columns: 1fr; } }
 </style>
 </helmet>
 
@@ -60,6 +65,7 @@
         <a href="#work" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Work</a>
         <a href="#photography" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Photography</a>
         <a href="#studio" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Craft</a>
+        <a href="#apps" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Apps</a>
         <a href="#contact" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Contact</a>
       </nav>
     </header>
@@ -100,34 +106,34 @@
     </div>
 
     <!-- travel gallery (uncropped) -->
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:clamp(8px,1.4vw,16px); align-items:start; padding:clamp(8px,1.5vw,18px) 0;">
+    <div data-gallery="travel" style="display:grid; gap:clamp(8px,1.4vw,16px); align-items:start; padding:clamp(8px,1.5vw,18px) 0;">
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1040688.jpg" loading="lazy" alt="Tuk-tuks on a Bangkok street at dusk" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1040688.jpg" width="1333" height="2000" loading="lazy" alt="Tuk-tuks on a Bangkok street at dusk" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Yaowarat · Bangkok<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1050010.jpg" loading="lazy" alt="Two monks with an umbrella on a red bridge" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1050010.jpg" width="1333" height="2000" loading="lazy" alt="Two monks with an umbrella on a red bridge" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Ancient Siam · Thailand<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1041279.jpg" loading="lazy" alt="A vendor's tricycle glimpsed through leaves in Bangkok" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1041279.jpg" width="1333" height="2000" loading="lazy" alt="A vendor's tricycle glimpsed through leaves in Bangkok" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Bangkok<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1041218.jpg" loading="lazy" alt="Fried fish at a Bangkok night market" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1041218.jpg" width="1333" height="2000" loading="lazy" alt="Fried fish at a Bangkok night market" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Night market · Bangkok<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1050072.jpg" loading="lazy" alt="A Thai temple spire against blossom" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1050072.jpg" width="1333" height="2000" loading="lazy" alt="A Thai temple spire against blossom" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Ancient Siam · Thailand<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/img-5184-3.jpg" loading="lazy" alt="Aerial of a boat cutting through drift ice" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/img-5184-3.jpg" width="1333" height="2000" loading="lazy" alt="Aerial of a boat cutting through drift ice" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Riddarfjärden · Stockholm<br><span style="color:var(--muted);">iPhone 14 Pro</span></figcaption>
       </figure>
@@ -192,17 +198,17 @@
     <!-- featured frames (uncropped) -->
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:clamp(8px,1.4vw,16px); align-items:start; margin-top:clamp(12px,2vw,20px);">
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/leicafeature2.jpg" loading="lazy" alt="Featured photograph — gulls over Stockholm" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/leicafeature2.jpg" width="1500" height="2000" loading="lazy" alt="Featured photograph — gulls over Stockholm" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.45), transparent 46%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--onDark); pointer-events:none;">Stockholm</figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/leicafeature3.jpg" loading="lazy" alt="Featured photograph — Chicago Theatre" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/leicafeature3.jpg" width="1500" height="2000" loading="lazy" alt="Featured photograph — Chicago Theatre" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.45), transparent 46%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--onDark); pointer-events:none;">Chicago</figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/leicafeature5.jpg" loading="lazy" alt="Featured photograph — Atlantic surf" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/leicafeature5.jpg" width="1500" height="2000" loading="lazy" alt="Featured photograph — Atlantic surf" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.45), transparent 46%); pointer-events:none;"></div>
         <figcaption style="position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--onDark); pointer-events:none;">Portugal</figcaption>
       </figure>
@@ -215,13 +221,13 @@
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:clamp(8px,1.4vw,16px); align-items:start;">
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/02-2.jpg" loading="lazy" alt="Portrait — a monk in a doorway" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/02-2.jpg" width="1333" height="2000" loading="lazy" alt="Portrait — a monk in a doorway" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1050282.jpg" loading="lazy" alt="Portrait — traditional Thai dress" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1050282.jpg" width="1333" height="2000" loading="lazy" alt="Portrait — traditional Thai dress" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1000935.jpg" loading="lazy" alt="Portrait in a park, late light" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1000935.jpg" width="1333" height="2000" loading="lazy" alt="Portrait in a park, late light" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
       </figure>
     </div>
   </section>
@@ -247,21 +253,47 @@
         <div style="font-family:var(--serif); font-size:clamp(30px,3.4vw,48px); line-height:1; color:var(--ink); margin-bottom:14px;">Patents</div>
         <p style="margin:0; font-family:var(--sans); font-size:15px; line-height:1.6; color:var(--mutedInk);">Four filed patents from the Electrolux work: a proximity-aware adaptive display, user recognition with personalised preferences, a safety mode that detects unauthorised users, and an appliance interface design.</p>
       </div>
-      <div data-reveal style="">
-        <div style="font-family:var(--serif); font-size:clamp(30px,3.4vw,48px); line-height:1; color:var(--ink); margin-bottom:14px;">Echo Frame</div>
-        <p style="margin:0; font-family:var(--sans); font-size:15px; line-height:1.6; color:var(--mutedInk);">Echo Frame studies a photograph — its story, and everything from colour to light to composition — then surfaces the song that resonates, from your own library or the whole catalogue. Sight and sound, made in the low light of Stockholm.</p>
-      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STUDIO / APPS ==================== -->
+  <!-- PLACEHOLDER COPY throughout this section (intro + ARCHIVE/D teaser) — flagged for David to refine the voice. -->
+  <section id="apps" style="background:var(--bone); padding:clamp(90px,14vh,170px) clamp(22px,7vw,150px); border-top:1px solid var(--line-i);">
+    <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(28px,4vh,44px);">
+      <span style="width:30px; height:1px; background:var(--accent);"></span>
+      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--mutedInk);">The studio · Apps</span>
+    </div>
+    <div style="display:flex; gap:clamp(24px,5vw,80px); flex-wrap:wrap; align-items:flex-end; margin-bottom:clamp(44px,7vh,80px);">
+      <h2 data-reveal style="margin:0; flex:1 1 420px; font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Small apps, built in the low light.</h2>
+      <p data-reveal style="margin:0; flex:1 1 320px; max-width:460px; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--mutedInk);">Solo-studio iOS work — released when it's ready, not before. One is live; one is close.</p>
     </div>
 
-    <!-- app tile -->
-    <div style="display:flex; gap:clamp(14px,2vw,24px); flex-wrap:wrap; margin-top:clamp(40px,6vh,72px);">
-      <a href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" style="flex:0 1 560px; width:100%; text-decoration:none; display:block;">
-        <figure data-reveal style="position:relative; margin:0; width:100%; aspect-ratio:16/10; background:#0c0906; border:1px solid rgba(26,21,13,0.1); overflow:hidden;">
-          <img src="images/echo-frame-mockup.jpg" loading="lazy" alt="Echo Frame on iPhone, pairing a Nazaré cliff frame with a Max Richter track" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.6s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
-          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 46%); pointer-events:none;"></div>
+    <!-- app tiles -->
+    <div data-apps-grid style="display:grid; gap:clamp(16px,2.4vw,28px); align-items:stretch;">
+
+      <!-- Echo Frame — live -->
+      <a data-reveal href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" style="text-decoration:none; display:block; height:100%; min-width:0;">
+        <figure style="position:relative; margin:0; width:100%; height:100%; min-height:clamp(300px,40vh,440px); background:#0c0906; border:1px solid rgba(26,21,13,0.1); overflow:hidden;">
+          <img src="images/echo-frame-mockup.jpg" width="2000" height="1500" loading="lazy" alt="Echo Frame on iPhone, pairing a Nazaré cliff frame with a Max Richter track" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.6s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.62), transparent 52%); pointer-events:none;"></div>
+          <span style="position:absolute; top:16px; left:16px; display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--onDark); background:rgba(12,9,6,0.55); padding:6px 11px; border-radius:100px;"><span style="width:6px; height:6px; border-radius:50%; background:var(--accent); animation:dotBreath 5s ease-in-out infinite;"></span>Live · iOS</span>
           <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.06em; line-height:1.6; color:var(--onDark); text-shadow:0 1px 8px rgba(0,0,0,0.6); pointer-events:none;">Echo Frame · Tonal Resonance<br><span style="color:rgba(237,231,219,0.85);">iOS · App Store &#8599;</span></figcaption>
         </figure>
       </a>
+
+      <!-- ARCHIVE/D — coming soon -->
+      <div data-reveal style="position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:clamp(24px,4vh,40px); height:100%; min-width:0; min-height:clamp(300px,40vh,440px); background:radial-gradient(120% 130% at 18% 12%, var(--dark) 0%, var(--dark2) 72%); border:1px solid rgba(26,21,13,0.14); overflow:hidden; padding:clamp(24px,3.2vw,40px);">
+        <span style="display:inline-flex; align-items:center; gap:7px; width:fit-content; font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line-d); padding:6px 11px; border-radius:100px;">Coming soon</span>
+        <div>
+          <div style="font-family:var(--serif); font-size:clamp(38px,5vw,64px); line-height:1; color:var(--onDark); margin-bottom:clamp(14px,2vh,20px);">ARCHIVE<span style="color:var(--accent);">/</span>D</div>
+          <p style="margin:0; max-width:44ch; font-family:var(--sans); font-size:clamp(15px,1.2vw,17px); line-height:1.62; color:rgba(237,231,219,0.72);">A wardrobe that thinks in outfits — photograph what you own, get looks worth wearing. In private beta soon.</p>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:clamp(16px,2.4vw,28px);">
+          <a href="mailto:david@departive.com?subject=ARCHIVE%2FD%20beta" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--onDark); border-bottom:1px solid var(--accent); padding-bottom:6px; transition:color 0.4s ease;" style-hover="color:var(--accent)">Request beta access <span style="font-family:var(--sans);">&#8599;</span></a>
+          <a href="https://www.instagram.com/departive/" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--muted); border-bottom:1px solid transparent; padding-bottom:6px; transition:color 0.4s ease;" style-hover="color:var(--onDark)">or follow on Instagram</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
