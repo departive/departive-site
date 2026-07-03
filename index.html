@@ -42,6 +42,8 @@
   @media (max-width: 560px) { [data-gallery="travel"] { grid-template-columns: 1fr; } }
   [data-apps-grid] { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 900px) { [data-apps-grid] { grid-template-columns: 1fr; } }
+  [data-now-grid] { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 760px) { [data-now-grid] { grid-template-columns: 1fr; gap: 44px !important; } }
   @media (max-width: 768px) { [data-hero-kb] { object-position: 88% 38% !important; } }
   @media (max-width: 480px) { [data-hero-kb] { object-position: 92% 34% !important; } }
   @media (max-width: 640px) {
@@ -49,10 +51,31 @@
     [data-idx-row] > span:last-child { text-align: left !important; }
     [data-colophon-meta] { text-align: left !important; }
   }
+  html { scroll-padding-top: 64px; }
+  #stickyNav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 13px clamp(22px,7vw,150px); background: rgba(242,238,230,0.82); -webkit-backdrop-filter: saturate(1.3) blur(14px); backdrop-filter: saturate(1.3) blur(14px); border-bottom: 1px solid rgba(26,21,13,0.10); transform: translateY(-102%); opacity: 0; pointer-events: none; transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease; }
+  #stickyNav.is-visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  #stickyNav .sn-logo { display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.14em; color: #1a150d; }
+  #stickyNav .sn-logo span { color: #b0835a; }
+  #stickyNav nav { display: flex; align-items: center; gap: clamp(16px,2.4vw,32px); }
+  #stickyNav nav a { text-decoration: none; font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6252; transition: color 0.3s ease; }
+  #stickyNav nav a:hover { color: #1a150d; }
+  @media (max-width: 640px) { #stickyNav { padding: 11px clamp(16px,6vw,40px); } #stickyNav .sn-logo { display: none; } #stickyNav nav { width: 100%; justify-content: space-between; gap: 8px; } #stickyNav nav a { font-size: 10px; letter-spacing: 0.1em; } }
 </style>
 </helmet>
 
 <div data-departive-root style="--accent:#b0835a; --bone:#f2eee6; --dark:#141009; --dark2:#100c06; --ink:#1a150d; --onDark:#ede7db; --muted:#9e9484; --mutedInk:#6b6252; --line-d:rgba(237,231,219,0.14); --line-i:rgba(26,21,13,0.13); --serif:'Instrument Serif',Georgia,'Times New Roman',serif; --sans:'Instrument Sans',system-ui,-apple-system,sans-serif; --mono:ui-monospace,'SF Mono',Menlo,monospace; background:var(--bone); color:var(--ink); font-family:var(--sans); overflow-x:hidden; -webkit-font-smoothing:antialiased;">
+
+  <!-- sticky nav (fades in after the hero) -->
+  <div id="stickyNav">
+    <a href="#top" class="sn-logo">departive<span>.</span></a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#photography">Photography</a>
+      <a href="#craft">Craft</a>
+      <a href="#apps">Apps</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 
   <!-- ==================== HERO ==================== -->
   <section style="position:relative; min-height:100vh; background:var(--dark); overflow:hidden; display:flex; flex-direction:column;">
@@ -312,6 +335,68 @@
     </div>
   </section>
 
+  <!-- ==================== NOW ==================== -->
+  <section id="now" style="background:var(--bone); padding:clamp(90px,14vh,170px) clamp(22px,7vw,150px); border-top:1px solid var(--line-i);">
+    <div data-reveal style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:clamp(28px,4vh,44px);">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span style="width:30px; height:1px; background:var(--accent);"></span>
+        <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--mutedInk);">Now</span>
+      </div>
+      <span style="font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted);">Summer 2026</span>
+    </div>
+    <h2 data-reveal style="margin:0 0 clamp(48px,7vh,80px); font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Lately.</h2>
+
+    <div data-now-grid style="display:grid; gap:clamp(32px,5vw,72px); align-items:start;">
+
+      <!-- Echoes -->
+      <div data-reveal>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding-bottom:18px; margin-bottom:22px; border-bottom:1px solid var(--line-i);">
+          <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Echoes</span>
+          <a href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--muted); transition:color 0.3s ease;" style-hover="color:var(--accent)">Echo Frame &#8599;</a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <img src="images/now-echo-space-song.jpg" width="56" height="56" loading="lazy" alt="Joshua trees at dusk in the desert" style="width:56px; height:56px; object-fit:cover; border-radius:2px; flex:none;">
+            <span style="min-width:0;"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.25; color:var(--ink);">Space Song</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Beach House</span></span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <img src="images/now-echo-real-hero.jpg" width="56" height="56" loading="lazy" alt="A vintage car at a neon-lit American diner" style="width:56px; height:56px; object-fit:cover; border-radius:2px; flex:none;">
+            <span style="min-width:0;"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.25; color:var(--ink);">A Real Hero</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">College</span></span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <img src="images/now-echo-flim.jpg" width="56" height="56" loading="lazy" alt="A figure in a subway hall lit by luminous waveforms" style="width:56px; height:56px; object-fit:cover; border-radius:2px; flex:none;">
+            <span style="min-width:0;"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.25; color:var(--ink);">Flim</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Aphex Twin</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- On rotation -->
+      <div data-reveal>
+        <div style="padding-bottom:18px; margin-bottom:22px; border-bottom:1px solid var(--line-i);">
+          <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">On rotation</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3; color:var(--ink);">King of Terrors</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">President</span></div>
+          <div><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3; color:var(--ink);">Every Sound Has a Color in the Valley of Night</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Night Verses</span></div>
+          <div><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3; color:var(--ink);">Hauntings</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Richard Barbieri</span></div>
+        </div>
+      </div>
+
+      <!-- Objects -->
+      <div data-reveal>
+        <div style="padding-bottom:18px; margin-bottom:22px; border-bottom:1px solid var(--line-i);">
+          <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Objects</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <a href="https://transpa.rent/en/transparent-speaker-black" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Transparent Speaker <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Transparent · black</span></a>
+          <a href="https://www.ourlegacy.com/full-zip-hood-dorf-check-hairy-wool" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Full-Zip Hood <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Our Legacy · Dorf Check</span></a>
+          <a href="https://store.tomsachs.com/products/nikecraft-general-purpose-shoe" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">General Purpose Shoe <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">NikeCraft · Tom Sachs</span></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ==================== CLOSE / COLOPHON ==================== -->
   <section id="contact" style="background:var(--dark); padding:clamp(110px,18vh,200px) clamp(22px,7vw,150px) clamp(48px,7vh,72px); min-height:82vh; display:flex; flex-direction:column;">
     <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(32px,5vh,56px);">
@@ -499,6 +584,21 @@ class Component extends DCLogic {
 
   renderVals() { return {}; }
 }
+</script>
+<script>
+(function(){
+  var onScroll = function(){
+    var bar = document.getElementById('stickyNav');
+    if (!bar) return;
+    var y = window.scrollY || window.pageYOffset || 0;
+    var vh = window.innerHeight || 800;
+    bar.classList.toggle('is-visible', y > vh * 0.9);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  window.addEventListener('load', onScroll);
+  onScroll();
+})();
 </script>
 </body>
 </html>
