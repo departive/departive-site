@@ -355,44 +355,40 @@ class Component extends DCLogic {
     const reduce = this.props.reduceMotion === true;
     const reveals = Array.prototype.slice.call(scope.querySelectorAll('[data-reveal]'));
 
-    // Default state is fully visible (set in template). The rise-in is a pure
-    // enhancement: when an element enters the viewport we assign an inline CSS
-    // animation. If JS/the runtime strips it, the element simply stays visible.
-    if (!reduce) {
-      let pending = reveals.slice();
-      let firstRun = true;
-      const sweep = () => {
-        if (!pending.length) return;
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        const entering = [];
-        pending = pending.filter(el => {
-          const r = el.getBoundingClientRect();
-          // Remove from pending as soon as it reaches the trigger line — whether
-          // or not we end up animating it — so a revealed element can never be
-          // re-animated later (that re-trigger is what made already-visible
-          // content flash and jump on scroll).
-          if (r.top < vh * 0.9) { entering.push(el); return false; }
-          return true;
+    // Rise-in reveal, made re-init-proof. Whether an element has already been
+    // shown is recorded on the element itself (data-revealed), so even if this
+    // setup runs more than once (the runtime re-invokes it), an element that has
+    // already appeared is skipped and can never animate a second time — that
+    // double-firing across instances was the on-scroll flicker. Un-revealed
+    // elements are hidden the moment JS takes over and revealed once as they
+    // enter; if JS never runs they stay visible (the template default).
+    const clearReveal = (el) => { el.style.animation = ''; el.style.opacity = ''; el.style.transform = ''; };
+    const revealNow = (el) => {
+      el.setAttribute('data-revealed', '');
+      el.style.animation = 'riseIn 1.1s cubic-bezier(0.22,1,0.36,1) both';
+      const done = () => clearReveal(el);
+      el.addEventListener('animationend', done, { once: true });
+      setTimeout(done, 1600);
+    };
+    if (reduce || !('IntersectionObserver' in window)) {
+      reveals.forEach(el => el.setAttribute('data-revealed', ''));
+    } else {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          obs.unobserve(el);
+          if (!el.hasAttribute('data-revealed')) revealNow(el);
         });
-        entering.forEach((el, i) => {
-          const r = el.getBoundingClientRect();
-          // On the first paint, reveal everything on screen (the intended
-          // entrance). After that, only play the rise-in for elements genuinely
-          // entering from the lower viewport. If a fast scroll has already
-          // brought it well into view, leave it at its visible default — never
-          // restart from opacity:0 on content the user can already see.
-          if (firstRun || (r.top >= vh * 0.15 && r.bottom > 0)) {
-            const d = i * 0.07;
-            el.style.animation = 'riseIn 1.1s cubic-bezier(0.22,1,0.36,1) ' + d.toFixed(2) + 's both';
-            const clear = () => { el.style.animation = ''; };
-            el.addEventListener('animationend', clear, { once: true });
-            setTimeout(clear, (d + 1.1) * 1000 + 500);
-          }
-        });
-        firstRun = false;
-      };
-      this._sweep = sweep;
-      sweep();
+      }, { root: null, rootMargin: '0px 0px -12% 0px', threshold: 0 });
+      reveals.forEach(el => {
+        if (el.hasAttribute('data-revealed')) return;
+        // Already scrolled past at load (e.g. a deep link) — just show it.
+        if (el.getBoundingClientRect().bottom <= 0) { el.setAttribute('data-revealed', ''); return; }
+        el.style.opacity = '0';
+        io.observe(el);
+      });
+      this._revealObserver = io;
     }
 
     const bg = scope.querySelector('[data-hero-bg]');
@@ -494,6 +490,7 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    if (this._revealObserver) this._revealObserver.disconnect();
     if (this._onScroll) {
       window.removeEventListener('scroll', this._onScroll);
       window.removeEventListener('resize', this._onScroll);
