@@ -42,8 +42,9 @@
   @media (max-width: 560px) { [data-gallery="travel"] { grid-template-columns: 1fr; } }
   [data-apps-grid] { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 900px) { [data-apps-grid] { grid-template-columns: 1fr; } }
-  [data-now-grid] { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 760px) { [data-now-grid] { grid-template-columns: 1fr; gap: 44px !important; } }
+  [data-now-echoes] { grid-template-columns: repeat(3, 1fr); }
+  [data-now-lists] { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 640px) { [data-now-echoes] { grid-template-columns: 1fr; } [data-now-lists] { grid-template-columns: 1fr; gap: 40px !important; } }
   @media (max-width: 768px) { [data-hero-kb] { object-position: 88% 38% !important; } }
   @media (max-width: 480px) { [data-hero-kb] { object-position: 92% 34% !important; } }
   @media (max-width: 640px) {
@@ -277,14 +278,14 @@
   </section>
 
   <!-- ==================== STUDIO / APPS ==================== -->
-  <section id="apps" style="background:var(--bone); padding:clamp(90px,14vh,170px) clamp(22px,7vw,150px); border-top:1px solid var(--line-i);">
+  <section id="apps" style="background:var(--dark); padding:clamp(90px,14vh,170px) clamp(22px,7vw,150px);">
     <div data-reveal style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(28px,4vh,44px);">
       <span style="width:30px; height:1px; background:var(--accent);"></span>
-      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--mutedInk);">The studio · Apps</span>
+      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">The studio · Apps</span>
     </div>
     <div style="display:flex; gap:clamp(40px,7vw,120px); flex-wrap:wrap; align-items:flex-start; margin-bottom:clamp(44px,7vh,80px);">
-      <h2 data-reveal style="margin:0; flex:1 1 420px; font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Built by a small studio.</h2>
-      <p data-reveal style="margin:0; flex:1 1 360px; max-width:520px; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--mutedInk);">Passion projects, made in my own time — designed, coded, and shipped only when they're ready. One is live; one is close.</p>
+      <h2 data-reveal style="margin:0; flex:1 1 420px; font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance;">Built by a small studio.</h2>
+      <p data-reveal style="margin:0; flex:1 1 360px; max-width:520px; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:rgba(237,231,219,0.72);">Passion projects, made in my own time — designed, coded, and shipped only when they're ready. One is live; one is close.</p>
     </div>
 
     <!-- app tiles -->
@@ -293,7 +294,7 @@
       <!-- ECHO / FRAME — live -->
       <div data-reveal style="position:relative; height:100%; min-width:0;">
         <a href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" style="text-decoration:none; display:block; height:100%;">
-          <figure style="position:relative; margin:0; width:100%; height:100%; min-height:clamp(300px,40vh,440px); background:#0c0906; border:1px solid rgba(26,21,13,0.1); overflow:hidden;">
+          <figure style="position:relative; margin:0; width:100%; height:100%; min-height:clamp(300px,40vh,440px); background:#0c0906; border:1px solid rgba(237,231,219,0.1); overflow:hidden;">
             <img src="images/echo-frame-mockup.jpg" width="2000" height="1558" loading="lazy" alt="Echo Frame's Echoes gallery on an iPhone 15 Pro resting on an amber cushion" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.6s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
             <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.72), rgba(12,9,6,0.12) 40%, transparent 62%); pointer-events:none;"></div>
             <span style="position:absolute; top:clamp(24px,3.2vw,40px); left:clamp(24px,3.2vw,40px); display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--onDark); background:rgba(12,9,6,0.55); padding:6px 11px; border-radius:100px;"><span style="width:6px; height:6px; border-radius:50%; background:var(--accent); animation:dotBreath 5s ease-in-out infinite;"></span>Live · iOS</span>
@@ -304,7 +305,7 @@
       </div>
 
       <!-- ARCHIVE/D — coming soon -->
-      <div data-reveal style="position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:clamp(24px,4vh,40px); height:100%; min-width:0; min-height:clamp(300px,40vh,440px); background:radial-gradient(120% 130% at 18% 12%, var(--dark) 0%, var(--dark2) 72%); border:1px solid rgba(26,21,13,0.14); overflow:hidden; padding:clamp(24px,3.2vw,40px);">
+      <div data-reveal style="position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:clamp(24px,4vh,40px); height:100%; min-width:0; min-height:clamp(300px,40vh,440px); background:radial-gradient(120% 130% at 18% 12%, var(--dark) 0%, var(--dark2) 72%); border:1px solid rgba(237,231,219,0.12); overflow:hidden; padding:clamp(24px,3.2vw,40px);">
         <span style="display:inline-flex; align-items:center; gap:7px; width:fit-content; font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line-d); padding:6px 11px; border-radius:100px;">Coming soon</span>
         <div>
           <div style="font-family:var(--serif); font-size:clamp(38px,5vw,64px); line-height:1; color:var(--onDark); margin-bottom:clamp(14px,2vh,20px);">ARCHIVE<span style="color:var(--accent);">/</span>D</div>
@@ -319,19 +320,19 @@
     </div>
 
     <div data-reveal style="margin:clamp(40px,6vh,72px) 0 0;">
-      <figure style="position:relative; margin:0; width:100%; aspect-ratio:16/9; background:#0c0906; border:1px solid rgba(26,21,13,0.1); overflow:hidden;">
+      <figure style="position:relative; margin:0; width:100%; aspect-ratio:16/9; background:#0c0906; border:1px solid rgba(237,231,219,0.1); overflow:hidden;">
         <img src="images/echo-frame-tv.jpg" width="2560" height="1440" loading="lazy" alt="Echo Frame's Apple TV app pairing a photograph with music on a living-room television" style="display:block; width:100%; height:100%; object-fit:cover;">
         <span style="position:absolute; top:clamp(20px,2.4vw,32px); left:clamp(20px,2.4vw,32px); display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--onDark); background:rgba(12,9,6,0.55); padding:6px 11px; border-radius:100px;"><span style="width:6px; height:6px; border-radius:50%; background:var(--accent);"></span>Apple TV · Beta</span>
       </figure>
       <div style="display:flex; flex-wrap:wrap; gap:clamp(20px,4vw,64px); align-items:flex-start; margin-top:clamp(20px,3vh,34px);">
-        <h3 style="margin:0; flex:1 1 300px; font-family:var(--serif); font-weight:400; font-size:clamp(26px,3vw,42px); line-height:1.05; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Every photograph and its sonic double — on the biggest screen in your home.</h3>
-        <p style="margin:0; flex:1 1 320px; max-width:520px; font-family:var(--sans); font-size:clamp(14px,1.1vw,16px); line-height:1.7; color:var(--mutedInk);">The Apple TV app pairs each photo with the track that resonates with it, and projects the two together on your television. It's a separate app that shows the Echoes you sync from your phone, so it needs the iPhone beta first. Join the <a href="https://testflight.apple.com/join/v5jHRCqt" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px; transition:color 0.4s ease;" style-hover="color:var(--accent)">iPhone 2.0 beta &#8599;</a>, sign into iCloud and save a few Echoes, then install the <a href="https://testflight.apple.com/join/tg5tS1ZY" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px; transition:color 0.4s ease;" style-hover="color:var(--accent)">Apple TV beta &#8599;</a> on the same account &mdash; they appear on your TV automatically.</p>
+        <h3 style="margin:0; flex:1 1 300px; font-family:var(--serif); font-weight:400; font-size:clamp(26px,3vw,42px); line-height:1.05; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance;">Every photograph and its sonic double — on the biggest screen in your home.</h3>
+        <p style="margin:0; flex:1 1 320px; max-width:520px; font-family:var(--sans); font-size:clamp(14px,1.1vw,16px); line-height:1.7; color:rgba(237,231,219,0.72);">The Apple TV app pairs each photo with the track that resonates with it, and projects the two together on your television. It's a separate app that shows the Echoes you sync from your phone, so it needs the iPhone beta first. Join the <a href="https://testflight.apple.com/join/v5jHRCqt" target="_blank" rel="noopener" style="color:var(--onDark); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px; transition:color 0.4s ease;" style-hover="color:var(--accent)">iPhone 2.0 beta &#8599;</a>, sign into iCloud and save a few Echoes, then install the <a href="https://testflight.apple.com/join/tg5tS1ZY" target="_blank" rel="noopener" style="color:var(--onDark); text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px; transition:color 0.4s ease;" style-hover="color:var(--accent)">Apple TV beta &#8599;</a> on the same account &mdash; they appear on your TV automatically.</p>
       </div>
     </div>
 
-    <div data-reveal style="margin:clamp(56px,9vh,110px) 0 0; border-top:1px solid var(--line-i); padding-top:clamp(40px,6vh,64px); display:flex; gap:clamp(40px,7vw,120px); flex-wrap:wrap; align-items:flex-start;">
-      <h3 style="margin:0; flex:1 1 300px; font-family:var(--serif); font-weight:400; font-size:clamp(26px,3vw,42px); line-height:1.05; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">A quieter thread.</h3>
-      <p style="margin:0; flex:1 1 360px; max-width:520px; font-family:var(--sans); font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--mutedInk);">A small family of apps made with an occupational therapist, who shapes the clinical thinking while I build: helping people through the texture of everyday life, from managing energy and routine to making the spaces they live in safer and easier to be in. Still taking shape; more when they're ready.</p>
+    <div data-reveal style="margin:clamp(56px,9vh,110px) 0 0; border-top:1px solid var(--line-d); padding-top:clamp(40px,6vh,64px); display:flex; gap:clamp(40px,7vw,120px); flex-wrap:wrap; align-items:flex-start;">
+      <h3 style="margin:0; flex:1 1 300px; font-family:var(--serif); font-weight:400; font-size:clamp(26px,3vw,42px); line-height:1.05; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance;">A quieter thread.</h3>
+      <p style="margin:0; flex:1 1 360px; max-width:520px; font-family:var(--sans); font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:rgba(237,231,219,0.72);">A small family of apps made with an occupational therapist, who shapes the clinical thinking while I build: helping people through the texture of everyday life, from managing energy and routine to making the spaces they live in safer and easier to be in. Still taking shape; more when they're ready.</p>
     </div>
   </section>
 
@@ -346,31 +347,35 @@
     </div>
     <h2 data-reveal style="margin:0 0 clamp(48px,7vh,80px); font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Lately.</h2>
 
-    <div data-now-grid style="display:grid; gap:clamp(32px,5vw,72px); align-items:start;">
-
-      <!-- Echoes -->
-      <div data-reveal>
-        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding-bottom:18px; margin-bottom:22px; border-bottom:1px solid var(--line-i);">
-          <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Echoes</span>
-          <a href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--muted); transition:color 0.3s ease;" style-hover="color:var(--accent)">Echo Frame &#8599;</a>
+    <!-- echoes: three portrait frames -->
+    <div data-reveal style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding-bottom:18px; margin-bottom:clamp(22px,3vh,30px); border-bottom:1px solid var(--line-i);">
+      <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Echoes</span>
+      <a href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--muted); transition:color 0.3s ease;" style-hover="color:var(--accent)">Echo Frame &#8599;</a>
+    </div>
+    <div data-now-echoes data-reveal style="display:grid; gap:clamp(12px,1.6vw,20px); margin-bottom:clamp(56px,9vh,100px);">
+      <figure style="margin:0;">
+        <div style="position:relative; aspect-ratio:3/4; background:#0c0906; overflow:hidden;">
+          <img src="images/now-echo-space-song.jpg" width="900" height="1200" loading="lazy" alt="Joshua trees at dusk in the desert" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
         </div>
-        <div style="display:flex; flex-direction:column; gap:18px;">
-          <div style="display:flex; align-items:center; gap:14px;">
-            <img src="images/now-echo-space-song.jpg" width="56" height="56" loading="lazy" alt="Joshua trees at dusk in the desert" style="width:56px; height:56px; object-fit:cover; border-radius:2px; flex:none;">
-            <span style="min-width:0;"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.25; color:var(--ink);">Space Song</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Beach House</span></span>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <img src="images/now-echo-real-hero.jpg" width="56" height="56" loading="lazy" alt="A vintage car at a neon-lit American diner" style="width:56px; height:56px; object-fit:cover; border-radius:2px; flex:none;">
-            <span style="min-width:0;"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.25; color:var(--ink);">A Real Hero</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">College</span></span>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <img src="images/now-echo-flim.jpg" width="56" height="56" loading="lazy" alt="A figure in a subway hall lit by luminous waveforms" style="width:56px; height:56px; object-fit:cover; border-radius:2px; flex:none;">
-            <span style="min-width:0;"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.25; color:var(--ink);">Flim</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Aphex Twin</span></span>
-          </div>
+        <figcaption style="margin-top:14px;"><span style="display:block; font-family:var(--sans); font-size:16px; line-height:1.25; color:var(--ink);">Space Song</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:4px;">Beach House</span></figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <div style="position:relative; aspect-ratio:3/4; background:#0c0906; overflow:hidden;">
+          <img src="images/now-echo-real-hero.jpg" width="900" height="1200" loading="lazy" alt="A vintage car at a neon-lit American diner" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
         </div>
-      </div>
+        <figcaption style="margin-top:14px;"><span style="display:block; font-family:var(--sans); font-size:16px; line-height:1.25; color:var(--ink);">A Real Hero</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:4px;">College</span></figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <div style="position:relative; aspect-ratio:3/4; background:#0c0906; overflow:hidden;">
+          <img src="images/now-echo-flim.jpg" width="900" height="1200" loading="lazy" alt="A figure in a subway hall lit by luminous waveforms" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
+        </div>
+        <figcaption style="margin-top:14px;"><span style="display:block; font-family:var(--sans); font-size:16px; line-height:1.25; color:var(--ink);">Flim</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:4px;">Aphex Twin</span></figcaption>
+      </figure>
+    </div>
 
-      <!-- On rotation -->
+    <!-- rotation + objects: two text columns -->
+    <div data-now-lists style="display:grid; gap:clamp(32px,5vw,72px); align-items:start;">
+
       <div data-reveal>
         <div style="padding-bottom:18px; margin-bottom:22px; border-bottom:1px solid var(--line-i);">
           <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">On rotation</span>
@@ -382,7 +387,6 @@
         </div>
       </div>
 
-      <!-- Objects -->
       <div data-reveal>
         <div style="padding-bottom:18px; margin-bottom:22px; border-bottom:1px solid var(--line-i);">
           <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Objects</span>
