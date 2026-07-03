@@ -43,6 +43,13 @@
   @media (max-width: 560px) { [data-gallery="travel"] { grid-template-columns: 1fr; } }
   [data-apps-grid] { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 900px) { [data-apps-grid] { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) { [data-hero-kb] { object-position: 88% 38% !important; } }
+  @media (max-width: 480px) { [data-hero-kb] { object-position: 92% 34% !important; } }
+  @media (max-width: 640px) {
+    [data-idx-row] { grid-template-columns: 1fr !important; gap: 6px !important; }
+    [data-idx-row] > span:last-child { text-align: left !important; }
+    [data-colophon-meta] { text-align: left !important; }
+  }
 </style>
 </helmet>
 
@@ -153,22 +160,22 @@
 
     <!-- editorial index -->
     <div data-reveal style="margin-top:clamp(64px,10vh,120px);">
-      <a href="#work" style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease;" style-hover="padding-left:14px">
+      <a href="#work" data-idx-row style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease;" style-hover="padding-left:14px">
         <span style="font-family:var(--serif); font-size:clamp(26px,3vw,44px); line-height:1;">Volvo Group</span>
         <span style="font-family:var(--sans); font-size:14px; color:var(--mutedInk);">Head of UX Design</span>
         <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">2023 —</span>
       </a>
-      <a href="#studio" style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
+      <a href="#studio" data-idx-row style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
         <span style="font-family:var(--serif); font-size:clamp(26px,3vw,44px); line-height:1;">Electrolux</span>
         <span style="font-family:var(--sans); font-size:14px; color:var(--mutedInk);">Design Lead, Digital Experience</span>
         <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">2020 — 2023</span>
       </a>
-      <a href="#studio" style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
+      <a href="#studio" data-idx-row style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
         <span style="font-family:var(--serif); font-size:clamp(26px,3vw,44px); line-height:1;">Patents</span>
         <span style="font-family:var(--sans); font-size:14px; color:var(--mutedInk);">Appliance interaction & AI</span>
-        <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">4 filed</span>
+        <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">4 public</span>
       </a>
-      <a href="#apps" style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); border-bottom:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
+      <a href="#apps" data-idx-row style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(22px,3vh,30px) 0; border-top:1px solid var(--line-i); border-bottom:1px solid var(--line-i); color:var(--ink); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
         <span style="font-family:var(--serif); font-size:clamp(26px,3vw,44px); line-height:1;">The studio</span>
         <span style="font-family:var(--sans); font-size:14px; color:var(--mutedInk);">iOS apps</span>
         <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--mutedInk); text-align:right;">Recent</span>
@@ -240,18 +247,9 @@
     </div>
     <div style="display:flex; gap:clamp(40px,7vw,120px); flex-wrap:wrap; align-items:flex-start;">
       <h2 data-reveal style="margin:0; flex:1 1 420px; font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Leadership never cured the urge to build.</h2>
-      <p data-reveal style="margin:8px 0 0; flex:1 1 360px; max-width:520px; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--mutedInk);">At Electrolux I led interaction design across the connected portfolio — setting the Smart Home UX direction and building universal interaction models that held across product categories and brands. The goal was always to make complexity invisible; that work became four filed patents. But the urge never fully left: today I run a small studio, designing and shipping iOS apps end to end.</p>
-    </div>
-
-    <!-- threads -->
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:clamp(24px,4vw,64px); margin-top:clamp(56px,9vh,110px); border-top:1px solid var(--line-i); padding-top:clamp(40px,6vh,64px);">
-      <div data-reveal style="">
-        <div style="font-family:var(--serif); font-size:clamp(30px,3.4vw,48px); line-height:1; color:var(--ink); margin-bottom:14px;">Invisible</div>
-        <p style="margin:0; font-family:var(--sans); font-size:15px; line-height:1.6; color:var(--mutedInk);">One UX logic scaling across hardware, software, and operating systems — regardless of category or brand. Complexity, made to disappear.</p>
-      </div>
-      <div data-reveal style="">
-        <div style="font-family:var(--serif); font-size:clamp(30px,3.4vw,48px); line-height:1; color:var(--ink); margin-bottom:14px;">Patents</div>
-        <p style="margin:0; font-family:var(--sans); font-size:15px; line-height:1.6; color:var(--mutedInk);">Four filed patents from the Electrolux work: a proximity-aware adaptive display, user recognition with personalised preferences, a safety mode that detects unauthorised users, and an appliance interface design.</p>
+      <div data-reveal style="flex:1 1 360px; max-width:520px;">
+        <p style="margin:8px 0 0; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--mutedInk);">At Electrolux I led interaction design across the connected portfolio — setting the Smart Home UX direction and building universal interaction models that held across product categories and brands. The principle was &ldquo;learn one, know all&rdquo;: consistent mental models and interactions everywhere, so a new product never meant relearning how to use it — and hardware and software components could be reused across the range instead of rebuilt each time.</p>
+        <p style="margin:1em 0 0; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--mutedInk);">Patents were an adjacent result — several filed so far, with more on the way as they roll out across markets. Four are public: a proximity-aware adaptive display, user recognition with personalised preferences, a safety mode that flags unauthorised users, and an appliance interface. But the urge to build never fully left: today I run a small studio, designing and shipping iOS apps end to end.</p>
       </div>
     </div>
   </section>
@@ -321,7 +319,7 @@
         <span style="font-family:var(--serif); font-size:24px; line-height:1; color:var(--onDark);">David Gheorghita</span>
         <span style="font-family:var(--sans); font-weight:500; font-size:13px; letter-spacing:0.14em; color:var(--muted);">departive<span style="color:var(--accent);">.</span></span>
       </div>
-      <span style="font-family:var(--mono); font-size:10px; letter-spacing:0.08em; line-height:1.7; color:var(--muted); text-align:right;">Made in Stockholm · 59.3293° N, 18.0686° E<br>Set in Instrument Serif & Instrument Sans · © 2026</span>
+      <span data-colophon-meta style="font-family:var(--mono); font-size:10px; letter-spacing:0.08em; line-height:1.7; color:var(--muted); text-align:right;">Made in Stockholm · 59.3293° N, 18.0686° E<br>Set in Instrument Serif & Instrument Sans · © 2026</span>
     </div>
   </section>
 
