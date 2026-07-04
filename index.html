@@ -780,7 +780,7 @@ class Component extends DCLogic {
     for (var f = 0; f < 4; f++) {
       var row = rows[f], c = fit.items[f];
       if (!row || !c) continue;
-      var link = row.querySelector('a');
+      var link = (row.tagName === 'A') ? row : row.querySelector('a');
       var sp = row.querySelectorAll('span');
       var arrow = c.url ? ' <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span>' : '';
       if (link) {
