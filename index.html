@@ -61,6 +61,8 @@
   #stickyNav nav a { text-decoration: none; font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6252; transition: color 0.3s ease; }
   #stickyNav nav a:hover { color: #1a150d; }
   @media (max-width: 640px) { #stickyNav { padding: 11px clamp(16px,6vw,40px); } #stickyNav .sn-logo { display: none; } #stickyNav nav { width: 100%; justify-content: space-between; gap: 8px; } #stickyNav nav a { font-size: 10px; letter-spacing: 0.1em; } }
+  #echoRefresh { background:none; border:0; padding:2px; margin:-2px 0; cursor:pointer; color:var(--muted); display:inline-flex; align-items:center; transition:color 0.3s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  #echoRefresh:hover { color:var(--accent); }
 </style>
 </helmet>
 
@@ -220,7 +222,7 @@
       </figure>
       <div style="flex:1 1 320px; display:flex; flex-direction:column; justify-content:center; max-width:520px;">
         <blockquote data-reveal style="margin:0; font-family:var(--serif); font-weight:400; font-size:clamp(30px,3.8vw,58px); line-height:1.1; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance;">One of Leica's <em style="font-style:italic;">100 Photographers.</em></blockquote>
-        <p data-reveal style="margin:clamp(24px,3vh,36px) 0 0; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.3vw,18px); line-height:1.68; color:rgba(237,231,219,0.72);">A humbling place to land for someone who mostly likes to walk slowly and look. The frames below are the ones that stayed with me — where the light was doing something I couldn't have planned.</p>
+        <p data-reveal style="margin:clamp(24px,3vh,36px) 0 0; font-family:var(--sans); font-weight:400; font-size:clamp(16px,1.3vw,18px); line-height:1.68; color:rgba(237,231,219,0.72);">A humbling place to land for someone who mostly just points a camera at what catches the eye. The frames below are the ones that stayed with me — moments I couldn't have arranged, only shown up for.</p>
         <a data-reveal href="https://www.threads.com/@leica_camera/post/DNOViuPPX79" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; width:fit-content; margin-top:clamp(28px,4vh,44px); text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--muted); border-top:1px solid var(--line-d); padding-top:18px; transition:color 0.4s ease;" style-hover="color:var(--accent)">Leica · 100 Photographers series · 2025 <span style="font-family:var(--sans);">&#8599;</span></a>
       </div>
     </div>
@@ -348,11 +350,14 @@
     <h2 data-reveal style="margin:0 0 clamp(48px,7vh,80px); font-family:var(--serif); font-weight:400; font-size:clamp(36px,5vw,84px); line-height:1.02; letter-spacing:-0.01em; color:var(--ink); text-wrap:balance;">Lately.</h2>
 
     <!-- echoes: three portrait frames -->
-    <div data-reveal style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding-bottom:18px; margin-bottom:clamp(22px,3vh,30px); border-bottom:1px solid var(--line-i);">
-      <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Echoes</span>
+    <div data-reveal style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:18px; margin-bottom:clamp(22px,3vh,30px); border-bottom:1px solid var(--line-i);">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Echoes</span>
+        <button id="echoRefresh" type="button" aria-label="Shuffle echoes"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+      </div>
       <a href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--muted); transition:color 0.3s ease;" style-hover="color:var(--accent)">Echo Frame &#8599;</a>
     </div>
-    <div data-now-echoes data-reveal style="display:grid; gap:clamp(16px,2vw,28px); margin-bottom:clamp(56px,9vh,100px);">
+    <div data-now-echoes data-reveal style="display:grid; gap:clamp(16px,2vw,28px); margin-bottom:clamp(56px,9vh,100px); transition:opacity 0.45s ease;">
       <figure style="margin:0;">
         <div style="position:relative; aspect-ratio:3/4; background:#0c0906; overflow:hidden;">
           <img src="images/now-echo-space-song.jpg" width="900" height="1200" loading="lazy" alt="Joshua trees at dusk in the desert" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
@@ -369,7 +374,7 @@
         <div style="position:relative; aspect-ratio:3/4; background:#0c0906; overflow:hidden;">
           <img src="images/now-echo-flim.jpg" width="900" height="1200" loading="lazy" alt="A figure in a subway hall lit by luminous waveforms" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
         </div>
-        <figcaption style="margin-top:14px;"><span style="display:block; font-family:var(--sans); font-size:16px; line-height:1.25; color:var(--ink);">Flim</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:4px;">Aphex Twin</span></figcaption>
+        <figcaption style="margin-top:14px;"><span style="display:block; font-family:var(--sans); font-size:16px; line-height:1.25; color:var(--ink);">sch.mefd 2</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:4px;">Autechre</span></figcaption>
       </figure>
     </div>
 
@@ -393,9 +398,9 @@
           <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Latest fit</span>
         </div>
         <div style="display:flex; flex-direction:column; gap:20px;">
-          <a href="https://www.ourlegacy.com/mount-cargo-nebula-wash-jungle-herringbone" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Mount Cargo <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Our Legacy · Nebula Wash</span></a>
           <a href="https://hope-sthlm.com/products/relaxed-shirt-vintage-brown-stripe?variant=55378889507192" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Relaxed Shirt <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Hope · Vintage Brown Stripe</span></a>
-          <a href="https://www.sneakersnstuff.com/en-se/products/salomon-x-alp-ltr-l47988800?variant=52489833906517" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">X-Alp LTR <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Salomon</span></a>
+          <a href="https://www.ourlegacy.com/mount-shorts-nebula-wash-jungle-herringbone" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Mount Shorts <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Our Legacy · Nebula Wash</span></a>
+          <a href="https://www.vagabond.com/se/alex-m-5366-104-43/" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Alex M Loafer <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Vagabond</span></a>
           <a href="https://clothbase.com/items/03b3c0dc_acne-studios-men-s-cunov-canvas-face-cap-in-carbon-grey_acne-studios" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Canvas Face Cap <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Acne Studios · Carbon Grey</span></a>
         </div>
       </div>
@@ -406,9 +411,9 @@
         </div>
         <div style="display:flex; flex-direction:column; gap:20px;">
           <a href="https://transpa.rent/en/transparent-speaker-black" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Transparent Speaker <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Transparent · black</span></a>
-          <a href="https://www.discogs.com/release/1548534-Steven-Wilson-Insurgentes" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Insurgentes <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Steven Wilson · vinyl</span></a>
+          <a href="https://www.discogs.com/release/1548534-Steven-Wilson-Insurgentes" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Insurgentes <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Steven Wilson · box set</span></a>
           <div><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3; color:var(--ink);">Little Seed</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Liviu Mocan · sculpture</span></div>
-          <a href="https://www.bengans.se/nine-inch-nails-the-fragile-deviations-1" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">The Fragile: Deviations <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Nine Inch Nails · vinyl</span></a>
+          <a href="https://www.amazon.com/Graphic-Design-Manual-Principles-Practice/dp/3721210069" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Graphic Design Manual <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Armin Hofmann · book</span></a>
         </div>
       </div>
 
@@ -623,7 +628,7 @@ class Component extends DCLogic {
   var pool = [
     { src:'images/now-echo-space-song.jpg', alt:'Joshua trees at dusk in the desert', track:'Space Song', artist:'Beach House', car:false },
     { src:'images/now-echo-real-hero.jpg', alt:'A vintage car at a neon-lit American diner', track:'A Real Hero', artist:'College', car:true },
-    { src:'images/now-echo-flim.jpg', alt:'A figure in a subway hall lit by luminous waveforms', track:'Flim', artist:'Aphex Twin', car:false },
+    { src:'images/now-echo-flim.jpg', alt:'A figure in a subway hall lit by luminous waveforms', track:'sch.mefd 2', artist:'Autechre', car:false },
     { src:'images/now-echo-screen-shot.jpg', alt:'Rows of seated monk statues in orange robes', track:'Screen Shot', artist:'Swans', car:false },
     { src:'images/now-echo-right-place.jpg', alt:'A motion-blurred cyclist on a wet Stockholm waterfront', track:'Everything In Its Right Place', artist:'Radiohead', car:false },
     { src:'images/now-echo-rhubarb.jpg', alt:'Black shutters and geometric shadows on an ochre wall', track:'Rhubarb', artist:'Aphex Twin', car:false },
@@ -633,33 +638,47 @@ class Component extends DCLogic {
     { src:'images/now-echo-near-light.jpg', alt:'A lone cyclist at the end of a Gamla Stan alley', track:'Near Light', artist:'Ólafur Arnalds', car:false },
     { src:'images/now-echo-wait.jpg', alt:'A star-flyer swing ride against a golden evening sky', track:'Wait', artist:'M83', car:false }
   ];
+  function isVis(el){ return el.getClientRects().length > 0; }
+  function visList(sel){ return Array.prototype.filter.call(document.querySelectorAll(sel), isVis); }
+  function shuffleInto(figs) {
+    var p = pool.slice();
+    for (var i = p.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = p[i]; p[i] = p[j]; p[j] = t; }
+    var chosen = [], hasCar = false;
+    for (var k = 0; k < p.length && chosen.length < 3; k++) {
+      var e = p[k];
+      if (e.car && hasCar) continue;
+      if (e.car) hasCar = true;
+      chosen.push(e);
+    }
+    for (var f = 0; f < 3; f++) {
+      var fig = figs[f], c = chosen[f];
+      if (!fig || !c) continue;
+      var img = fig.querySelector('img');
+      if (img) { img.src = c.src; img.alt = c.alt; }
+      var sp = fig.querySelectorAll('figcaption span');
+      if (sp[0]) sp[0].textContent = c.track;
+      if (sp[1]) sp[1].textContent = c.artist;
+    }
+  }
   var tries = 0;
   (function run(){
-  // The dc-runtime (React) renders [data-departive-root] after this script
-  // parses and hides the raw <x-dc> template (display:none), so wait via rAF
-  // for the runtime-rendered, VISIBLE figures before shuffling into them.
-  var figs = Array.prototype.filter.call(
-    document.querySelectorAll('[data-now-echoes] figure'),
-    function(el){ return el.getClientRects().length > 0; }
-  );
-  if (figs.length < 3) { if (++tries < 300) requestAnimationFrame(run); return; }
-  for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
-  var chosen = [], hasCar = false;
-  for (var k = 0; k < pool.length && chosen.length < 3; k++) {
-    var e = pool[k];
-    if (e.car && hasCar) continue;
-    if (e.car) hasCar = true;
-    chosen.push(e);
-  }
-  for (var f = 0; f < 3; f++) {
-    var fig = figs[f], c = chosen[f];
-    if (!fig || !c) continue;
-    var img = fig.querySelector('img');
-    if (img) { img.src = c.src; img.alt = c.alt; }
-    var sp = fig.querySelectorAll('figcaption span');
-    if (sp[0]) sp[0].textContent = c.track;
-    if (sp[1]) sp[1].textContent = c.artist;
-  }
+    var figs = visList('[data-now-echoes] figure');
+    if (figs.length < 3) { if (++tries < 300) requestAnimationFrame(run); return; }
+    shuffleInto(figs);
+    var btn = visList('#echoRefresh')[0];
+    if (btn && !btn._wired) {
+      btn._wired = true;
+      var spin = 0;
+      btn.addEventListener('click', function(){
+        var f = visList('[data-now-echoes] figure');
+        if (f.length < 3) return;
+        spin += 360;
+        btn.style.transform = 'rotate(' + spin + 'deg)';
+        var g = f[0].closest('[data-now-echoes]');
+        if (g) { g.style.opacity = '0'; setTimeout(function(){ shuffleInto(f); g.style.opacity = '1'; }, 260); }
+        else { shuffleInto(f); }
+      });
+    }
   })();
 })();
 </script>
