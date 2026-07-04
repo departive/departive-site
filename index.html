@@ -415,7 +415,7 @@
         <div data-objects style="display:flex; flex-direction:column; gap:20px; transition:opacity 0.45s ease;">
           <a href="https://transpa.rent/en/transparent-speaker-black" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Transparent Speaker <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Transparent · black</span></a>
           <a href="https://www.discogs.com/release/1548534-Steven-Wilson-Insurgentes" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Insurgentes <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Steven Wilson · box set</span></a>
-          <div><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3; color:var(--ink);">Little Seed</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Liviu Mocan · sculpture</span></div>
+          <a href="#" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Little Seed</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Liviu Mocan · sculpture</span></a>
           <a href="https://www.amazon.com/Graphic-Design-Manual-Principles-Practice/dp/3721210069" target="_blank" rel="noopener" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span style="display:block; font-family:var(--sans); font-size:15px; line-height:1.3;">Graphic Design Manual <span style="font-family:var(--mono); font-size:11px; color:var(--muted);">&#8599;</span></span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:3px;">Armin Hofmann · book</span></a>
         </div>
       </div>
@@ -826,11 +826,11 @@ class Component extends DCLogic {
     { item:'Insurgentes', detail:'Steven Wilson · box set', maker:'Steven Wilson', url:'https://www.discogs.com/release/1548534-Steven-Wilson-Insurgentes' },
     { item:'Little Seed', detail:'Liviu Mocan · sculpture', maker:'Liviu Mocan', url:'' },
     { item:'Graphic Design Manual', detail:'Armin Hofmann · book', maker:'Armin Hofmann', url:'https://www.amazon.com/Graphic-Design-Manual-Principles-Practice/dp/3721210069' },
-    { item:'The End of Print', detail:'David Carson · book', maker:'David Carson', url:'https://www.amazon.com/End-Print-Grafik-Design-Carson/dp/1856693163' },
+    { item:'The End of Print', detail:'David Carson · book', maker:'David Carson', url:'https://www.amazon.com/Printing-End-Carson-layout-paperback/dp/7506428288' },
     { item:'2nd Sight', detail:'David Carson · book', maker:'David Carson', url:'https://www.amazon.com/2ndsight-Grafik-Design-After-Print/dp/0789301288' },
     { item:'Trek', detail:'David Carson · book', maker:'David Carson', url:'https://www.amazon.co.uk/Trek-David-Carson/dp/1584230460' },
-    { item:'The Fragile: Deviations 1', detail:'Nine Inch Nails · vinyl', maker:'Nine Inch Nails', url:'https://www.discogs.com/release/11119284-Nine-Inch-Nails-The-Fragile-Deviations-1' },
-    { item:'We Lost the Skyline', detail:'Porcupine Tree · vinyl', maker:'Porcupine Tree', url:'https://www.discogs.com/master/12689-Porcupine-Tree-We-Lost-The-Skyline' }
+    { item:'The Fragile: Deviations 1', detail:'Nine Inch Nails · vinyl', maker:'Nine Inch Nails', url:'https://www.discogs.com/release/11157478-Nine-Inch-Nails-The-Fragile-Deviations-1' },
+    { item:'We Lost the Skyline', detail:'Porcupine Tree · vinyl', maker:'Porcupine Tree', url:'https://www.discogs.com/release/37067733-Porcupine-Tree-We-Lost-The-Skyline' }
   ];
   function isVis(el){ return el.getClientRects().length > 0; }
   function visList(sel){ return Array.prototype.filter.call(document.querySelectorAll(sel), isVis); }
