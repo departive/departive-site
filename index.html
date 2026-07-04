@@ -618,6 +618,51 @@ class Component extends DCLogic {
   onScroll();
 })();
 </script>
+<script>
+(function(){
+  var pool = [
+    { src:'images/now-echo-space-song.jpg', alt:'Joshua trees at dusk in the desert', track:'Space Song', artist:'Beach House', car:false },
+    { src:'images/now-echo-real-hero.jpg', alt:'A vintage car at a neon-lit American diner', track:'A Real Hero', artist:'College', car:true },
+    { src:'images/now-echo-flim.jpg', alt:'A figure in a subway hall lit by luminous waveforms', track:'Flim', artist:'Aphex Twin', car:false },
+    { src:'images/now-echo-screen-shot.jpg', alt:'Rows of seated monk statues in orange robes', track:'Screen Shot', artist:'Swans', car:false },
+    { src:'images/now-echo-right-place.jpg', alt:'A motion-blurred cyclist on a wet Stockholm waterfront', track:'Everything In Its Right Place', artist:'Radiohead', car:false },
+    { src:'images/now-echo-rhubarb.jpg', alt:'Black shutters and geometric shadows on an ochre wall', track:'Rhubarb', artist:'Aphex Twin', car:false },
+    { src:'images/now-echo-ascent.jpg', alt:'A sailboat beneath a bridge at sunset in Lisbon', track:'An Ending (Ascent)', artist:'Brian Eno', car:false },
+    { src:'images/now-echo-green-onions.jpg', alt:'Chrome and red tail lights of a white vintage car', track:'Green Onions', artist:"Booker T. & the M.G.'s", car:true },
+    { src:'images/now-echo-august.jpg', alt:'The orange tail fin and lights of a vintage car', track:'August Twelve', artist:'Khruangbin', car:true },
+    { src:'images/now-echo-near-light.jpg', alt:'A lone cyclist at the end of a Gamla Stan alley', track:'Near Light', artist:'Ólafur Arnalds', car:false },
+    { src:'images/now-echo-wait.jpg', alt:'A star-flyer swing ride against a golden evening sky', track:'Wait', artist:'M83', car:false }
+  ];
+  var tries = 0;
+  (function run(){
+  // The dc-runtime (React) renders [data-departive-root] after this script
+  // parses and hides the raw <x-dc> template (display:none), so wait via rAF
+  // for the runtime-rendered, VISIBLE figures before shuffling into them.
+  var figs = Array.prototype.filter.call(
+    document.querySelectorAll('[data-now-echoes] figure'),
+    function(el){ return el.getClientRects().length > 0; }
+  );
+  if (figs.length < 3) { if (++tries < 300) requestAnimationFrame(run); return; }
+  for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+  var chosen = [], hasCar = false;
+  for (var k = 0; k < pool.length && chosen.length < 3; k++) {
+    var e = pool[k];
+    if (e.car && hasCar) continue;
+    if (e.car) hasCar = true;
+    chosen.push(e);
+  }
+  for (var f = 0; f < 3; f++) {
+    var fig = figs[f], c = chosen[f];
+    if (!fig || !c) continue;
+    var img = fig.querySelector('img');
+    if (img) { img.src = c.src; img.alt = c.alt; }
+    var sp = fig.querySelectorAll('figcaption span');
+    if (sp[0]) sp[0].textContent = c.track;
+    if (sp[1]) sp[1].textContent = c.artist;
+  }
+  })();
+})();
+</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c047124e146642d3ae6f3721e30f48ed"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
