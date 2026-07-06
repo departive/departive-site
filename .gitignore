@@ -1,0 +1,6 @@
+# Working notes — local only, not part of the public repo
+TASKS.md
+.claude/
+
+# macOS
+.DS_Store
