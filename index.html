@@ -44,6 +44,8 @@
   @media (max-width: 900px) { [data-apps-grid] { grid-template-columns: 1fr; } }
   [data-now-echoes] { grid-template-columns: repeat(3, 1fr); }
   [data-now-lists] { grid-template-columns: repeat(3, 1fr); }
+  [data-now-split] { grid-template-columns: 1.05fr 1fr; }
+  @media (max-width: 760px) { [data-now-split] { grid-template-columns: 1fr; } }
   @media (max-width: 700px) { [data-now-echoes] { grid-template-columns: 1fr; } [data-now-lists] { grid-template-columns: 1fr; gap: 40px !important; } }
   @media (max-width: 768px) { [data-hero-kb] { object-position: 88% 38% !important; } }
   @media (max-width: 480px) { [data-hero-kb] { object-position: 92% 34% !important; } }
@@ -66,9 +68,11 @@
   [data-exif-line] { display:block; margin-top:4px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--muted); opacity:0; transform:translateY(2px); transition:opacity 0.5s ease, transform 0.5s ease; }
   figure:hover [data-exif-line] { opacity:1; transform:none; }
   [data-sun-note] { display:block; }
-  @media (max-width: 640px) {
-    [data-light-ledger] { text-align: left !important; }
+  @media (max-width: 1024px) {
+    [data-light-ledger] { flex-basis: 100% !important; text-align: left !important; }
     [data-light-ledger] > div { justify-content: flex-start !important; }
+    [data-sun-arc] { justify-content: flex-start !important; }
+    [data-sun-arc] svg { margin-left: 0 !important; }
   }
 </style>
 </helmet>
@@ -383,6 +387,62 @@
         </div>
         <figcaption style="margin-top:14px;"><span style="display:block; font-family:var(--sans); font-size:16px; line-height:1.25; color:var(--ink);">sch.mefd 2</span><span style="display:block; font-family:var(--mono); font-size:11px; color:var(--mutedInk); margin-top:4px;">Autechre</span></figcaption>
       </figure>
+    </div>
+
+    <!-- record of the month + latest run -->
+    <div data-now-split style="display:grid; gap:clamp(36px,5vw,72px); align-items:start; margin-bottom:clamp(56px,9vh,100px);">
+
+      <!-- Record of the month -->
+      <div data-reveal data-record>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:18px; margin-bottom:clamp(22px,3vh,30px); border-bottom:1px solid var(--line-i);">
+          <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Record of the month</span>
+          <span data-record-date style="font-family:var(--mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">Jul 2026</span>
+        </div>
+        <div style="display:flex; gap:clamp(18px,2.5vw,26px); align-items:flex-start;">
+          <a data-record-link href="https://music.apple.com/se/album/hit-it/1834615124?l=en-GB" target="_blank" rel="noopener" data-ev="record-of-month" style="position:relative; flex:0 0 auto; width:clamp(110px,14vw,150px); aspect-ratio:1; background:#e6e0d5; overflow:hidden; display:block;">
+            <img data-record-cover src="images/vianova-hitit.jpg" width="640" height="640" loading="lazy" alt="Hit It! — Vianova cover" style="display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.04)">
+            <span style="position:absolute; right:9px; bottom:9px; width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px rgba(242,238,230,0.9); animation:dotBreath 5s ease-in-out infinite;"></span>
+          </a>
+          <div style="min-width:0; padding-top:2px;">
+            <a data-record-link href="https://music.apple.com/se/album/hit-it/1834615124?l=en-GB" target="_blank" rel="noopener" data-ev="record-of-month" style="text-decoration:none; color:var(--ink); transition:color 0.3s ease;" style-hover="color:var(--accent)"><span data-record-title style="font-family:var(--serif); font-size:clamp(28px,3.2vw,40px); line-height:1.02; letter-spacing:-0.01em;">Hit It!</span> <span style="font-family:var(--mono); font-size:12px; color:var(--muted);">&#8599;</span></a>
+            <span data-record-artist style="display:block; font-family:var(--mono); font-size:11px; letter-spacing:0.05em; color:var(--mutedInk); margin-top:9px;">Vianova · LP</span>
+            <span data-record-sub style="display:block; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; color:var(--muted); margin-top:7px;">September 2025 · 11 tracks · 45 min</span>
+          </div>
+        </div>
+        <p data-record-review style="margin:clamp(18px,2.4vh,26px) 0 0; font-family:var(--sans); font-size:clamp(14px,1.1vw,16px); line-height:1.62; color:var(--mutedInk);">A Berlin four-piece who spend the whole record refusing to be one thing — a track opens on lounge jazz, drifts through synthwave, lands somewhere heavy, and just as you'd name it, it moves again. Trying to file it feels like missing the point. 'Melanchronic' is the one I keep returning to: synth washing over a riff that finally lets a song breathe — restraint, where the rest reaches for spectacle. Forty-five minutes that never repeat themselves, and never quite let you settle.</p>
+      </div>
+
+      <!-- Latest run -->
+      <div data-reveal>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:18px; margin-bottom:clamp(22px,3vh,30px); border-bottom:1px solid var(--line-i);">
+          <span style="font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk);">Latest run</span>
+          <span style="font-family:var(--mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">Jul 6 · Stockholm</span>
+        </div>
+        <div style="background:var(--dark); padding:clamp(22px,3vw,34px);">
+          <svg viewBox="-3 -3 106 37" style="width:100%; height:auto; display:block; overflow:visible;" role="img" aria-label="GPS route of an eight-kilometre run along Riddarfjärden, Stockholm">
+            <path d="M100.0 3.4 L98.6 3.7 L97.2 3.8 L96.1 4.7 L95.0 5.4 L93.8 6.2 L91.7 6.2 L91.4 4.9 L90.9 3.5 L89.9 2.5 L88.8 1.6 L87.4 0.8 L86.1 0.2 L84.6 0.0 L83.1 0.1 L83.8 0.2 L85.1 0.4 L84.9 1.4 L83.8 2.5 L83.1 3.8 L82.6 5.0 L82.0 6.3 L81.4 7.7 L80.9 9.1 L80.3 10.4 L79.8 11.7 L79.3 12.9 L78.8 14.1 L78.0 15.3 L77.1 16.3 L74.9 18.1 L73.6 18.8 L72.4 19.4 L71.1 20.0 L69.9 20.6 L68.6 21.2 L67.4 21.7 L66.2 22.4 L65.0 23.0 L63.8 23.5 L62.6 24.1 L61.3 24.7 L60.1 25.3 L58.8 25.9 L57.6 26.4 L56.2 26.7 L54.9 27.0 L53.6 27.4 L52.3 27.6 L51.1 28.2 L50.9 29.4 L50.0 30.2 L48.6 30.6 L47.3 30.7 L46.0 30.1 L44.6 30.3 L43.5 29.4 L42.5 28.4 L41.2 28.0 L40.0 28.7 L39.1 29.8 L37.7 30.2 L35.8 29.6 L34.5 29.1 L33.3 28.6 L32.4 27.4 L31.4 26.5 L30.0 26.2 L28.5 26.0 L27.0 26.0 L25.6 25.8 L24.2 25.3 L23.1 24.7 L21.9 23.9 L20.7 23.1 L19.5 22.3 L18.3 21.5 L17.2 20.9 L16.0 20.3 L14.7 19.8 L13.4 19.3 L12.1 18.8 L10.8 18.3 L9.5 17.8 L8.2 17.2 L7.0 16.4 L5.7 15.6 L4.3 15.3 L3.0 14.7 L1.7 14.4 L0.3 13.9 L1.0 14.0 L2.2 14.6 L3.6 15.0 L4.9 15.4 L6.3 15.9 L7.4 16.8 L8.7 17.5 L10.0 17.9 L11.4 18.3 L12.7 18.9 L14.1 19.4 L15.5 20.0 L16.9 20.6 L18.2 21.2 L19.3 22.1 L20.6 22.9 L21.8 23.8 L22.9 24.6 L24.2 25.3 L25.6 25.8 L27.0 26.0 L28.4 26.0 L29.9 26.2 L31.3 26.4 L32.3 27.2 L33.2 28.4 L34.4 29.0 L35.7 29.5 L40.7 28.1 L42.3 28.1 L43.3 29.1 L44.3 30.2 L45.7 30.1 L47.0 30.4 L48.4 30.5 L49.9 30.3 L50.9 29.3 L50.7 27.9 L51.9 27.4 L53.2 27.4 L54.8 26.9 L56.2 26.4 L57.6 26.1 L59.1 25.5 L60.4 24.8 L61.8 24.2 L63.2 23.6 L64.5 22.9 L66.0 22.4 L67.4 21.6 L68.8 21.0 L70.2 20.3 L71.6 19.7 L73.0 19.0 L74.4 18.3 L75.7 17.3 L76.5 16.6" fill="none" stroke="var(--accent)" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+            <circle cx="100" cy="3.4" r="1.3" fill="rgba(237,231,219,0.45)"/>
+            <circle cx="76.5" cy="16.6" r="1.8" fill="var(--accent)"/>
+            <circle cx="76.5" cy="16.6" r="1.8" fill="var(--accent)" opacity="0.35" style="animation:dotBreath 5s ease-in-out infinite; transform-box:fill-box; transform-origin:center;"/>
+          </svg>
+        </div>
+        <div style="display:flex; gap:clamp(28px,5vw,56px); flex-wrap:wrap; margin-top:clamp(20px,2.6vh,30px);">
+          <div>
+            <div style="font-family:var(--serif); font-size:clamp(30px,3.6vw,46px); line-height:1; color:var(--ink);">8.02</div>
+            <div style="font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-top:9px;">Distance</div>
+          </div>
+          <div>
+            <div style="font-family:var(--serif); font-size:clamp(30px,3.6vw,46px); line-height:1; color:var(--ink);">46:34</div>
+            <div style="font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-top:9px;">Time</div>
+          </div>
+          <div>
+            <div style="font-family:var(--serif); font-size:clamp(30px,3.6vw,46px); line-height:1; color:var(--ink);">5'49"</div>
+            <div style="font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-top:9px;">Per km</div>
+          </div>
+        </div>
+        <span style="display:block; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; color:var(--muted); margin-top:clamp(18px,2.4vh,24px);">Riddarfjärden waterfront · &#8593;20 &#8595;32 m</span>
+      </div>
+
     </div>
 
     <!-- rotation + fit + objects: three text columns -->
@@ -711,8 +771,6 @@ class Component extends DCLogic {
     { track:'King of Terrors', artist:'President' },
     { track:'Every Sound Has a Color in the Valley of Night', artist:'Night Verses' },
     { track:'Hauntings', artist:'Richard Barbieri' },
-    { track:'Hit It!', artist:'Vianova' },
-    { track:'Galore', artist:'House of Protection' },
     { track:'Mariner', artist:'Cult of Luna' },
     { track:'The Disintegration Loops', artist:'William Basinski' },
     { track:'Sign', artist:'Autechre' },
@@ -996,34 +1054,31 @@ class Component extends DCLogic {
       return '<path d="M' + C + ' ' + C + ' L' + p0[0].toFixed(1) + ' ' + p0[1].toFixed(1) +
         ' A' + R + ' ' + R + ' 0 ' + big + ' 1 ' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1) + ' Z" fill="' + fill + '"/>';
     }
-    // darkness classes only (daylight = the open disc, drawn as nothing)
-    function darkFill(e){
-      if (e >= 0) return null;
-      if (e >= -6) return 'rgba(176,131,90,0.55)';
-      if (e >= -12) return 'rgba(176,131,90,0.75)';
-      return 'rgba(176,131,90,0.92)';
+    // one warm tone, three steps of light: day brightest, twilight mid, night darkest
+    function sky(e){
+      if (e >= 0) return 'rgba(224,205,170,0.26)';   // daylight — lightest
+      if (e >= -6) return 'rgba(224,205,170,0.13)';  // twilight — mid step (~half of day)
+      return 'rgba(224,205,170,0.05)';               // night — darkest
     }
-    var wedges = '', runStart = 0, cur = darkFill(els[0]);
+    var wedges = '', runStart = 0, cur = sky(els[0]);
     for (var r = 1; r <= N; r++){
-      var f = darkFill(els[r]);
+      var f = sky(els[r]);
       if (f !== cur || r === N){
         if (cur) wedges += wedge(runStart / N, ((f !== cur) ? r : N) / N, cur);
         runStart = r; cur = f;
       }
     }
-    // fixed tick ring: 24 hour ticks, 4 long anchors
+    // fixed ring of small dots: 24 hours, larger at the quarter anchors
     var ticks = '';
     for (var h = 0; h < 24; h++){
       var f2 = h / 24, isAnchor = (h % 6 === 0);
-      var i0 = pol(f2, R + 4), i1 = pol(f2, R + (isAnchor ? 11 : 8));
-      ticks += '<line x1="' + i0[0].toFixed(1) + '" y1="' + i0[1].toFixed(1) + '" x2="' + i1[0].toFixed(1) + '" y2="' + i1[1].toFixed(1) +
-        '" stroke="rgba(237,231,219,' + (isAnchor ? '0.5' : '0.22') + ')" stroke-width="1"/>';
+      var p = pol(f2, R + 9);
+      ticks += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (isAnchor ? '1.6' : '1') + '" fill="rgba(237,231,219,' + (isAnchor ? '0.5' : '0.22') + ')"/>';
     }
     var fracNow = Math.min(1, Math.max(0, (nowMs - start) / 86400000));
     var np = pol(fracNow, R);
     box.innerHTML =
-      '<svg viewBox="0 0 ' + S + ' ' + S + '" style="width:min(208px,72vw); height:auto; display:block; margin-left:auto; overflow:visible;" role="img" aria-label="A 24-hour dial of Stockholm\u2019s light: the open field is daylight, the amber wedges are night and twilight">' +
-        '<circle cx="' + C + '" cy="' + C + '" r="' + R + '" fill="rgba(237,231,219,0.05)"/>' +
+      '<svg viewBox="0 0 ' + S + ' ' + S + '" style="width:min(208px,72vw); height:auto; display:block; margin-left:auto; overflow:visible;" role="img" aria-label="A 24-hour dial of Stockholm\u2019s light: bright by day, amber through the golden hours, dark at night">' +
         wedges +
         '<circle cx="' + C + '" cy="' + C + '" r="' + R + '" fill="none" stroke="rgba(237,231,219,0.18)" stroke-width="1"/>' +
         ticks +
@@ -1113,6 +1168,56 @@ class Component extends DCLogic {
       s.textContent = img.getAttribute('data-exif');
       cap.appendChild(s);
     });
+  })();
+})();
+</script>
+<!-- record of the month: month-keyed queue -->
+<script>
+(function(){
+  var RECORDS = [
+    { month:"2026-07", mLabel:"Jul 2026", title:"Hit It!", meta:"Vianova · LP", sub:"September 2025 · 11 tracks · 45 min",
+      cover:"images/vianova-hitit.jpg",
+      url:"https://music.apple.com/se/album/hit-it/1834615124?l=en-GB",
+      review:"A Berlin four-piece who spend the whole record refusing to be one thing — a track opens on lounge jazz, drifts through synthwave, lands somewhere heavy, and just as you'd name it, it moves again. Trying to file it feels like missing the point. 'Melanchronic' is the one I keep returning to: synth washing over a riff that finally lets a song breathe — restraint, where the rest reaches for spectacle. Forty-five minutes that never repeat themselves, and never quite let you settle." },
+    { month:"2026-08", mLabel:"Aug 2026", title:"Galore", meta:"House of Protection · EP", sub:"September 2024 · 6 tracks · 20 min",
+      cover:"images/needle-galore.jpg",
+      url:"https://music.apple.com/se/album/galore-ep/1755215847?l=en-GB",
+      review:"Caught them at their first-ever show — a small room in Echo Park, me still on Stockholm time — before the internet decided they mattered. Two ex-Fever 333 players (Aric Improta also drums in Night Verses) and a Bring Me the Horizon producer, refusing to pick a lane: nu-metal heft one second, drum & bass or glitchy trip-hop the next, singing as often as screaming. Twenty minutes that have no business holding together, and do — sharper on every replay. Still the first record I reach for when I want something that argues with itself and wins." },
+    { month:"2026-09", mLabel:"Sep 2026", title:"King of Terrors", meta:"President · EP", sub:"September 2025 · 6 tracks · 20 min",
+      cover:"images/president-king-of-terrors.jpg",
+      url:"https://music.apple.com/se/album/king-of-terrors-ep/1823699240?l=en-GB",
+      review:"A masked British four-piece that showed up fully formed and faintly suspicious — no faces, no back catalogue, a Sleep Token comparison in every review and the shared management to earn it. Look past the campaign-trail cosplay, though, and King of Terrors is sleeker than its lineage suggests: biblical dread run through autotune and ambient electronics, breakdowns that dissolve into skittering beats as often as they detonate. RAGE is the tell — it barely reaches for a guitar until it has to. Divisive by design, and the hooks are real enough that I stopped caring." }
+  ];
+  function isVis(el){ return el.getClientRects().length > 0; }
+  function monthIdx(){
+    var n = new Date();
+    var key = n.getFullYear() + "-" + ("0" + (n.getMonth()+1)).slice(-2);
+    var idx = 0;
+    for (var i = 0; i < RECORDS.length; i++){ if (RECORDS[i].month <= key) idx = i; }
+    return idx;
+  }
+  var idx = monthIdx();
+  function cards(){ return Array.prototype.filter.call(document.querySelectorAll("[data-record]"), isVis); }
+  function render(){
+    var r = RECORDS[idx];
+    cards().forEach(function(card){
+      var img = card.querySelector("[data-record-cover]"); if (img){ img.src = r.cover; img.alt = r.title + " — " + r.meta; }
+      var t = card.querySelector("[data-record-title]"); if (t) t.textContent = r.title;
+      var m = card.querySelector("[data-record-artist]"); if (m) m.textContent = r.meta;
+      var sb = card.querySelector("[data-record-sub]"); if (sb) sb.textContent = r.sub;
+      var rv = card.querySelector("[data-record-review]"); if (rv) rv.textContent = r.review;
+      var dt = card.querySelector("[data-record-date]"); if (dt) dt.textContent = r.mLabel;
+      Array.prototype.forEach.call(card.querySelectorAll("[data-record-link]"), function(a){ a.href = r.url; });
+    });
+  }
+  var tries = 0;
+  (function run(){
+    if (!cards().length){ if (++tries < 300) requestAnimationFrame(run); return; }
+    render();
+    var c = cards()[0];
+    var prev = c.querySelector("[data-record-prev]"), next = c.querySelector("[data-record-next]");
+    if (prev && !prev._wired){ prev._wired = true; prev.addEventListener("click", function(){ idx = (idx - 1 + RECORDS.length) % RECORDS.length; render(); }); }
+    if (next && !next._wired){ next._wired = true; next.addEventListener("click", function(){ idx = (idx + 1) % RECORDS.length; render(); }); }
   })();
 })();
 </script>
