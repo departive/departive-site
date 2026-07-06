@@ -65,7 +65,11 @@
   #echoRefresh:hover, #rotationRefresh:hover, #fitRefresh:hover, #objectsRefresh:hover { color:var(--accent); }
   [data-exif-line] { display:block; margin-top:4px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--muted); opacity:0; transform:translateY(2px); transition:opacity 0.5s ease, transform 0.5s ease; }
   figure:hover [data-exif-line] { opacity:1; transform:none; }
-  [data-sun-note] { display:block; margin-top:10px; }
+  [data-sun-note] { display:block; }
+  @media (max-width: 640px) {
+    [data-light-ledger] { text-align: left !important; }
+    [data-light-ledger] > div { justify-content: flex-start !important; }
+  }
 </style>
 </helmet>
 
@@ -432,8 +436,19 @@
       <span style="width:30px; height:1px; background:var(--accent);"></span>
       <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">Colophon</span>
     </div>
-    <h2 data-reveal style="margin:0; font-family:var(--serif); font-weight:400; font-size:clamp(52px,9vw,150px); line-height:0.98; letter-spacing:-0.015em; color:var(--onDark);">Say hello.</h2>
-    <a href="mailto:david@departive.com" data-reveal style="margin-top:clamp(28px,4vh,44px); text-decoration:none; font-family:var(--serif); font-size:clamp(26px,4vw,54px); line-height:1; color:rgba(237,231,219,0.7); width:fit-content; border-bottom:1px solid rgba(237,231,219,0.2); padding-bottom:6px; transition:color 0.4s ease, border-color 0.4s ease;" style-hover="color:var(--accent); border-color:var(--accent)">david@departive.com</a>
+    <div style="display:flex; gap:clamp(32px,6vw,100px); flex-wrap:wrap; align-items:flex-start; justify-content:space-between;">
+      <div style="flex:1 1 420px; min-width:0;">
+        <h2 data-reveal style="margin:0; font-family:var(--serif); font-weight:400; font-size:clamp(52px,9vw,150px); line-height:0.98; letter-spacing:-0.015em; color:var(--onDark);">Say hello.</h2>
+        <a href="mailto:david@departive.com" data-reveal style="display:inline-block; margin-top:clamp(28px,4vh,44px); text-decoration:none; font-family:var(--serif); font-size:clamp(26px,4vw,54px); line-height:1; color:rgba(237,231,219,0.7); width:fit-content; border-bottom:1px solid rgba(237,231,219,0.2); padding-bottom:6px; transition:color 0.4s ease, border-color 0.4s ease;" style-hover="color:var(--accent); border-color:var(--accent)">david@departive.com</a>
+      </div>
+      <div data-reveal data-light-ledger style="flex:0 1 auto; padding-top:clamp(12px,3vh,36px); text-align:right;">
+        <div style="display:flex; align-items:center; justify-content:flex-end; gap:14px; margin-bottom:18px;">
+          <span style="font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">The light today</span>
+          <span style="width:30px; height:1px; background:var(--accent);"></span>
+        </div>
+        <span data-sun-note style="font-family:var(--mono); font-size:11px; letter-spacing:0.08em; line-height:2.1; color:var(--muted);"></span>
+      </div>
+    </div>
 
     <div data-reveal style="display:flex; gap:clamp(22px,3vw,40px); flex-wrap:wrap; margin-top:clamp(44px,7vh,80px);">
       <a href="https://www.instagram.com/departive/" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,231,219,0.6);" style-hover="color:var(--onDark)">Instagram</a>
@@ -446,7 +461,7 @@
         <span style="font-family:var(--serif); font-size:24px; line-height:1; color:var(--onDark);">David Gheorghita</span>
         <span style="font-family:var(--sans); font-weight:500; font-size:13px; letter-spacing:0.14em; color:var(--muted);">departive<span style="color:var(--accent);">.</span></span>
       </div>
-      <span data-colophon-meta style="font-family:var(--mono); font-size:10px; letter-spacing:0.08em; line-height:1.7; color:var(--muted); text-align:right;">Crafted in the low light of Stockholm · 59.3293° N, 18.0686° E<br>No cookies, no tracking · Privacy-first analytics · © 2026<span data-sun-note></span></span>
+      <span data-colophon-meta style="font-family:var(--mono); font-size:10px; letter-spacing:0.08em; line-height:1.7; color:var(--muted); text-align:right;">Crafted in the low light of Stockholm · 59.3293° N, 18.0686° E<br>No cookies, no tracking · Privacy-first analytics · © 2026</span>
     </div>
   </section>
 
@@ -940,7 +955,7 @@ class Component extends DCLogic {
   function findNote(){
     var list = document.querySelectorAll('[data-sun-note]');
     for (var i = 0; i < list.length; i++){
-      var host = list[i].closest('[data-colophon-meta]') || list[i];
+      var host = list[i].closest('[data-light-ledger]') || list[i];
       if (isVis(host)) return list[i];
     }
     return null;
