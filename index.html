@@ -446,7 +446,7 @@
           <span style="font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">The light today · Stockholm</span>
           <span style="width:30px; height:1px; background:var(--accent);"></span>
         </div>
-        <div data-sun-arc style="display:flex; justify-content:flex-end; margin-bottom:16px;"></div>
+        <div data-sun-arc style="display:flex; justify-content:flex-end; margin-bottom:28px;"></div>
         <span data-sun-note style="font-family:var(--mono); font-size:11px; letter-spacing:0.08em; line-height:2.1; color:var(--muted);"></span>
       </div>
     </div>
@@ -984,52 +984,53 @@ class Component extends DCLogic {
   function renderArc(){
     var box = findArc();
     if (!box) return;
-    var S = 220, C = 110, R = 100, N = 288;
+    var S = 208, C = 104, R = 82, N = 288;
     var start = sthlmDayStart(), nowMs = Date.now();
     var els = [];
     for (var i = 0; i <= N; i++) els.push(sunElevation(new Date(start + i*(86400000/N))));
-    function pt(f){
-      var a = (f * 360 + 180) * Math.PI / 180;
-      return (C + R * Math.sin(a)).toFixed(1) + ' ' + (C - R * Math.cos(a)).toFixed(1);
+    function ang(f){ return (f * 360 + 180) * Math.PI / 180; }
+    function pol(f, rad){ var a = ang(f); return [C + rad * Math.sin(a), C - rad * Math.cos(a)]; }
+    function wedge(f0, f1, fill){
+      var p0 = pol(f0, R), p1 = pol(f1, R);
+      var big = (f1 - f0) > 0.5 ? 1 : 0;
+      return '<path d="M' + C + ' ' + C + ' L' + p0[0].toFixed(1) + ' ' + p0[1].toFixed(1) +
+        ' A' + R + ' ' + R + ' 0 ' + big + ' 1 ' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1) + ' Z" fill="' + fill + '"/>';
     }
-    function shade(e){
-      if (e >= 0) return 'rgba(176,131,90,0.95)';
-      if (e >= -6) return 'rgba(176,131,90,0.45)';
-      if (e >= -12) return 'rgba(237,231,219,0.20)';
-      if (e >= -18) return 'rgba(237,231,219,0.12)';
-      return 'rgba(237,231,219,0.07)';
+    // darkness classes only (daylight = the open disc, drawn as nothing)
+    function darkFill(e){
+      if (e >= 0) return null;
+      if (e >= -6) return 'rgba(176,131,90,0.55)';
+      if (e >= -12) return 'rgba(176,131,90,0.75)';
+      return 'rgba(176,131,90,0.92)';
     }
-    var arcs = '', runStart = 0, cur = shade(els[0]);
+    var wedges = '', runStart = 0, cur = darkFill(els[0]);
     for (var r = 1; r <= N; r++){
-      var s2 = shade(els[r]);
-      if (s2 !== cur || r === N){
-        var endI = (s2 !== cur) ? r : N;
-        var f0 = runStart / N, f1 = endI / N;
-        arcs += '<path d="M' + pt(f0) + ' A' + R + ' ' + R + ' 0 ' + ((f1 - f0) > 0.5 ? 1 : 0) + ' 1 ' + pt(f1) + '" fill="none" stroke="' + cur + '" stroke-width="2"/>';
-        runStart = r; cur = s2;
+      var f = darkFill(els[r]);
+      if (f !== cur || r === N){
+        if (cur) wedges += wedge(runStart / N, ((f !== cur) ? r : N) / N, cur);
+        runStart = r; cur = f;
       }
     }
-    var up = -1, down = -1;
-    for (var k = 1; k <= N; k++){
-      if (els[k-1] < -0.833 && els[k] >= -0.833 && up < 0) up = k;
-      if (els[k-1] >= -0.833 && els[k] < -0.833) down = k;
+    // fixed tick ring: 24 hour ticks, 4 long anchors
+    var ticks = '';
+    for (var h = 0; h < 24; h++){
+      var f2 = h / 24, isAnchor = (h % 6 === 0);
+      var i0 = pol(f2, R + 4), i1 = pol(f2, R + (isAnchor ? 11 : 8));
+      ticks += '<line x1="' + i0[0].toFixed(1) + '" y1="' + i0[1].toFixed(1) + '" x2="' + i1[0].toFixed(1) + '" y2="' + i1[1].toFixed(1) +
+        '" stroke="rgba(237,231,219,' + (isAnchor ? '0.5' : '0.22') + ')" stroke-width="1"/>';
     }
-    function tick(f){
-      var a = (f * 360 + 180) * Math.PI / 180;
-      var x1 = C + (R - 5) * Math.sin(a), y1 = C - (R - 5) * Math.cos(a);
-      var x2 = C + (R + 5) * Math.sin(a), y2 = C - (R + 5) * Math.cos(a);
-      return '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="rgba(237,231,219,0.4)" stroke-width="1"/>';
-    }
-    var ticks = (up >= 0 ? tick(up / N) : '') + (down >= 0 ? tick(down / N) : '');
     var fracNow = Math.min(1, Math.max(0, (nowMs - start) / 86400000));
-    var aN = (fracNow * 360 + 180) * Math.PI / 180;
-    var nx = (C + R * Math.sin(aN)).toFixed(1), ny = (C - R * Math.cos(aN)).toFixed(1);
+    var np = pol(fracNow, R);
     box.innerHTML =
-      '<svg viewBox="0 0 ' + S + ' ' + S + '" style="width:min(220px,100%); height:auto; display:block; overflow:visible;" role="img" aria-label="A 24-hour dial of Stockholm\u2019s light \u2014 noon at the top, midnight at the bottom">' +
-        arcs + ticks +
-        '<text x="' + C + '" y="' + C + '" text-anchor="middle" dominant-baseline="central" fill="var(--onDark)" style="font-family:var(--mono); font-size:21px; letter-spacing:0.06em;">' + fmtTime(new Date(nowMs)) + '</text>' +
-        '<circle cx="' + nx + '" cy="' + ny + '" r="3.5" fill="var(--accent)"/>' +
-        '<circle cx="' + nx + '" cy="' + ny + '" r="3.5" fill="var(--accent)" opacity="0.35" style="animation:dotBreath 5s ease-in-out infinite; transform-box:fill-box; transform-origin:center;"/>' +
+      '<svg viewBox="0 0 ' + S + ' ' + S + '" style="width:min(208px,72vw); height:auto; display:block; margin-left:auto; overflow:visible;" role="img" aria-label="A 24-hour dial of Stockholm\u2019s light: the open field is daylight, the amber wedges are night and twilight">' +
+        '<circle cx="' + C + '" cy="' + C + '" r="' + R + '" fill="rgba(237,231,219,0.05)"/>' +
+        wedges +
+        '<circle cx="' + C + '" cy="' + C + '" r="' + R + '" fill="none" stroke="rgba(237,231,219,0.18)" stroke-width="1"/>' +
+        ticks +
+        '<text x="' + C + '" y="' + (C - R - 15) + '" text-anchor="middle" fill="var(--muted)" style="font-family:var(--mono); font-size:7px; letter-spacing:0.2em;">NOON</text>' +
+        '<text x="' + C + '" y="' + (C + R + 20) + '" text-anchor="middle" fill="var(--muted)" style="font-family:var(--mono); font-size:7px; letter-spacing:0.2em;">MIDNIGHT</text>' +
+        '<circle cx="' + np[0].toFixed(1) + '" cy="' + np[1].toFixed(1) + '" r="3.5" fill="var(--accent)"/>' +
+        '<circle cx="' + np[0].toFixed(1) + '" cy="' + np[1].toFixed(1) + '" r="3.5" fill="var(--accent)" opacity="0.35" style="animation:dotBreath 5s ease-in-out infinite; transform-box:fill-box; transform-origin:center;"/>' +
       '</svg>';
   }
 
