@@ -936,8 +936,18 @@ class Component extends DCLogic {
     return 'night';
   }
 
-  var note = null, tries = 0;
+  function isVis(el){ return el.getClientRects().length > 0; }
+  function findNote(){
+    var list = document.querySelectorAll('[data-sun-note]');
+    for (var i = 0; i < list.length; i++){
+      var host = list[i].closest('[data-colophon-meta]') || list[i];
+      if (isVis(host)) return list[i];
+    }
+    return null;
+  }
+
   function apply(){
+    var note = findNote();
     if (!note) return;
     var e = sunElevation(new Date());
     var today = sunTimes(0), tomorrow = sunTimes(1);
@@ -954,9 +964,9 @@ class Component extends DCLogic {
     if (today.minDip > -6) lines.push('The sky never fully darkens tonight');
     note.innerHTML = lines.join('<br>');
   }
-  (function find(){
-    note = document.querySelector('[data-sun-note]');
-    if (!note) { if (++tries < 300) requestAnimationFrame(find); return; }
+  var tries = 0;
+  (function run(){
+    if (!findNote()) { if (++tries < 300) requestAnimationFrame(run); return; }
     apply();
     setInterval(apply, 60000);
   })();
@@ -1009,9 +1019,9 @@ class Component extends DCLogic {
   // ---- exif hover lines (reads data-exif on gallery imgs) ----
   var etries = 0;
   (function exif(){
-    var imgs = document.querySelectorAll('img[data-exif]');
+    var imgs = Array.prototype.filter.call(document.querySelectorAll('img[data-exif]'), isVis);
     if (!imgs.length) { if (++etries < 300) requestAnimationFrame(exif); return; }
-    Array.prototype.forEach.call(imgs, function(img){
+    imgs.forEach(function(img){
       var fig = img.closest('figure'); if (!fig) return;
       var cap = fig.querySelector('figcaption');
       if (!cap || cap.querySelector('[data-exif-line]')) return;
