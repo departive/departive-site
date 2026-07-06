@@ -983,57 +983,34 @@ class Component extends DCLogic {
   function renderArc(){
     var box = findArc();
     if (!box) return;
-    var W = 300, H = 96, P = 8, N = 96;
+    var W = 300, P = 1, N = 288;
     var start = sthlmDayStart(), nowMs = Date.now();
-    var els = [], yMax = -90, yMin = 90;
-    for (var i = 0; i <= N; i++){
-      var e = sunElevation(new Date(start + i*(86400000/N)));
-      els.push(e);
-      if (e > yMax) yMax = e;
-      if (e < yMin) yMin = e;
-    }
-    yMax += 4; yMin -= 4;
+    var els = [];
+    for (var i = 0; i <= N; i++) els.push(sunElevation(new Date(start + i*(86400000/N))));
     function X(i){ return P + (W - 2*P) * i / N; }
-    function Y(e){ return P + (H - 2*P) * (yMax - e) / (yMax - yMin); }
-    var y0 = Y(0);
-    var d = '';
-    for (var j = 0; j <= N; j++) d += (j ? 'L' : 'M') + X(j).toFixed(1) + ' ' + Y(els[j]).toFixed(1);
-    var a = -1, b = -1;
-    for (var k = 0; k <= N; k++){ if (els[k] >= 0){ if (a < 0) a = k; b = k; } }
-    var area = '';
-    if (a >= 0){
-      area = 'M' + X(a).toFixed(1) + ' ' + y0.toFixed(1);
-      for (var q = a; q <= b; q++) area += 'L' + X(q).toFixed(1) + ' ' + Y(els[q]).toFixed(1);
-      area += 'L' + X(b).toFixed(1) + ' ' + y0.toFixed(1) + 'Z';
-    }
-    var frac = Math.min(1, Math.max(0, (nowMs - start) / 86400000));
-    var nx = P + (W - 2*P) * frac;
-    var ny = Y(sunElevation(new Date(nowMs)));
     function shade(e){
-      if (e >= 0) return 'rgba(176,131,90,0.9)';
-      if (e >= -6) return 'rgba(176,131,90,0.42)';
-      if (e >= -12) return 'rgba(237,231,219,0.16)';
-      if (e >= -18) return 'rgba(237,231,219,0.09)';
-      return 'rgba(237,231,219,0.04)';
+      if (e >= 0) return 'rgba(176,131,90,0.95)';
+      if (e >= -6) return 'rgba(176,131,90,0.45)';
+      if (e >= -12) return 'rgba(237,231,219,0.18)';
+      if (e >= -18) return 'rgba(237,231,219,0.10)';
+      return 'rgba(237,231,219,0.05)';
     }
     var band = '', runStart = 0, cur = shade(els[0]);
     for (var r = 1; r <= N; r++){
       var s2 = shade(els[r]);
       if (s2 !== cur || r === N){
         var endI = (s2 !== cur) ? r : N;
-        band += '<rect x="' + X(runStart).toFixed(1) + '" y="' + (H - 7) + '" width="' + Math.max(0.5, X(endI) - X(runStart)).toFixed(1) + '" height="3" fill="' + cur + '"/>';
+        band += '<rect x="' + X(runStart).toFixed(1) + '" y="5" width="' + Math.max(0.5, X(endI) - X(runStart)).toFixed(1) + '" height="2" fill="' + cur + '"/>';
         runStart = r; cur = s2;
       }
     }
+    var frac = Math.min(1, Math.max(0, (nowMs - start) / 86400000));
+    var nx = P + (W - 2*P) * frac;
     box.innerHTML =
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:min(320px,100%); height:auto; display:block;" role="img" aria-label="The sun\u2019s path over Stockholm today, and the day\u2019s balance of light and darkness">' +
-        (area ? '<path d="' + area + '" fill="var(--accent)" fill-opacity="0.12"/>' : '') +
-        '<line x1="' + P + '" y1="' + y0.toFixed(1) + '" x2="' + (W-P) + '" y2="' + y0.toFixed(1) + '" stroke="rgba(237,231,219,0.18)" stroke-width="1"/>' +
-        (a >= 0 ? '<line x1="' + X(a).toFixed(1) + '" y1="' + (y0-3).toFixed(1) + '" x2="' + X(a).toFixed(1) + '" y2="' + (y0+3).toFixed(1) + '" stroke="rgba(237,231,219,0.4)" stroke-width="1"/><line x1="' + X(b).toFixed(1) + '" y1="' + (y0-3).toFixed(1) + '" x2="' + X(b).toFixed(1) + '" y2="' + (y0+3).toFixed(1) + '" stroke="rgba(237,231,219,0.4)" stroke-width="1"/>' : '') +
-        '<path d="' + d + '" fill="none" stroke="rgba(237,231,219,0.35)" stroke-width="1.2"/>' +
-        '<circle cx="' + nx.toFixed(1) + '" cy="' + ny.toFixed(1) + '" r="3.2" fill="var(--accent)"/>' +
-        '<circle cx="' + nx.toFixed(1) + '" cy="' + ny.toFixed(1) + '" r="3.2" fill="var(--accent)" opacity="0.35" style="animation:dotBreath 5s ease-in-out infinite; transform-box:fill-box; transform-origin:center;"/>' +
+      '<svg viewBox="0 0 ' + W + ' 12" style="width:min(320px,100%); height:auto; display:block; overflow:visible;" role="img" aria-label="The day\u2019s balance of light and darkness in Stockholm">' +
         band +
+        '<circle cx="' + nx.toFixed(1) + '" cy="6" r="3" fill="var(--accent)"/>' +
+        '<circle cx="' + nx.toFixed(1) + '" cy="6" r="3" fill="var(--accent)" opacity="0.35" style="animation:dotBreath 5s ease-in-out infinite; transform-box:fill-box; transform-origin:center;"/>' +
       '</svg>';
   }
 
@@ -1068,17 +1045,9 @@ class Component extends DCLogic {
   function buildGrid(){
     grid = document.createElement('div');
     grid.style.cssText = 'position:fixed;inset:0;z-index:9998;pointer-events:none;display:none;';
-    var base = document.createElement('div');
-    base.style.cssText = 'position:absolute;inset:0;background:repeating-linear-gradient(to bottom, rgba(176,131,90,0.10) 0, rgba(176,131,90,0.10) 1px, transparent 1px, transparent 24px);';
-    grid.appendChild(base);
-    var cols = document.createElement('div');
-    cols.style.cssText = 'position:absolute;top:0;bottom:0;left:clamp(22px,7vw,150px);right:clamp(22px,7vw,150px);display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(8px,1.4vw,16px);';
-    for (var i = 0; i < 12; i++){
-      var c = document.createElement('div');
-      c.style.cssText = 'background:rgba(176,131,90,0.07);border-left:1px solid rgba(176,131,90,0.16);border-right:1px solid rgba(176,131,90,0.16);';
-      cols.appendChild(c);
-    }
-    grid.appendChild(cols);
+    var guides = document.createElement('div');
+    guides.style.cssText = 'position:absolute;top:0;bottom:0;left:clamp(22px,7vw,150px);right:clamp(22px,7vw,150px);border-left:1px solid rgba(176,131,90,0.35);border-right:1px solid rgba(176,131,90,0.35);';
+    grid.appendChild(guides);
     var label = document.createElement('div');
     label.setAttribute('data-grid-label','');
     label.style.cssText = 'position:absolute;left:16px;bottom:14px;font-family:ui-monospace,\'SF Mono\',Menlo,monospace;font-size:10px;letter-spacing:0.08em;color:#b0835a;background:rgba(12,9,6,0.85);padding:6px 10px;';
@@ -1088,7 +1057,7 @@ class Component extends DCLogic {
   function gridLabel(){
     var w = window.innerWidth;
     var bp = w<=480?'\u2264480 hero recrop':w<=560?'\u2264560 gallery 1-col':w<=640?'\u2264640 index stacks':w<=700?'\u2264700 now 1-col':w<=768?'\u2264768 hero recrop':w<=900?'\u2264900 grids condense':'full';
-    grid.querySelector('[data-grid-label]').textContent = '12 col \u00b7 24px baseline \u00b7 ' + w + 'px \u00b7 ' + bp;
+    grid.querySelector('[data-grid-label]').textContent = 'margins \u00b7 ' + w + 'px \u00b7 ' + bp;
   }
   window.addEventListener('keydown', function(ev){
     if (ev.key !== 'g' && ev.key !== 'G') return;
@@ -1101,6 +1070,7 @@ class Component extends DCLogic {
     if (gridOn) gridLabel();
   });
   window.addEventListener('resize', function(){ if (gridOn) gridLabel(); }, { passive: true });
+  if (location.hash === '#grid'){ buildGrid(); gridOn = true; grid.style.display = 'block'; gridLabel(); }
 
   // ---- console note ----
   try {
