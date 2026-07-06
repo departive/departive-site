@@ -1056,8 +1056,9 @@ class Component extends DCLogic {
   }
   function gridLabel(){
     var w = window.innerWidth;
+    var m = Math.round(Math.min(Math.max(22, w * 0.07), 150));
     var bp = w<=480?'\u2264480 hero recrop':w<=560?'\u2264560 gallery 1-col':w<=640?'\u2264640 index stacks':w<=700?'\u2264700 now 1-col':w<=768?'\u2264768 hero recrop':w<=900?'\u2264900 grids condense':'full';
-    grid.querySelector('[data-grid-label]').textContent = 'margins \u00b7 ' + w + 'px \u00b7 ' + bp;
+    grid.querySelector('[data-grid-label]').textContent = 'margins ' + m + 'px \u00b7 ' + w + 'px \u00b7 ' + bp;
   }
   window.addEventListener('keydown', function(ev){
     if (ev.key !== 'g' && ev.key !== 'G') return;
