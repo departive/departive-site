@@ -62,6 +62,10 @@
   #stickyNav nav { display: flex; align-items: center; gap: clamp(16px,2.4vw,32px); }
   #stickyNav nav a { text-decoration: none; font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6252; transition: color 0.3s ease; }
   #stickyNav nav a:hover { color: #1a150d; }
+  /* page links (doors) vs anchors (glances): accent interpunct + inked color */
+  #stickyNav nav a.sn-page { color: #1a150d; }
+  #stickyNav nav a.sn-page::before { content: "\00b7"; color: #b0835a; margin-right: 6px; }
+  #stickyNav nav a.sn-page:hover { color: #b0835a; }
   @media (max-width: 640px) { #stickyNav { padding: 11px clamp(16px,6vw,40px); } #stickyNav .sn-logo { display: none; } #stickyNav nav { width: 100%; justify-content: space-between; gap: 8px; } #stickyNav nav a { font-size: 10px; letter-spacing: 0.1em; } }
   #echoRefresh, #rotationRefresh, #fitRefresh, #objectsRefresh { background:none; border:0; padding:2px; margin:-2px 0; cursor:pointer; color:var(--muted); display:inline-flex; align-items:center; transition:color 0.3s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1); }
   #echoRefresh:hover, #rotationRefresh:hover, #fitRefresh:hover, #objectsRefresh:hover { color:var(--accent); }
@@ -88,6 +92,7 @@
       <a href="#craft">Craft</a>
       <a href="#apps">Apps</a>
       <a href="#now">Lately</a>
+      <a href="/studies/" class="sn-page">Studies</a>
     </nav>
   </div>
 
@@ -110,6 +115,7 @@
         <a href="#craft" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Craft</a>
         <a href="#apps" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Apps</a>
         <a href="#now" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Lately</a>
+        <a href="/studies/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Studies</a>
       </nav>
     </header>
 
@@ -516,6 +522,10 @@
     </div>
 
     <div data-reveal style="display:flex; gap:clamp(22px,3vw,40px); flex-wrap:wrap; margin-top:clamp(44px,7vh,80px);">
+      <a href="/studies/" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Studies</a>
+      <a href="https://deepfield.se" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Deep Field <span style="font-family:var(--mono); font-size:11px;">&#8599;</span></a>
+    </div>
+    <div data-reveal style="display:flex; gap:clamp(22px,3vw,40px); flex-wrap:wrap; margin-top:clamp(18px,3vh,28px);">
       <a href="https://www.instagram.com/departive/" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,231,219,0.6);" style-hover="color:var(--onDark)">Instagram</a>
       <a href="https://www.threads.com/@departive" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,231,219,0.6);" style-hover="color:var(--onDark)">Threads</a>
       <a href="https://www.linkedin.com/in/davidgheorghita/" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,231,219,0.6);" style-hover="color:var(--onDark)">LinkedIn</a>
