@@ -694,6 +694,38 @@
     return t;
   }
 
+  /* TEMPERAMENT-CONDITIONED BODY SELECTION (assembly rule — pressing plant;
+     corpus text untouched). Fit weights per pole for each authored BODY
+     sentence, indexed against CORPUS.prose.BODY order. A record's draw
+     weight is the blend-weighted mix of its two poles, so records at
+     different coordinates draw from meaningfully different subsets.
+     Partition documented in the PHASE0 report. */
+  var BODY_POLE_W = [
+    /*  0 piano not tuned        */ { STARK: 0.3, TERRAIN: 1.0, INTERIOR: 3.0, CIRCUIT: 0.2 },
+    /*  1 same spring reverb     */ { STARK: 2.0, TERRAIN: 1.5, INTERIOR: 1.0, CIRCUIT: 1.0 },
+    /*  2 synthesizer borrowed   */ { STARK: 1.5, TERRAIN: 0.2, INTERIOR: 0.7, CIRCUIT: 3.0 },
+    /*  3 practice amp           */ { STARK: 2.0, TERRAIN: 2.5, INTERIOR: 0.6, CIRCUIT: 0.2 },
+    /*  4 room did the work      */ { STARK: 1.0, TERRAIN: 1.5, INTERIOR: 2.5, CIRCUIT: 0.5 },
+    /*  5 two tape machines      */ { STARK: 1.0, TERRAIN: 1.0, INTERIOR: 2.0, CIRCUIT: 2.0 },
+    /*  6 radiator percussion    */ { STARK: 1.0, TERRAIN: 0.3, INTERIOR: 3.0, CIRCUIT: 0.5 },
+    /*  7 strings + coffee       */ { STARK: 0.4, TERRAIN: 2.0, INTERIOR: 2.0, CIRCUIT: 0.3 },
+    /*  8 church organ           */ { STARK: 0.5, TERRAIN: 2.5, INTERIOR: 1.5, CIRCUIT: 0.3 },
+    /*  9 no computer            */ { STARK: 1.5, TERRAIN: 2.0, INTERIOR: 1.0, CIRCUIT: 0.5 },
+    /* 10 firsts / seconds worse */ { STARK: 1.5, TERRAIN: 1.5, INTERIOR: 1.5, CIRCUIT: 1.5 },
+    /* 11 bass recorded last     */ { STARK: 2.0, TERRAIN: 1.5, INTERIOR: 1.0, CIRCUIT: 0.7 },
+    /* 12 same four bars         */ { STARK: 2.0, TERRAIN: 0.4, INTERIOR: 1.0, CIRCUIT: 3.0 },
+    /* 13 mics not touched       */ { STARK: 0.8, TERRAIN: 2.5, INTERIOR: 2.0, CIRCUIT: 0.5 }
+  ];
+  function makeBodyWeight(coords) {
+    var p1 = coords.blend[0], p2 = coords.blend[1];
+    return function (e) {
+      var i = CORPUS.prose.BODY.indexOf(e);
+      var w = BODY_POLE_W[i];
+      if (!w) return 1;
+      return (w[p1.pole] * p1.pct + w[p2.pole] * p2.pct) / 100;
+    };
+  }
+
   function drawProse(rng, coords, ctx) {
     var bucket = coords.era.bucket;
     var used = {};
@@ -702,6 +734,10 @@
       if (!clipped) return 1;
       var w = words(e.t);
       return w <= 8 ? 2.2 : w <= 12 ? 1.2 : 0.55;
+    }
+    var bodyWeight = makeBodyWeight(coords);
+    function bodyDraw(pool) {
+      return weightedPick(rng, pool, function (e) { return lengthWeight(e) * bodyWeight(e); });
     }
 
     // OPENING
@@ -722,7 +758,7 @@
       if (e.minYear && ctx.recYear < e.minYear) return false;
       return true;
     }
-    var body = weightedPick(rng, CORPUS.prose.BODY.filter(bodyOk), lengthWeight);
+    var body = bodyDraw(CORPUS.prose.BODY.filter(bodyOk));
     used[body.t] = true;
 
     // ODDITY — exactly one, slot-bound to real generated elements (§H)
@@ -767,7 +803,7 @@
     while (wc() < 60 && guard++ < 6) {
       var extraPool = CORPUS.prose.BODY.filter(bodyOk);
       if (!extraPool.length) break;
-      var extra = weightedPick(rng, extraPool, lengthWeight);
+      var extra = bodyDraw(extraPool);
       used[extra.t] = true;
       // insert extra BODY before the oddity (keep ODDITY → CLOSE at the end)
       sentences.splice(sentences.length - 2, 0, bindProse(rng, extra, ctx));

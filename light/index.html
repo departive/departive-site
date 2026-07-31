@@ -39,7 +39,7 @@
 
   .wrap { max-width:1180px; margin:0 auto; padding:0 clamp(22px,6vw,96px); }
 
-  header.site { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:clamp(22px,3vw,34px) 0; }
+  header.site { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:clamp(22px,3vw,34px) clamp(22px,6vw,96px); }
   .logo { text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-family:var(--sans); font-weight:500; font-size:15px; letter-spacing:0.14em; color:var(--onDark); transition:letter-spacing 0.6s cubic-bezier(0.22,1,0.36,1); }
   .logo:hover { letter-spacing:0.24em; }
   .logo span { color:var(--accent); }
@@ -74,12 +74,12 @@
 </head>
 <body>
 
-<div class="wrap">
+<header class="site">
+  <a class="logo" href="/">departive<span>.</span></a>
+  <a class="back" href="/">&larr; departive.com</a>
+</header>
 
-  <header class="site">
-    <a class="logo" href="/">departive<span>.</span></a>
-    <a class="back" href="/">&larr; departive.com</a>
-  </header>
+<div class="wrap">
 
   <section class="masthead">
     <div class="kicker" data-reveal><span class="rule"></span><span class="lbl">Sightline &middot; V0 &middot; 59.33&deg; N 18.07&deg; E</span></div>

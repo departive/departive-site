@@ -177,6 +177,20 @@
     };
   }
 
+  /* ALIGNMENT — derived display only (no rule logic): how many of the six
+     rules currently hold. Rules 1–5 count by pass; rule 6 (MODE
+     ATTRIBUTION) counts when the affinity argmax is unambiguous. */
+  function alignment(ev) {
+    if (!ev || !ev.complete) return { n: null, of: 6 };
+    var n = 0;
+    [ev.ratio, ev.volume, ev.anchor, ev.deviation, ev.light].forEach(function (r) {
+      if (r.pass) n++;
+    });
+    if (ev.mode.winner !== null) n++;
+    assert(n >= 0 && n <= 6, 'alignment out of range');
+    return { n: n, of: 6 };
+  }
+
   /* PLUMB geometry helper (pure, shared by page + export): per-slot lateral
      offsets relative to the bottoms' volume — straight when matched. */
   function plumbOffsets(fit) {
@@ -197,6 +211,7 @@
     DEV: DEV, resolve: resolve, isComplete: isComplete,
     ratio: ratio, volume: volume, anchor: anchor, deviation: deviation,
     light: light, modeScores: modeScores, evaluate: evaluate,
+    alignment: alignment,
     plumbOffsets: plumbOffsets,
     VOL_STEP: VOL_STEP, MASS_AS_VOL: MASS_AS_VOL, SLOT_WEIGHT: SLOT_WEIGHT
   };

@@ -6,14 +6,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<title>The Column — an interactive manifesto · departive</title>
+<title>The Northern Column — an interactive manifesto · departive</title>
 <meta name="description" content="Compose a fit from abstract garment forms and the system judges it — the thinking behind ARCHIVE/D, composed against The Northern Column.">
 <meta name="theme-color" content="#100c06">
 <link rel="canonical" href="https://departive.com/column/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141009'/%3E%3Ccircle cx='16' cy='16' r='4.4' fill='%23b0835a'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Deep Field">
-<meta property="og:title" content="The Column — an interactive manifesto">
+<meta property="og:title" content="The Northern Column — an interactive manifesto">
 <meta property="og:description" content="Compose a fit from abstract forms. A verdict is rendered.">
 <meta property="og:url" content="https://departive.com/column/">
 <style>
@@ -41,7 +41,9 @@
   @media (prefers-reduced-motion: reduce) { .reveal-on [data-reveal] { opacity:1 !important; animation:none !important; } }
 
   .wrap { max-width:1180px; margin:0 auto; padding:0 clamp(22px,6vw,96px); }
-  header.site { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:clamp(22px,3vw,34px) 0; }
+  /* standardized chrome: full-viewport-width band outside the wrapper */
+  header.site { width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;
+                padding:clamp(22px,3vw,34px) clamp(22px,6vw,96px); }
   .logo { text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-weight:500; font-size:15px; letter-spacing:0.14em; transition:letter-spacing 0.6s cubic-bezier(0.22,1,0.36,1); }
   .logo:hover { letter-spacing:0.24em; }
   .logo span { color:var(--accent); }
@@ -55,6 +57,17 @@
   .kicker .lbl { font-family:var(--mono); font-size:11px; letter-spacing:0.26em; text-transform:uppercase; color:var(--accent); }
   .masthead h1 { margin:0 0 18px; font-family:var(--serif); font-weight:400; font-size:clamp(46px,8vw,96px); line-height:0.95; letter-spacing:-0.015em; }
   .masthead .foot-note { margin:0; font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk); }
+
+  /* primer — the legend, not a lecture */
+  .primer { border-top:1px solid var(--line-dd); border-bottom:1px solid var(--line-dd);
+            padding:clamp(20px,3vh,30px) 0; margin-bottom:clamp(32px,5vh,56px); }
+  .p-kicker { display:block; font-family:var(--mono); font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:var(--mutedInk); }
+  .p-lead { margin:10px 0 18px; font-family:var(--serif); font-size:clamp(17px,1.7vw,21px); line-height:1.4; color:rgba(237,231,219,0.85); max-width:56ch; }
+  .p-keys { margin:0; display:grid; grid-template-columns:1fr; gap:10px clamp(24px,4vw,48px); }
+  @media (min-width:720px) { .p-keys { grid-template-columns:1fr 1fr; } }
+  .p-keys div { display:flex; flex-direction:column; gap:3px; }
+  .p-keys dt { font-family:var(--mono); font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); }
+  .p-keys dd { margin:0; font-family:var(--serif); font-size:16px; line-height:1.45; color:var(--muted); }
 
   /* composer layout */
   .composer { display:grid; grid-template-columns:1fr; gap:clamp(28px,4vw,56px); padding-bottom:clamp(48px,8vh,96px); }
@@ -124,13 +137,17 @@
   .verdict-card { margin-top:26px; border:1px solid var(--line-d); padding:clamp(20px,3vw,30px);
                   background:linear-gradient(180deg, rgba(237,231,219,0.03), rgba(237,231,219,0) 60%); }
   .verdict-card[hidden] { display:none; }
-  .verdict-kicker { font-family:var(--mono); font-size:9px; letter-spacing:0.24em; text-transform:uppercase; color:var(--mutedInk); margin:0 0 14px; }
+  .verdict-kicker-row { display:flex; justify-content:space-between; align-items:baseline; gap:14px; margin:0 0 14px; }
+  .verdict-kicker { font-family:var(--mono); font-size:9px; letter-spacing:0.24em; text-transform:uppercase; color:var(--mutedInk); margin:0; }
+  .verdict-align { font-family:var(--mono); font-size:13px; letter-spacing:0.18em; color:var(--accent); white-space:nowrap; }
+  .verdict-align[hidden] { display:none; }
   .verdict-headline { margin:0 0 14px; font-family:var(--serif); font-weight:400; font-size:clamp(26px,3.4vw,36px); line-height:1.05; letter-spacing:0.01em; }
   .verdict-lines { margin:0; padding:0; list-style:none; }
   .verdict-lines li { font-family:var(--sans); font-size:15px; line-height:1.65; color:rgba(237,231,219,0.82); padding:7px 0; border-top:1px solid var(--line-dd); }
   .verdict-lines li:first-child { border-top:none; }
   .verdict-foot { margin:18px 0 0; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; }
   .verdict-foot .mark { font-family:var(--mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--mutedInk); }
+  .verdict-foot .export-row { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
   .export-btn { font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--accent); padding-bottom:3px; transition:color 0.35s ease; }
   .export-btn:hover { color:var(--onDark); }
 
@@ -160,19 +177,31 @@
 </head>
 <body>
 
-<div class="wrap">
+<header class="site">
+  <a class="logo" href="/">departive<span>.</span></a>
+  <a class="back" href="/">&larr; departive.com</a>
+</header>
 
-  <header class="site">
-    <a class="logo" href="/">departive<span>.</span></a>
-    <a class="back" href="/">&larr; departive.com</a>
-  </header>
+<div class="wrap">
 
   <section class="masthead">
     <div class="kicker" data-reveal><span class="rule"></span><span class="lbl">An interactive manifesto · ARCHIVE/D</span></div>
-    <h1 data-reveal style="animation-delay:0.08s">The Column</h1>
+    <h1 data-reveal style="animation-delay:0.08s">The Northern Column</h1>
     <!-- INTRO — approved excerpt from "The Northern Column v.4" (David, 31 Jul 2026) -->
     <p class="intro" data-reveal style="animation-delay:0.16s; margin:14px 0 0; font-family:var(--serif); font-style:italic; font-size:clamp(19px,2.2vw,26px); line-height:1.3; color:rgba(237,231,219,0.8);">Architectural Precision, Tactile Humanity.</p>
-    <p class="foot-note" data-reveal style="animation-delay:0.24s">composed against The Northern Column</p>
+  </section>
+
+  <!-- HOW TO READ — the legend. Copy compressed from COLUMN_SYSTEM.md §1/§4;
+       no new doctrine. -->
+  <section class="primer" data-reveal>
+    <span class="p-kicker">How to read</span>
+    <p class="p-lead">Compose a fit; six rules judge it. Pass, and the strongest mode names the verdict.</p>
+    <dl class="p-keys">
+      <div><dt>Ratio 70/30</dt><dd>Hard structure to soft texture, seventy to thirty &mdash; within ten.</dd></div>
+      <div><dt>Volume</dt><dd>Bottoms and footwear agree on width; the top half may sit one step off.</dd></div>
+      <div><dt>Deviation 0&ndash;1</dt><dd>At most one statement form. Zero is valid; two is a violation.</dd></div>
+      <div><dt>Light</dt><dd>At most one non-matte surface &mdash; the Nocturnal Shield excepted.</dd></div>
+    </dl>
   </section>
 
   <section class="composer">
@@ -192,6 +221,10 @@
     <div class="panel" data-reveal>
       <h2>Instruments</h2>
       <div class="instruments">
+        <div class="inst">
+          <span class="lbl">Alignment</span>
+          <span class="counter" id="alignVal">ALIGNMENT —/6</span>
+        </div>
         <div class="inst">
           <span class="lbl">Ratio <span class="val" id="ratioVal">H — / S —</span></span>
           <div class="ratio-track" role="img" aria-label="Hard to soft ratio against the seventy-thirty target">
@@ -222,12 +255,18 @@
       </div>
 
       <div class="verdict-card" id="verdictCard" hidden data-reveal>
-        <p class="verdict-kicker">Verdict</p>
+        <div class="verdict-kicker-row">
+          <p class="verdict-kicker">Verdict</p>
+          <span class="verdict-align" id="verdictAlign" hidden></span>
+        </div>
         <h3 class="verdict-headline" id="verdictHeadline" hidden></h3>
         <ul class="verdict-lines" id="verdictLines"></ul>
         <div class="verdict-foot">
           <span class="mark">composed against The Northern Column · ARCHIVE/D</span>
-          <button class="export-btn" id="exportBtn" data-ev="column-export">Export the card &#8599;</button>
+          <span class="export-row">
+            <button class="export-btn" id="exportCardBtn" data-ev="column-export-card">Export &mdash; Card &#8599;</button>
+            <button class="export-btn" id="exportStoryBtn" data-ev="column-export-story">Export &mdash; Story &#8599;</button>
+          </span>
         </div>
       </div>
     </div>
@@ -254,6 +293,184 @@
    dc-runtime on this route, same pattern as /studies). Classic scripts
    above expose window.COLUMN.{forms,rules,verdict}; this island only
    touches the DOM. */
+
+/* EXPORT-RENDER-BEGIN — DOM-free renderer, one measured flow for both
+   formats (CARD 720×1080, STORY 1080×1920; both exported @2×). Blocks are
+   measured first, the forms block absorbs whatever height the text leaves,
+   and the stack is centered inside the hairline frame — no dead zones and
+   no overlap at any verdict length. Extracted verbatim by the Node test
+   harness (keep the markers). */
+function traceSvgPath(ctx, d) {
+  // absolute M/L/C/A/Z only — the catalog uses nothing else
+  var tokens = d.match(/[MLCAZ]|-?\d*\.?\d+/gi) || [];
+  var i = 0, x = 0, y = 0, sx = 0, sy = 0;
+  function num() { return parseFloat(tokens[i++]); }
+  while (i < tokens.length) {
+    var cmd = tokens[i++];
+    if (cmd === 'M') { x = num(); y = num(); sx = x; sy = y; ctx.moveTo(x, y); }
+    else if (cmd === 'L') { x = num(); y = num(); ctx.lineTo(x, y); }
+    else if (cmd === 'C') {
+      var a1 = num(), a2 = num(), b1 = num(), b2 = num();
+      x = num(); y = num(); ctx.bezierCurveTo(a1, a2, b1, b2, x, y);
+    }
+    else if (cmd === 'A' || cmd === 'a') {
+      var rx = num(), ry = num(); num(); var laf = num(), sf = num(), ex = num(), ey = num();
+      var r = (rx + ry) / 2; // catalog arcs are circular
+      var dx = (ex - x) / 2, dy = (ey - y) / 2, d2 = dx * dx + dy * dy;
+      var rr = Math.max(r, Math.sqrt(d2)), h = Math.sqrt(Math.max(0, rr * rr - d2));
+      var len = Math.sqrt(d2) || 1, sgn = (laf === sf) ? -1 : 1;
+      var cx = x + dx + sgn * h * (-dy) / len, cy = y + dy + sgn * h * dx / len;
+      ctx.arc(cx, cy, rr, Math.atan2(y - cy, x - cx), Math.atan2(ey - cy, ex - cx), !sf);
+      x = ex; y = ey;
+    }
+    else if (cmd === 'Z' || cmd === 'z') { ctx.closePath(); x = sx; y = sy; }
+  }
+}
+
+function renderVerdictExport(ctx, W, H, format, payload, forms) {
+  var st = format === 'story';
+  var M = st ? 96 : 52, PAD = st ? 60 : 30;
+  var X0 = M + PAD, CW = W - X0 * 2;
+  var INK = 'rgba(237,231,219,0.8)';
+  var F = {
+    kicker: (st ? '500 22px ' : '500 12px ') + 'ui-monospace, Menlo, monospace',
+    align:  (st ? '500 28px ' : '500 16px ') + 'ui-monospace, Menlo, monospace',
+    head:   (st ? '400 64px ' : '400 40px ') + '"Instrument Serif", Georgia, serif',
+    body:   (st ? '400 29px ' : '400 18px ') + '"Instrument Sans", system-ui, sans-serif',
+    slot:   (st ? '500 15px ' : '500 9px ')  + 'ui-monospace, Menlo, monospace',
+    foot:   (st ? '400 19px ' : '400 10px ') + 'ui-monospace, Menlo, monospace'
+  };
+  var bodyLH = st ? 45 : 28, headLH = st ? 68 : 44;
+  var entries = payload.entries || [], v = payload.verdict, al = payload.align;
+
+  ctx.fillStyle = '#100c06'; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(237,231,219,0.14)'; ctx.lineWidth = 1;
+  ctx.strokeRect(M + 0.5, M + 0.5, W - M * 2 - 1, H - M * 2 - 1);
+
+  function wrap(text, font, maxW) {
+    ctx.font = font;
+    var words = String(text).split(' '), lines = [], line = '';
+    words.forEach(function (w) {
+      var probe = line ? line + ' ' + w : w;
+      if (ctx.measureText(probe).width > maxW && line) { lines.push(line); line = w; }
+      else line = probe;
+    });
+    if (line) lines.push(line);
+    return lines;
+  }
+  function drawForm(e, x, y, s) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); traceSvgPath(ctx, e.form.d);
+    ctx.fillStyle = forms.TONE_FILL[e.tone];
+    ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.fill(); ctx.stroke();
+    ctx.beginPath(); traceSvgPath(ctx, e.form.line);
+    ctx.globalAlpha = 0.55; ctx.lineWidth = 1.5; ctx.stroke(); ctx.globalAlpha = 1;
+    if (e.sheen) {
+      ctx.save(); ctx.beginPath(); traceSvgPath(ctx, e.form.d); ctx.clip();
+      ctx.strokeStyle = 'rgba(237,231,219,0.5)'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(8, 74); ctx.lineTo(74, 8); ctx.moveTo(20, 102); ctx.lineTo(96, 26);
+      ctx.stroke(); ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  var footH = st ? 70 : 40;
+  var availTop = M + PAD, availBottom = H - M - PAD - footH;
+  var gap = st ? 42 : 26;
+  var blocks = [];
+
+  // masthead: title left, alignment right, rule beneath
+  var mastH = st ? 74 : 48;
+  blocks.push({ h: mastH, draw: function (y) {
+    ctx.fillStyle = '#6b6252'; ctx.font = F.kicker; ctx.textAlign = 'left';
+    ctx.fillText('THE NORTHERN COLUMN', X0, y + (st ? 26 : 15));
+    if (al && al.n !== null) {
+      ctx.fillStyle = '#b0835a'; ctx.font = F.align; ctx.textAlign = 'right';
+      ctx.fillText('ALIGNMENT ' + al.n + '/' + al.of, X0 + CW, y + (st ? 27 : 16));
+      ctx.textAlign = 'left';
+    }
+    ctx.strokeStyle = 'rgba(237,231,219,0.14)';
+    ctx.beginPath(); ctx.moveTo(X0, y + mastH - (st ? 18 : 12)); ctx.lineTo(X0 + CW, y + mastH - (st ? 18 : 12)); ctx.stroke();
+  }});
+
+  // headline (mode), when attributed
+  var headLines = v.headline ? wrap(v.headline, F.head, CW) : [];
+  if (headLines.length) blocks.push({ h: headLines.length * headLH + (st ? 14 : 6), draw: function (y) {
+    ctx.fillStyle = '#ede7db'; ctx.font = F.head;
+    headLines.forEach(function (l, i) { ctx.fillText(l, X0, y + (i + 0.85) * headLH); });
+  }});
+
+  // verdict lines, hairline-separated
+  var lineWraps = v.lines.map(function (l) { return wrap(l.text, F.body, CW); });
+  var linesGap = st ? 26 : 15, linesH = 0;
+  lineWraps.forEach(function (ls) { linesH += ls.length * bodyLH + linesGap; });
+  blocks.push({ h: linesH, draw: function (y) {
+    var yy = y;
+    lineWraps.forEach(function (ls, i) {
+      if (i > 0) {
+        ctx.strokeStyle = 'rgba(237,231,219,0.08)';
+        ctx.beginPath(); ctx.moveTo(X0, yy - linesGap / 2); ctx.lineTo(X0 + CW, yy - linesGap / 2); ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(237,231,219,0.82)'; ctx.font = F.body;
+      ls.forEach(function (l, j) { ctx.fillText(l, X0, yy + (j + 0.8) * bodyLH); });
+      yy += ls.length * bodyLH + linesGap;
+    });
+  }});
+
+  // forms block — absorbs the height the text leaves; card = one row,
+  // story = a centered column (the column IS the brand)
+  var otherH = 0; blocks.forEach(function (b) { otherH += b.h; });
+  var slotLabelH = st ? 26 : 14;
+  var formsAvail = (availBottom - availTop) - otherH - gap * (blocks.length + 1);
+  var n = entries.length || 1, scale, formsBlock;
+  if (st) {
+    scale = Math.max(0.35, Math.min(1.15, (formsAvail - n * (slotLabelH + 12)) / (n * 120)));
+    formsBlock = { h: n * (120 * scale + slotLabelH + 12), draw: function (y) {
+      var yy = y;
+      entries.forEach(function (e) {
+        drawForm(e, W / 2 - 50 * scale, yy, scale);
+        ctx.fillStyle = '#6b6252'; ctx.font = F.slot; ctx.textAlign = 'center';
+        ctx.fillText(e.slot.toUpperCase() + ' — ' + e.form.label.toUpperCase(), W / 2, yy + 120 * scale + slotLabelH - 8);
+        ctx.textAlign = 'left';
+        yy += 120 * scale + slotLabelH + 12;
+      });
+    }};
+  } else {
+    var cellW = Math.min(118, Math.floor(CW / n));
+    scale = Math.max(0.3, Math.min((cellW - 10) / 100, (formsAvail - slotLabelH - 6) / 120));
+    formsBlock = { h: 120 * scale + slotLabelH + 6, draw: function (y) {
+      var x0 = X0 + (CW - cellW * n) / 2;
+      entries.forEach(function (e, i) {
+        var cx = x0 + i * cellW + cellW / 2;
+        drawForm(e, cx - 50 * scale, y, scale);
+        ctx.fillStyle = '#6b6252'; ctx.font = F.slot; ctx.textAlign = 'center';
+        ctx.fillText(e.slot.toUpperCase(), cx, y + 120 * scale + slotLabelH - 3);
+        ctx.textAlign = 'left';
+      });
+    }};
+  }
+  blocks.splice(1, 0, formsBlock);
+
+  // centered stack between frame and foot; on the card, generous leftover
+  // is partly distributed into the gaps so short verdicts still fill the plate
+  var total = 0; blocks.forEach(function (b) { total += b.h; });
+  total += gap * (blocks.length - 1);
+  var leftover = (availBottom - availTop) - total;
+  if (!st && leftover > 80 && blocks.length > 1) {
+    var grow = Math.min(leftover / (blocks.length + 1), 30);
+    gap += grow; total += grow * (blocks.length - 1);
+  }
+  var y = availTop + Math.max(0, ((availBottom - availTop) - total) / 2);
+  blocks.forEach(function (b) { b.draw(y); y += b.h + gap; });
+
+  // quiet foot
+  ctx.fillStyle = '#6b6252'; ctx.font = F.foot; ctx.textAlign = 'center';
+  ctx.fillText('composed against The Northern Column · ARCHIVE/D', W / 2, H - M - (st ? 32 : 20));
+  ctx.textAlign = 'left';
+}
+/* EXPORT-RENDER-END */
+
 document.addEventListener('DOMContentLoaded', function () {
   'use strict';
   var forms = COLUMN.forms, rules = COLUMN.rules, verdictM = COLUMN.verdict;
@@ -472,6 +689,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var anchorVal = document.getElementById('anchorVal');
   var anchorSwB = document.getElementById('anchorSwB');
   var anchorSwF = document.getElementById('anchorSwF');
+  var alignVal = document.getElementById('alignVal');
   var devCounter = document.getElementById('devCounter');
   var sheenTally = document.getElementById('sheenTally');
   var sheenVal = document.getElementById('sheenVal');
@@ -521,6 +739,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var complete = rules.isComplete(fit);
     composeBtn.dataset.armed = String(complete);
     composeHint.textContent = complete ? 'Ready' : 'The base four are required';
+
+    // ALIGNMENT — derived readout (rules.alignment; display only)
+    var al = rules.alignment(complete ? rules.evaluate(fit) : null);
+    alignVal.textContent = 'ALIGNMENT ' + (al.n === null ? '—' : al.n) + '/' + al.of;
   }
 
   /* ---------------- update loop ---------------- */
@@ -552,6 +774,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------------- verdict ---------------- */
   var verdictCard = document.getElementById('verdictCard');
   var verdictHeadline = document.getElementById('verdictHeadline');
+  var verdictAlign = document.getElementById('verdictAlign');
   var verdictLines = document.getElementById('verdictLines');
   var lastVerdict = null;
 
@@ -564,6 +787,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     verdictHeadline.hidden = !v.headline;
     verdictHeadline.textContent = v.headline || '';
+    var al = rules.alignment(ev.complete ? ev : null);
+    verdictAlign.hidden = al.n === null;
+    verdictAlign.textContent = al.n === null ? '' : 'ALIGNMENT ' + al.n + '/' + al.of;
     verdictLines.innerHTML = '';
     v.lines.forEach(function (l) {
       var li = document.createElement('li');
@@ -576,92 +802,31 @@ document.addEventListener('DOMContentLoaded', function () {
     if (verdictCard.scrollIntoView) verdictCard.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
   });
 
-  /* ---------------- PNG export (canvas, 2×) ---------------- */
-  document.getElementById('exportBtn').addEventListener('click', function () {
-    if (!lastVerdict) return;
-    var run = function () { exportCard(lastVerdict); };
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(run); else run();
-  });
-
-  function exportCard(ctx0) {
-    var SCALE = 2, W = 720, H = 1080;
-    var canvas = document.createElement('canvas');
-    canvas.width = W * SCALE; canvas.height = H * SCALE;
-    var ctx = canvas.getContext('2d');
-    ctx.scale(SCALE, SCALE);
-
-    ctx.fillStyle = '#100c06'; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = 'rgba(237,231,219,0.14)';
-    ctx.strokeRect(24.5, 24.5, W - 49, H - 49);
-
-    ctx.fillStyle = '#6b6252';
-    ctx.font = '600 11px ui-monospace, Menlo, monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText('T H E   C O L U M N', 60, 76);
-
-    // the abstract fit column, left
-    var entries = ctx0.ev.entries || rules.resolve(ctx0.fit);
-    var colX = 60, y = 120, cellH = 128, drawn = 0;
-    entries.forEach(function (e) {
-      ctx.save();
-      ctx.translate(colX, y + drawn * cellH);
-      var s = 0.92;
-      ctx.scale(s, s);
-      var p = new Path2D(e.form.d);
-      ctx.fillStyle = forms.TONE_FILL[e.tone];
-      ctx.strokeStyle = 'rgba(237,231,219,0.8)';
-      ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-      ctx.fill(p); ctx.stroke(p);
-      var li = new Path2D(e.form.line);
-      ctx.globalAlpha = 0.55; ctx.lineWidth = 1.5; ctx.stroke(li); ctx.globalAlpha = 1;
-      if (e.sheen) {
-        ctx.save(); ctx.clip(p);
-        ctx.strokeStyle = 'rgba(237,231,219,0.5)'; ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.moveTo(8, 74); ctx.lineTo(74, 8);
-        ctx.moveTo(20, 102); ctx.lineTo(96, 26); ctx.stroke(); ctx.restore();
-      }
-      ctx.restore();
-      drawn++;
+  /* ---------------- PNG export — CARD 720×1080 / STORY 1080×1920, @2× ----
+     Both run through renderVerdictExport (one measured flow, above). */
+  function bindExport(id, format, W, H, filename) {
+    document.getElementById(id).addEventListener('click', function () {
+      if (!lastVerdict) return;
+      var run = function () {
+        var canvas = document.createElement('canvas');
+        canvas.width = W * 2; canvas.height = H * 2;
+        var ctx = canvas.getContext('2d');
+        ctx.scale(2, 2);
+        renderVerdictExport(ctx, W, H, format, {
+          entries: lastVerdict.ev.entries || rules.resolve(lastVerdict.fit),
+          verdict: lastVerdict.v,
+          align: rules.alignment(lastVerdict.ev.complete ? lastVerdict.ev : null)
+        }, forms);
+        var a = document.createElement('a');
+        a.download = filename;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      };
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(run); else run();
     });
-
-    // verdict text, right
-    var tx = 220, ty = 150, maxW = W - tx - 70;
-    if (ctx0.v.headline) {
-      ctx.fillStyle = '#ede7db';
-      ctx.font = '400 34px "Instrument Serif", Georgia, serif';
-      wrapText(ctx, ctx0.v.headline, tx, ty, maxW, 38);
-      ty += 38 * Math.ceil(ctx.measureText(ctx0.v.headline).width / maxW) + 28;
-    }
-    ctx.font = '400 16px "Instrument Sans", system-ui, sans-serif';
-    ctx.fillStyle = 'rgba(237,231,219,0.82)';
-    ctx0.v.lines.forEach(function (l) {
-      ty = wrapText(ctx, l.text, tx, ty, maxW, 25) + 16;
-    });
-
-    // quiet foot
-    ctx.fillStyle = '#6b6252';
-    ctx.font = '400 10px ui-monospace, Menlo, monospace';
-    ctx.textAlign = 'center';
-    ctx.fillText('composed against The Northern Column · ARCHIVE/D', W / 2, H - 52);
-    ctx.textAlign = 'left';
-
-    var a = document.createElement('a');
-    a.download = 'the-column-verdict.png';
-    a.href = canvas.toDataURL('image/png');
-    a.click();
   }
-
-  function wrapText(ctx, text, x, y, maxW, lh) {
-    var words = text.split(' '), line = '';
-    words.forEach(function (w) {
-      var probe = line ? line + ' ' + w : w;
-      if (ctx.measureText(probe).width > maxW && line) {
-        ctx.fillText(line, x, y); y += lh; line = w;
-      } else line = probe;
-    });
-    if (line) { ctx.fillText(line, x, y); y += lh; }
-    return y;
-  }
+  bindExport('exportCardBtn', 'card', 720, 1080, 'the-northern-column-verdict.png');
+  bindExport('exportStoryBtn', 'story', 1080, 1920, 'the-northern-column-verdict-story.png');
 
   /* ---------------- reveal (site pattern) ---------------- */
   if (!reduce) {
