@@ -2,3 +2,14 @@ TASKS.md
 .claude
 wrangler.jsonc
 .assetsignore
+stories/*/trip.md
+stories/*/story.json
+stories/*/*.jpg
+stories/*/*.JPG
+stories/*/*.jpeg
+stories/*/*.JPEG
+stories/*/*.png
+stories/*/*.PNG
+stories/*/*.heic
+stories/*/*.HEIC
+tools/
