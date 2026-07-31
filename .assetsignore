@@ -1,7 +1,17 @@
-TASKS.md
+# Excluded from the Cloudflare Workers assets upload (assets.directory = repo root).
+# These are kept in the repo but must NOT be served.
+
+# version control + tooling (the .git packfile alone is >25 MiB → build blocker)
+.git
+.gitignore
+.gitattributes
+.DS_Store
 .claude
-wrangler.jsonc
 .assetsignore
+wrangler.jsonc
+TASKS.md
+
+# story SOURCE files (served renditions live in stories/<story>/img/)
 stories/*/trip.md
 stories/*/story.json
 stories/*/*.jpg
@@ -12,4 +22,6 @@ stories/*/*.png
 stories/*/*.PNG
 stories/*/*.heic
 stories/*/*.HEIC
+
+# build engine (carries a package.json)
 tools/
