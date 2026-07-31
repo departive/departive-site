@@ -95,3 +95,14 @@ This file is the map for any session touching the site — read before editing.
 3. **Now/Lately content rotation** (future, unscheduled) — tiers mapped:
    by hand → split content into `now.json` → auto-feeds (Last.fm for
    On rotation, Echo Frame Worker for the echoes).
+4. **/studies opener — real overture art** — the studio hero currently
+   uses soft placeholder stand-ins (`assets/studies/studio/overture-wide.jpg`
+   2880×1800 · `overture-tall.jpg` 780×1688), upscaled crops of a Sightline
+   screenshot that still carry app UI (a faint RESET in the tall crop).
+   David to supply the real exports at those paths — **no app UI in frame**
+   (see `assets/studies/README.md` → Studio overture). Optional silent loop:
+   `overture.mp4/.webm` + `overture-poster.jpg`. Placeholders auto-replace.
+5. **/studies analytics** — the opener CTA carries `data-ev="discover-studies"`,
+   but `studies/index.html` is standalone/static with **no analytics runtime**
+   (per its original brief), so no event fires yet. If the studies route should
+   report to the site's analytics, add the delegated `data-ev` listener there.

@@ -48,11 +48,82 @@
   .back:hover { color:var(--onDark); }
 
   /* intro */
-  .kicker { display:flex; align-items:center; gap:14px; margin-bottom:clamp(22px,3vh,32px); }
-  .kicker .tick { width:30px; height:1px; background:var(--accent); }
-  .kicker .tag { font-family:var(--mono); font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:var(--muted); }
-  .lede { margin:0; max-width:20ch; font-family:var(--serif); font-weight:400; font-size:clamp(40px,7vw,92px); line-height:1.0; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance; }
-  .sub { margin:clamp(20px,3vh,30px) 0 0; max-width:46ch; font-family:var(--sans); font-size:clamp(15px,1.25vw,18px); line-height:1.65; color:var(--muted); }
+  /* ===== STUDIES OPENER — the studio overture (full-bleed studio hero) ===== */
+  .intro-hero { position:relative; width:100%; min-height:100vh; min-height:100svh;
+                background:#0C0906; overflow:hidden; isolation:isolate; }
+  @keyframes overtureDrift { from { transform:scale(1.02); } to { transform:scale(1.09); } }
+  .hero-media { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+                animation:overtureDrift 40s ease-in-out infinite alternate; will-change:transform; }
+  .hero-scrim { position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:
+      linear-gradient(to right,  rgba(9,7,4,0.90) 0%, rgba(9,7,4,0.55) 38%, rgba(9,7,4,0.08) 66%),
+      linear-gradient(to bottom, rgba(9,7,4,0.62) 0%, rgba(9,7,4,0.10) 30%, rgba(9,7,4,0.55) 74%, rgba(9,7,4,0.92) 100%); }
+
+  .intro-hero .chrome { position:absolute; top:0; left:0; right:0; z-index:3; display:flex;
+                        align-items:center; justify-content:space-between; gap:16px; padding:30px 56px; }
+  .intro-hero .chrome .logo { font-family:var(--sans); font-weight:500; font-size:15px; letter-spacing:0.14em; color:#EDE7DB; text-decoration:none; }
+  .intro-hero .chrome .logo span { color:#B0835A; }
+  .intro-hero .chrome .back { font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(237,231,219,0.55); text-decoration:none; transition:color 0.35s ease; }
+  .intro-hero .chrome .back:hover { color:#EDE7DB; }
+
+  .masthead-hero { position:absolute; z-index:3; left:56px; top:50%; transform:translateY(-56%); max-width:730px; }
+  .masthead-hero .kicker { display:flex; align-items:center; gap:12px; margin-bottom:26px; }
+  .masthead-hero .kicker .rule { width:22px; height:1px; background:#B0835A; }
+  .masthead-hero .kicker .lbl { font-family:var(--mono); font-size:11px; letter-spacing:0.26em; text-transform:uppercase; color:#B0835A; }
+  .masthead-hero h1 { margin:0 0 26px; font-family:var(--serif); font-weight:400; font-size:clamp(44px,6vw,86px); line-height:0.97; letter-spacing:-0.015em; color:#F2EEE6; }
+  .masthead-hero .sub { margin:0 0 36px; max-width:450px; font-family:var(--sans); font-weight:400; font-size:16px; line-height:1.62; color:#B8AE9C; }
+  .masthead-hero .sub .phone-only { display:none; }
+  .hero-cta { display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#100C06; background:#B0835A; padding:15px 26px; border-radius:100px; transition:transform 0.4s ease; }
+  .hero-cta:hover { transform:translateY(2px); }
+  .hero-cta:focus-visible { outline:2px solid #B0835A; outline-offset:3px; }
+  .hero-cta .arr { font-family:var(--sans); font-size:13px; }
+
+  .base-rail { position:absolute; z-index:3; left:56px; right:56px; bottom:40px; }
+  .daylight { position:relative; height:2px; opacity:0.85; margin-bottom:24px;
+    background:linear-gradient(90deg, #22304A 0%, #3D5A8A 5%, #A8703F 11%, #CFC0A4 19%, #E6DFD2 46%, #CFC0A4 79%, #C07F42 88%, #3D5A8A 95%, #22304A 100%); }
+  .now { position:absolute; left:34%; top:-5px; }
+  .now .tick { display:block; width:1px; height:12px; background:rgba(237,231,219,0.5); }
+  .now .dot { position:absolute; left:50%; top:5px; width:7px; height:7px; border-radius:50%; background:#F2EEE6;
+              transform:translate(-50%,-50%); animation:nowBreath 4.5s ease-in-out infinite; }
+  @keyframes nowBreath { 0%,100% { opacity:1; transform:translate(-50%,-50%) scale(1); } 50% { opacity:0.45; transform:translate(-50%,-50%) scale(0.7); } }
+  .index-row { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:40px; }
+  .name-index { display:flex; align-items:baseline; flex-wrap:wrap; gap:18px; }
+  .name-index .nm { font-family:var(--serif); font-size:25px; line-height:1; color:#D3C9B6; }
+  .name-index .nm.echo .sl { color:#C1894F; }
+  .name-index .nm.arch { font-family:var(--sans); font-weight:600; font-size:21px; letter-spacing:-0.01em; }
+  .name-index .nm.arch .sl { color:#8C7B5A; }
+  .name-index .sep { color:#5C5346; }
+  .count { font-family:var(--mono); font-size:10px; letter-spacing:0.20em; text-transform:uppercase; color:rgba(237,231,219,0.6); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior:auto; }
+    .hero-media { animation:none; }
+    .now .dot { animation:none; }
+  }
+
+  @media (max-width:700px) {
+    .hero-scrim { background:linear-gradient(to bottom, rgba(9,7,4,0.86) 0%, rgba(9,7,4,0.30) 34%, rgba(9,7,4,0.72) 72%, rgba(9,7,4,0.95) 100%); }
+    .intro-hero .chrome { padding:26px 24px; }
+    .intro-hero .chrome .logo { font-size:13px; }
+    .intro-hero .chrome .back { font-size:9px; }
+    .masthead-hero { left:24px; right:24px; top:132px; transform:none; max-width:none; }
+    .masthead-hero .kicker { margin-bottom:16px; }
+    .masthead-hero .kicker .rule { width:16px; }
+    .masthead-hero .kicker .lbl { font-size:9px; letter-spacing:0.22em; }
+    .masthead-hero h1 { margin-bottom:18px; line-height:0.98; letter-spacing:-0.01em; }
+    .masthead-hero .sub { margin-bottom:28px; font-size:13px; line-height:1.58; max-width:none; }
+    .masthead-hero .sub .desktop-only { display:none; }
+    .masthead-hero .sub .phone-only { display:inline; }
+    .hero-cta { font-size:10px; padding:14px 22px; min-height:46px; gap:9px; }
+    .base-rail { left:24px; right:24px; bottom:28px; }
+    .daylight { margin-bottom:18px; }
+    .now .tick { height:10px; }
+    .now .dot { width:6px; height:6px; }
+    .name-index { gap:11px; }
+    .name-index .nm { font-size:18px; }
+    .name-index .nm.arch { font-size:15px; }
+    .count { font-size:9px; width:100%; margin-top:14px; }
+  }
 
   /* chapter (text lives in the content column; imagery breaks out full-bleed) */
   .chapter { padding:clamp(64px,10vh,120px) 0 clamp(72px,12vh,150px); border-top:1px solid var(--line-dd); }
@@ -134,23 +205,47 @@
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="site">
-    <a class="logo" href="/">departive<span>.</span></a>
-    <a class="back" href="/">&larr; departive.com</a>
-  </header>
+  <!-- ==================== STUDIES OPENER — the studio overture ==================== -->
+  <section class="intro-hero">
+    <!-- Media layer = LCP; not lazy. App-agnostic scene (no app name/UI), so no caption.
+         These are soft placeholder stand-ins at the real paths until David's overture exports land. -->
+    <picture>
+      <source media="(min-width:700px)" srcset="/assets/studies/studio/overture-wide.jpg">
+      <img class="hero-media" src="/assets/studies/studio/overture-tall.jpg" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="hero-scrim"></div>
 
-  <!-- ==================== INTRO ==================== -->
-  <section style="padding:clamp(56px,11vh,140px) 0 clamp(8px,2vh,24px);">
-    <div class="kicker" data-reveal><span class="tick"></span><span class="tag">Deep Field · Stockholm</span></div>
-    <!-- KICKER LINE — Option A rendered. Option B alt: "Studies from one studio." -->
-    <h1 class="lede" data-reveal>Independent studies in software.</h1>
-    <p class="sub" data-reveal>Small tools, made slowly and released when they're ready &mdash; and each a record from the same desk. Four so far.</p>
+    <header class="chrome">
+      <a class="logo" href="/">departive<span>.</span></a>
+      <a class="back" href="/">&larr; departive.com</a>
+    </header>
+
+    <div class="masthead-hero">
+      <div class="kicker" data-reveal><span class="rule"></span><span class="lbl">Deep Field · Stockholm</span></div>
+      <h1 data-reveal style="animation-delay:0.09s">Independent studies in software.</h1>
+      <p class="sub" data-reveal style="animation-delay:0.18s"><span class="desktop-only">Small tools, made slowly and released when they're ready &mdash; and each a record from the same desk.</span><span class="phone-only">Small tools, made slowly and released when they're ready.</span></p>
+      <a class="hero-cta" href="#study-01" data-ev="discover-studies" data-reveal style="animation-delay:0.27s">Discover the studies <span class="arr">&darr;</span></a>
+    </div>
+
+    <div class="base-rail">
+      <div class="daylight"><span class="now"><span class="tick"></span><span class="dot"></span></span></div>
+      <div class="index-row">
+        <div class="name-index">
+          <span class="nm echo">Echo <span class="sl">/</span> Frame</span><span class="sep">&middot;</span>
+          <span class="nm">Sightline</span><span class="sep">&middot;</span>
+          <span class="nm">Solplats</span><span class="sep">&middot;</span>
+          <span class="nm arch">ARCHIVE<span class="sl">/</span>D</span>
+        </div>
+        <span class="count">Four so far</span>
+      </div>
+    </div>
   </section>
 
+<div class="wrap">
+
   <!-- ==================== STUDY 01 · ECHO FRAME ==================== -->
-  <section class="chapter" style="--chap-accent:#c1894f;">
+  <section class="chapter" id="study-01" style="--chap-accent:#c1894f;">
     <div class="masthead" data-reveal>
       <span class="no">STUDY 01</span>
       <span class="word">Echo <span class="sl">/</span> Frame</span>

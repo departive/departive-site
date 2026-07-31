@@ -15,7 +15,22 @@ assets/studies/echo-frame/
 assets/studies/sightline/
 assets/studies/solplats/
 assets/studies/archived/     ← ARCHIVE/D
+assets/studies/studio/       ← the opener overture (not an app)
 ```
+
+## Studio overture (the `/studies` opener)
+The full-bleed opening hero. **App-agnostic** — it is an overture, not any app's
+hero: **no app name, caption, attribution, or app UI in frame.** Scene only.
+
+| file | what | ratio · size (@2x) | notes |
+|------|------|-----|-------|
+| `overture-wide.jpg` | desktop/tablet crop | **16:10 · 2880 × 1800** | subject right of centre; **left 45% must stay quiet** (carries the masthead) |
+| `overture-tall.jpg` | phone crop (a portrait window on the *same* scene, not a scaled copy) | **~9:19.5 · 780 × 1688** | art-directed via `<picture>` at the 700px breakpoint |
+| `overture.mp4` + `.webm` + `overture-poster.jpg` | optional silent loop | 16:10 · 4–8 s · < 3 MB | reduced-motion → poster only |
+
+**Current files are soft placeholder stand-ins** (upscaled crops of a Sightline
+screenshot that still carry app UI). **Do not ship them** — replace with real
+exports at the same paths (the `<img>`/`<source>` self-upgrade on load).
 
 ## Files per app
 | file | what | ratio · size (@2x) | notes |
