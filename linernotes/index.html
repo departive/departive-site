@@ -76,72 +76,85 @@
   .act:disabled { opacity:0.35; cursor:default; }
   .counter { font-family:var(--mono); font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--mutedInk); }
 
-  /* ============ THE SLEEVE (CARD_DESIGN.md) ============
-     Typeset at the 1400×1400 logical base; transform-scaled to fit. */
+  /* ============ THE SLEEVE (CARD_DESIGN.md, dark re-skin) ============
+     A matte dark board in the site's own ground family — printed matter,
+     not a website panel. Typeset at the 1400×1400 logical base;
+     transform-scaled to fit. All rows are NORMAL FLOW in a flex column;
+     the foot uses margin-top:auto — overlap is structurally impossible. */
   .stage { position:relative; overflow:hidden; }
   .sleeve { width:1400px; height:1400px; transform-origin:top left; position:relative;
-            background:#F2F1EE; color:#1A1917; font-family:var(--sans);
-            --ts:1; --gapscale:1; --tone:#5a5347;
-            --hair:1.4px; --artistW:600; --track:0em; --leading:1.45; --eragap:1;
-            box-shadow:0 30px 90px rgba(0,0,0,0.5); }
-  .sleeve::after { content:""; position:absolute; inset:0; pointer-events:none; opacity:0.05; mix-blend-mode:multiply;
+            background:linear-gradient(180deg,#161009 0%, #141009 42%, #100c06 100%);
+            border:1px solid rgba(237,231,219,0.10);
+            color:var(--cInk); font-family:var(--sans);
+            --ts:1; --gapscale:1;
+            --acc:#b0835a; --cInk:#ede7db; --cInk2:rgba(237,231,219,0.62); --cInk3:rgba(237,231,219,0.45);
+            --rule:rgba(237,231,219,0.14); --hair:1.2px; --track:0em; --leading:1.5; --eragap:1;
+            box-shadow:0 30px 90px rgba(0,0,0,0.55); }
+  .sleeve::after { content:""; position:absolute; inset:0; pointer-events:none; opacity:0.06; mix-blend-mode:soft-light;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size:140px 140px; }
 
-  /* era flavor — values only, never the skeleton (CARD_DESIGN §3) */
-  .sleeve[data-era="70s"]   { --hair:2.4px; --artistW:700; }
-  .sleeve[data-era="80s"]   { --hair:1.4px; --track:-0.012em; }
+  /* era flavor — accent hue, ink warmth, rule weight; values only,
+     never the skeleton (CARD_DESIGN §3, dark reinterpretation) */
+  .sleeve[data-era="70s"]   { --hair:2.2px; --rule:rgba(237,231,219,0.2); --acc:#c1894f; --cInk:#f2eee6; }
+  .sleeve[data-era="80s"]   { --acc:#9c8f7d; --cInk:#e6e4df; --track:-0.012em; }
   .sleeve[data-era="90s"]   { --leading:1.62; }
-  .sleeve[data-era="2000s"], .sleeve[data-era="2010s"] { --hair:0.7px; --eragap:1.18; }
+  .sleeve[data-era="2000s"], .sleeve[data-era="2010s"] { --hair:0.6px; --rule:rgba(237,231,219,0.10); --eragap:1.15; }
 
-  .sleeve-inner { position:relative; height:1220px; padding:90px 90px 0; overflow:hidden; }
-  .hairline { height:var(--hair); background:rgba(26,25,23,0.8);
+  .sleeve-inner { display:flex; flex-direction:column; height:100%; padding:90px; overflow:hidden; }
+  .hairline { flex:none; height:var(--hair); background:var(--rule);
               margin:calc(28px * var(--gapscale) * var(--eragap) * var(--ts)) 0; }
 
   .masthead-row { display:flex; justify-content:space-between; align-items:flex-start;
-                  margin-bottom:calc(40px * var(--gapscale) * var(--eragap) * var(--ts)); }
-  .thumb { width:240px; height:240px; border:var(--hair) solid rgba(26,25,23,0.8); flex:none; }
+                  margin-bottom:calc(44px * var(--gapscale) * var(--eragap) * var(--ts)); }
+  .thumb { width:240px; height:240px; border:1px solid var(--rule); flex:none; }
   .thumb canvas { display:block; width:100%; height:100%; }
-  .thumb-empty { background:rgba(26,25,23,0.05); }
-  .mast-block { text-align:right; padding-top:8px; }
-  .mast-label { font-size:calc(22px * var(--ts)); font-weight:600; letter-spacing:0.145em; }
-  .mast-cat { margin-top:calc(14px * var(--ts)); font-family:var(--mono); font-weight:500;
-              font-size:calc(24px * var(--ts)); color:var(--tone); }
+  .thumb-empty { background:rgba(237,231,219,0.05); }
+  .mast-block { text-align:right; padding-top:6px; }
+  .mast-label { font-family:var(--mono); font-weight:500; font-size:calc(18px * var(--ts));
+                letter-spacing:0.2em; color:var(--cInk2); }
+  .mast-cat { margin-top:calc(16px * var(--ts)); font-family:var(--mono); font-weight:500;
+              font-size:calc(24px * var(--ts)); color:var(--acc); }
   .sleeve[data-era="80s"] .mast-cat { font-size:calc(30px * var(--ts)); }
   .mast-channel { margin-top:calc(12px * var(--ts)); font-family:var(--mono);
-                  font-size:calc(18px * var(--ts)); color:rgba(26,25,23,0.62); }
-  .sleeve[data-era="70s"] .mast-channel { font-size:calc(22px * var(--ts)); font-weight:500; }
+                  font-size:calc(18px * var(--ts)); color:var(--cInk3); }
+  .sleeve[data-era="70s"] .mast-channel { font-size:calc(22px * var(--ts)); font-weight:500; color:var(--cInk2); }
 
-  .artist { font-size:calc(64px * var(--ts)); font-weight:var(--artistW); line-height:1.02;
-            letter-spacing:calc(-0.015em + var(--track)); }
-  .album { margin-top:calc(12px * var(--ts)); font-size:calc(40px * var(--ts)); font-style:italic; line-height:1.1; }
-  .yearline { margin-top:calc(20px * var(--ts)); font-family:var(--mono);
-              font-size:calc(20px * var(--ts)); color:rgba(26,25,23,0.62); }
+  .head-rule { width:26px; height:2px; background:var(--acc);
+               margin-bottom:calc(24px * var(--gapscale) * var(--ts)); }
+  .artist { font-family:var(--serif); font-weight:400; font-size:calc(66px * var(--ts));
+            line-height:1.0; letter-spacing:calc(-0.01em + var(--track)); color:var(--cInk); }
+  .album { margin-top:calc(14px * var(--ts)); font-family:var(--serif); font-style:italic;
+           font-size:calc(42px * var(--ts)); line-height:1.08; color:rgba(237,231,219,0.92); }
+  .yearline { margin-top:calc(22px * var(--ts)); font-family:var(--mono);
+              font-size:calc(20px * var(--ts)); color:var(--cInk3); }
 
   .side-head { margin:calc(20px * var(--gapscale) * var(--ts)) 0 calc(10px * var(--gapscale) * var(--ts));
                font-family:var(--mono); font-weight:500; font-size:calc(17px * var(--ts));
-               letter-spacing:0.14em; color:rgba(26,25,23,0.62); }
+               letter-spacing:0.16em; color:var(--cInk3); }
   .t-row { display:flex; align-items:baseline; gap:16px;
            padding:calc(5px * var(--gapscale) * var(--ts)) 0; }
-  .t-title { font-size:calc(24px * var(--ts)); letter-spacing:var(--track); }
+  .t-title { font-size:calc(24px * var(--ts)); letter-spacing:var(--track); color:var(--cInk); }
   .t-leader { flex:1; }
-  .sleeve[data-era="90s"] .t-leader { border-bottom:2px dotted rgba(26,25,23,0.4); transform:translateY(-6px); }
-  .t-time { font-family:var(--mono); font-size:calc(24px * var(--ts)); text-align:right; }
+  .sleeve[data-era="90s"] .t-leader { border-bottom:2px dotted rgba(237,231,219,0.28); transform:translateY(-6px); }
+  .t-time { font-family:var(--mono); font-size:calc(24px * var(--ts)); text-align:right; color:var(--cInk2); }
 
   .credits { margin-bottom:calc(30px * var(--gapscale) * var(--eragap) * var(--ts)); }
   .credit { font-family:var(--mono); font-size:calc(18px * var(--ts)); line-height:1.5;
-            color:rgba(26,25,23,0.78); }
-  .prose { max-width:62ch; font-size:calc(21px * var(--ts)); line-height:var(--leading); text-align:left; }
+            color:var(--cInk2); }
+  .prose { max-width:62ch; font-size:calc(21px * var(--ts)); line-height:var(--leading);
+           text-align:left; color:rgba(237,231,219,0.82); }
 
-  .foot { position:absolute; left:90px; right:90px; bottom:82px;
+  /* foot — normal flow, anchored by margin-top:auto (never overlaps) */
+  .foot { margin-top:auto; padding-top:calc(26px * var(--ts));
           display:flex; justify-content:space-between; align-items:baseline; gap:24px; }
-  .press-line { font-family:var(--mono); font-size:calc(17px * var(--ts)); color:rgba(26,25,23,0.62); }
-  .foot-right { display:flex; gap:20px; align-items:baseline; flex:none; }
-  .press-count { font-family:var(--mono); font-weight:500; font-size:calc(17px * var(--ts)); color:rgba(26,25,23,0.85); }
-  .site-credit { font-family:var(--mono); font-size:calc(17px * var(--ts)); color:rgba(26,25,23,0.5); }
+  .press-line { font-family:var(--mono); font-size:calc(17px * var(--ts)); color:var(--cInk3); }
+  .foot-right { display:flex; gap:24px; align-items:baseline; flex:none; }
+  .press-count { font-family:var(--mono); font-weight:500; font-size:calc(17px * var(--ts)); color:var(--acc); }
+  .site-credit { font-family:var(--mono); font-size:calc(17px * var(--ts)); color:rgba(237,231,219,0.35); }
 
   /* empty state — a blank sleeve, faint placeholder rules (CARD_DESIGN §4) */
-  .ghost-bar { background:rgba(26,25,23,0.07); height:20px; }
+  .ghost-bar { background:rgba(237,231,219,0.06); height:20px; }
   .gb-1 { width:200px; margin-left:auto; }
   .gb-2 { width:120px; height:16px; margin:14px 0 0 auto; }
   .gb-artist { width:520px; height:52px; }

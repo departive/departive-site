@@ -1,11 +1,23 @@
 /* LINER NOTES — sleeve.js
-   The sleeve back: DOM typesetting per CARD_DESIGN.md, canvas render at 2×
-   for PNG export, drop zone, "Next pressing" (diegetic k+1), empty state.
+   The sleeve back: DOM typesetting per CARD_DESIGN.md (Phase 0 amendment:
+   dark site-native ground supersedes the white sleeve — skeleton, era
+   value-flavoring and reflow rules unchanged), canvas render at 2× for PNG
+   export, drop zone, "Next pressing" (diegetic k+1), empty state.
    Browser-only; corpus/features/plant are pure and DOM-free.
 
-   The card is typeset at its 1400×1400 logical base (CARD_DESIGN §1) and
-   transform-scaled to the viewport — mobile scales the card; export always
-   renders at the fixed 2× base (2800×2800), unaffected by viewport.
+   The card is typeset at its 1400×1400 logical base and transform-scaled to
+   the viewport — mobile scales the card uniformly; export always renders at
+   the fixed 2× base (2800×2800), unaffected by viewport.
+
+   OVERLAP-PROOFING (Phase 0 bug fix):
+   - DOM: every row is normal flow inside a flex column; the foot row uses
+     margin-top:auto (bottom-anchored when short, flows below content when
+     long) — nothing variable is absolutely positioned, so rows cannot cross.
+   - Fonts: typesetting and canvas rendering both await ensureFonts()
+     (explicit loads of the Instrument faces + document.fonts.ready) before
+     any measurement, so the fit governor and measureText see real metrics.
+   - Canvas: a measure pass walks the same y-cursor over measured wrapped
+     lines and shrinks type until content clears the foot; only then draws.
 */
 (function () {
   'use strict';
@@ -20,14 +32,49 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* label tones — the card's single accent use (catalog number only).
-     Presentation values, not corpus content. */
-  var LABEL_TONES = {
-    'FÄLT': '#4d5c48', 'Third Hour': '#54506b', 'Kolonn': '#3d3d40',
-    'Ortsband': '#7a5230', 'Ledger & Sons': '#5d4a3a', 'Fjärde Våningen': '#44586b',
-    'Meridian Tape Club': '#5b6350', 'Palindrome': '#6b3f42', 'Under Bark': '#4a5a41',
-    'Hourglass Annex': '#706040'
-  };
+  /* ---------------- fonts: load before any measuring ---------------- */
+  var SERIF = "'Instrument Serif', Georgia, serif";
+  var SANS = "'Instrument Sans', system-ui, sans-serif";
+  var MONO = "ui-monospace, 'SF Mono', Menlo, monospace";
+  var fontsPromise = null;
+  function ensureFonts() {
+    if (fontsPromise) return fontsPromise;
+    if (!(document.fonts && document.fonts.load)) {
+      fontsPromise = Promise.resolve();
+      return fontsPromise;
+    }
+    fontsPromise = Promise.all([
+      document.fonts.load('400 66px "Instrument Serif"'),
+      document.fonts.load('italic 400 42px "Instrument Serif"'),
+      document.fonts.load('400 21px "Instrument Sans"'),
+      document.fonts.load('500 21px "Instrument Sans"'),
+      document.fonts.load('600 21px "Instrument Sans"'),
+      document.fonts.ready
+    ]).catch(function () { /* fall through — fallback faces still measure truly */ });
+    return fontsPromise;
+  }
+
+  /* era flavoring on the dark ground — subtle shifts in accent hue, ink
+     warmth and rule weight; values only, never the skeleton (CARD_DESIGN §3) */
+  function bone(a) { return 'rgba(237,231,219,' + a + ')'; }
+  function eraValues(bucket) {
+    var v = {
+      acc: '#b0835a', ink: '#ede7db', ink2: bone(0.62), ink3: bone(0.45),
+      rule: bone(0.14), hair: 1.2, track: 0, catSize: 24,
+      channelSize: 18, channelInk: bone(0.45), leading: 1.5, leaders: false, gap: 1
+    };
+    if (bucket === '70s') { // heavier ink, thicker hairlines, STEREO prominent, warmer accent
+      v.hair = 2.2; v.rule = bone(0.2); v.acc = '#c1894f'; v.ink = '#f2eee6';
+      v.channelSize = 22; v.channelInk = bone(0.62);
+    } else if (bucket === '80s') { // tighter tracking, colder ink, catalog larger, accent cooled
+      v.acc = '#9c8f7d'; v.ink = '#e6e4df'; v.track = -0.6; v.catSize = 30;
+    } else if (bucket === '90s') { // looser leading, dot leaders
+      v.leading = 1.62; v.leaders = true;
+    } else if (bucket === '2000s' || bucket === '2010s') { // whitespace up, rules down
+      v.hair = 0.6; v.rule = bone(0.10); v.gap = 1.15;
+    }
+    return v;
+  }
 
   /* ---------------- state ---------------- */
   var state = { features: null, seed: null, k: 0, record: null, cover: null, forcedSeed: null };
@@ -76,14 +123,16 @@
     if (DEV) console.log('[linernotes] ' + PLANT.ENGINE_VERSION, {
       seed: state.record.seed, pressing: state.k, coordinates: state.record.coordinates
     });
-    typeset(state.record, state.cover);
-    el.next.disabled = false;
-    el.exportBtn.disabled = false;
-    el.counter.textContent = state.record.pressingLabel || 'first pressing';
+    ensureFonts().then(function () { // fonts first — the fit governor needs real metrics
+      typeset(state.record, state.cover);
+      el.next.disabled = false;
+      el.exportBtn.disabled = false;
+      el.counter.textContent = state.record.pressingLabel || 'first pressing';
+    });
   }
 
   /* ============================================================
-     DOM TYPESETTING — CARD_DESIGN §2 layout skeleton, §3 era values
+     DOM TYPESETTING — CARD_DESIGN §2 layout skeleton (all normal flow)
      ============================================================ */
   function div(cls, text) {
     var d = document.createElement('div');
@@ -95,7 +144,6 @@
   function typeset(rec, cover) {
     var card = div('sleeve');
     card.dataset.era = rec.coordinates.eraBucket;
-    card.style.setProperty('--tone', LABEL_TONES[rec.label.name] || '#5a5347');
 
     var inner = div('sleeve-inner');
     card.appendChild(inner);
@@ -119,8 +167,9 @@
     mast.appendChild(mblock);
     inner.appendChild(mast);
 
-    // 2 — artist / title / year+format
+    // 2 — artist / title / year+format (accent kicker rule, site idiom)
     var head = div('row head-block');
+    head.appendChild(div('head-rule'));
     head.appendChild(div('artist', rec.artist));
     head.appendChild(div('album', rec.title));
     head.appendChild(div('yearline', rec.formatLine));
@@ -155,7 +204,7 @@
     var prose = div('row prose', rec.prose);
     inner.appendChild(prose);
 
-    // 8 — foot row
+    // 8 — foot row (normal flow; margin-top:auto anchors it, never overlaps)
     var foot = div('row foot');
     foot.appendChild(div('press-line', rec.pressingLine));
     var fr = div('foot-right');
@@ -182,6 +231,7 @@
     mast.appendChild(mb);
     inner.appendChild(mast);
     var head = div('row head-block');
+    head.appendChild(div('head-rule'));
     head.appendChild(div('ghost-bar gb-artist'));
     head.appendChild(div('ghost-bar gb-title'));
     inner.appendChild(head);
@@ -217,23 +267,32 @@
   });
 
   /* CARD_DESIGN §5 — the card must survive the longest content without
-     clipping: tighten gaps first, then type scale, never below 0.88. */
+     clipping: tighten gaps first, then type scale. Runs after fonts load,
+     so scrollHeight reflects true metrics. */
   function fit(card, inner) {
-    var steps = [
-      ['--gapscale', ['1', '0.85', '0.7']],
-      ['--ts', ['1', '0.96', '0.92', '0.88']]
-    ];
+    var gaps = ['1', '0.85', '0.7'];
+    var scales = ['1', '0.96', '0.92', '0.88', '0.84'];
     card.style.setProperty('--gapscale', '1');
     card.style.setProperty('--ts', '1');
     function fits() { return inner.scrollHeight <= inner.clientHeight; }
     if (fits()) return;
-    for (var g = 0; g < steps[0][1].length; g++) {
-      card.style.setProperty('--gapscale', steps[0][1][g]);
-      for (var t = 0; t < steps[1][1].length; t++) {
-        card.style.setProperty('--ts', steps[1][1][t]);
+    for (var g = 0; g < gaps.length; g++) {
+      card.style.setProperty('--gapscale', gaps[g]);
+      for (var t = 0; t < scales.length; t++) {
+        card.style.setProperty('--ts', scales[t]);
         if (fits()) return;
       }
     }
+  }
+  // safety: if the faces settle after first paint for any reason, re-fit
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      var card = el.stage.firstChild;
+      if (card && card.classList.contains('sleeve') && !card.classList.contains('sleeve-empty')) {
+        var inner = card.querySelector('.sleeve-inner');
+        if (inner) fit(card, inner);
+      }
+    });
   }
 
   /* settle animation — rows fade/rise, 40ms staggered (CARD_DESIGN §4);
@@ -255,27 +314,11 @@
   }
 
   /* ============================================================
-     CANVAS RENDER — 2× base (2800×2800) for PNG export
+     CANVAS RENDER — 2× base (2800×2800) for PNG export.
+     Same dark ground, same skeleton, same era values as the DOM card.
+     The y-cursor walks measured wrapped lines; a measure pass shrinks
+     type until content clears the foot row — zero overlap by construction.
      ============================================================ */
-  var GROTESK = "'Instrument Sans', system-ui, sans-serif";
-  var MONO = "ui-monospace, 'SF Mono', Menlo, monospace";
-  var PAPER = '#F2F1EE', INK = '#1A1917';
-  function ink2(alpha) { return 'rgba(26,25,23,' + (alpha || 0.62) + ')'; }
-
-  function eraValues(bucket) {
-    // §3: era changes VALUES, never the layout skeleton
-    return {
-      hair: bucket === '70s' ? 2.4 : bucket === '80s' ? 1.4 : (bucket === '2000s' || bucket === '2010s') ? 0.7 : 1.4,
-      artistWeight: bucket === '70s' ? '700' : '600',
-      track: bucket === '80s' ? -0.6 : 0,          // px letter-spacing at base
-      catSize: bucket === '80s' ? 30 : 24,
-      channelSize: bucket === '70s' ? 22 : 18,
-      leading: bucket === '90s' ? 1.62 : 1.45,
-      leaders: bucket === '90s',
-      gap: (bucket === '2000s' || bucket === '2010s') ? 1.18 : 1
-    };
-  }
-
   function wrapText(ctx, text, maxWidth) {
     var out = [], line = '';
     text.split(/\s+/).forEach(function (w) {
@@ -293,72 +336,79 @@
     var ctx = canvas.getContext('2d');
     var s = px / 1400; // base scale
     var ev = eraValues(rec.coordinates.eraBucket);
-    var tone = LABEL_TONES[rec.label.name] || '#5a5347';
 
-    // measure pass → type scale that survives the longest content (§5).
-    // The foot row is pinned at y≈1318; content must clear it with margin.
-    var ts = 1, h = layout(null);
-    while (h > 1278 && ts > 0.8) { ts -= 0.03; h = layout(null); }
+    var PAD = 90, x0 = PAD, x1 = 1400 - PAD;
+    var footY = 1400 - 82;      // foot baseline (logical)
+    var footClear = footY - 46; // content must end above this
+
+    // measure pass → type scale that survives the longest content (§5)
+    var ts = 1, h = layout(false);
+    while (h > footClear && ts > 0.78) { ts -= 0.03; h = layout(false); }
     draw();
 
-    function F(sizePx, fam, weight) {
-      ctx.font = (weight || '400') + ' ' + (sizePx * ts * s) + 'px ' + fam;
+    function F(sizePx, fam, style) {
+      ctx.font = (style || '400') + ' ' + (sizePx * ts * s) + 'px ' + fam;
     }
+    function letterSp(v) { if (ctx.letterSpacing !== undefined) ctx.letterSpacing = v ? (v * s) + 'px' : '0px'; }
 
-    /* one function, two passes: measure (ctx text only) and draw */
+    /* one function, two passes: measure (fonts only) and draw */
     function layout(drawing) {
-      var PAD = 90, x0 = PAD, x1 = 1400 - PAD, y = PAD;
+      var y = PAD;
       var g = function (v) { return v * ev.gap * ts; };
 
       function hairline(yy) {
         if (drawing) {
-          ctx.fillStyle = ink2(0.8);
+          ctx.fillStyle = ev.rule;
           ctx.fillRect(x0 * s, yy * s, (x1 - x0) * s, Math.max(1, ev.hair * s));
         }
       }
       function text(str, xx, yy, align, color) {
         if (drawing) {
           ctx.textAlign = align || 'left';
-          ctx.fillStyle = color || INK;
+          ctx.fillStyle = color || ev.ink;
           ctx.fillText(str, xx * s, yy * s);
         }
       }
 
-      // 1 masthead
+      // 1 masthead — thumb hairline-keyed; right block: label / catalog / channel
       var thumbSize = 240;
       if (drawing) {
         if (cover) ctx.drawImage(cover, x0 * s, y * s, thumbSize * s, thumbSize * s);
-        else { ctx.fillStyle = ink2(0.06); ctx.fillRect(x0 * s, y * s, thumbSize * s, thumbSize * s); }
-        ctx.strokeStyle = ink2(0.8);
-        ctx.lineWidth = Math.max(1, ev.hair * s);
+        else { ctx.fillStyle = bone(0.05); ctx.fillRect(x0 * s, y * s, thumbSize * s, thumbSize * s); }
+        ctx.strokeStyle = ev.rule;
+        ctx.lineWidth = Math.max(1, ev.hair * 0.9 * s);
         ctx.strokeRect(x0 * s, y * s, thumbSize * s, thumbSize * s);
       }
-      var my = y + 30;
-      F(22, GROTESK, '600');
-      if (drawing && ctx.letterSpacing !== undefined) ctx.letterSpacing = (3.2 * s) + 'px';
-      text(rec.label.name.toUpperCase(), x1, my, 'right');
-      if (drawing && ctx.letterSpacing !== undefined) ctx.letterSpacing = '0px';
-      my += 40 * ts;
+      var my = y + 28;
+      F(18, MONO, '500');
+      if (drawing) letterSp(3.4);
+      text(rec.label.name.toUpperCase(), x1, my, 'right', ev.ink2);
+      if (drawing) letterSp(0);
+      my += 38 * ts;
       F(ev.catSize, MONO, '500');
-      text(rec.catalog, x1, my, 'right', tone); // the single accent use
-      my += 34 * ts;
-      F(ev.channelSize, MONO);
-      text(rec.channel, x1, my, 'right', ink2());
-      y += thumbSize + g(44);
+      text(rec.catalog, x1, my, 'right', ev.acc); // the accent use
+      my += 32 * ts;
+      F(ev.channelSize, MONO, ev.channelSize > 18 ? '500' : '400');
+      text(rec.channel, x1, my, 'right', ev.channelInk);
+      y += thumbSize + g(46);
 
-      // 2 artist / title / yearline
-      F(64, GROTESK, ev.artistWeight);
-      var artistLines = wrapText(ctx, rec.artist, x1 - x0);
-      artistLines.forEach(function (l) { y += 64 * ts; text(l, x0, y); });
-      y += g(14);
-      F(40, GROTESK, '400');
-      if (drawing) ctx.font = 'italic ' + (40 * ts * s) + 'px ' + GROTESK;
-      var titleLines = wrapText(ctx, rec.title, x1 - x0);
-      titleLines.forEach(function (l) { y += 46 * ts; text(l, x0, y); });
+      // 2 head block — accent kicker rule, serif artist, serif-italic title
+      if (drawing) {
+        ctx.fillStyle = ev.acc;
+        ctx.fillRect(x0 * s, y * s, 26 * s, 2 * s);
+      }
       y += g(26);
+      ctx.font = '400 ' + (66 * ts * s) + 'px ' + SERIF;
+      var artistLines = wrapText(ctx, rec.artist, x1 - x0);
+      artistLines.forEach(function (l) { y += 64 * ts; text(l, x0, y, 'left', ev.ink); });
+      y += g(16);
+      ctx.font = 'italic 400 ' + (42 * ts * s) + 'px ' + SERIF;
+      var titleLines = wrapText(ctx, rec.title, x1 - x0);
+      titleLines.forEach(function (l) { y += 46 * ts; text(l, x0, y, 'left', bone(0.92)); });
+      y += g(28);
       F(20, MONO);
       y += 20 * ts;
-      text(rec.formatLine, x0, y, 'left', ink2());
+      text(rec.formatLine, x0, y, 'left', ev.ink3);
       y += g(30);
 
       hairline(y); y += g(30);
@@ -369,31 +419,39 @@
         if (rec.hasSides && tr.side !== side) {
           if (side !== null) y += g(18); // air between sides
           side = tr.side;
-          y += 22 * ts;
+          y += 20 * ts;
           F(17, MONO, '500');
-          if (drawing && ctx.letterSpacing !== undefined) ctx.letterSpacing = (2.4 * s) + 'px';
-          text('SIDE ' + side, x0, y, 'left', ink2());
-          if (drawing && ctx.letterSpacing !== undefined) ctx.letterSpacing = '0px';
+          if (drawing) letterSp(2.6);
+          text('SIDE ' + side, x0, y, 'left', ev.ink3);
+          if (drawing) letterSp(0);
           y += g(14);
         }
-        y += 32 * ts;
-        F(24, GROTESK);
-        if (drawing && ctx.letterSpacing !== undefined && ev.track) ctx.letterSpacing = (ev.track * s) + 'px';
-        text(tr.title, x0, y);
-        if (drawing && ctx.letterSpacing !== undefined) ctx.letterSpacing = '0px';
-        F(24, MONO);
-        text(tr.time, x1, y, 'right');
-        if (drawing && ev.leaders) {
-          F(24, GROTESK);
-          var tw = ctx.measureText(tr.title).width / s;
-          F(24, MONO);
-          var mw = ctx.measureText(tr.time).width / s;
-          var lx = x0 + tw + 16, rx = x1 - mw - 16;
-          ctx.fillStyle = ink2(0.4);
-          for (var dx = lx; dx < rx; dx += 11) {
-            ctx.fillRect(dx * s, (y - 4) * s, 1.6 * s, 1.6 * s);
+        // wrap long titles inside the row's measure (timing column reserved)
+        F(24, MONO); // timing width first
+        var timeW = ctx.measureText(tr.time).width / s;
+        ctx.font = '400 ' + (24 * ts * s) + 'px ' + SANS;
+        var titleMax = (x1 - x0) - timeW - 40;
+        var tLines = wrapText(ctx, tr.title, titleMax);
+        tLines.forEach(function (l, li) {
+          y += 32 * ts;
+          if (drawing) letterSp(ev.track);
+          text(l, x0, y, 'left', ev.ink);
+          if (drawing) letterSp(0);
+          if (li === 0) {
+            F(24, MONO);
+            text(tr.time, x1, y, 'right', ev.ink2);
+            if (drawing && ev.leaders) {
+              ctx.font = '400 ' + (24 * ts * s) + 'px ' + SANS;
+              var tw = ctx.measureText(l).width / s;
+              var lx = x0 + tw + 16, rx = x1 - timeW - 16;
+              ctx.fillStyle = bone(0.28);
+              for (var dx = lx; dx < rx; dx += 11) {
+                ctx.fillRect(dx * s, (y - 4) * s, 1.6 * s, 1.6 * s);
+              }
+            }
+            ctx.font = '400 ' + (24 * ts * s) + 'px ' + SANS;
           }
-        }
+        });
         y += g(8);
       });
       y += g(22);
@@ -404,41 +462,52 @@
       F(18, MONO);
       rec.credits.forEach(function (c) {
         y += 26 * ts;
-        text(c, x0, y, 'left', ink2(0.78));
+        text(c, x0, y, 'left', ev.ink2);
       });
       y += g(34);
 
       // 7 prose — max measure ~62ch, justified left
-      F(21, GROTESK);
+      ctx.font = '400 ' + (21 * ts * s) + 'px ' + SANS;
       var ch = ctx.measureText('abcdefghijklmnopqrstuvwxyz').width / 26 / s;
       var measure = Math.min(x1 - x0, ch * 62);
       var proseLines = wrapText(ctx, rec.prose, measure);
-      proseLines.forEach(function (l) { y += 21 * ev.leading * ts; text(l, x0, y); });
+      proseLines.forEach(function (l) { y += 21 * ev.leading * ts; text(l, x0, y, 'left', bone(0.82)); });
 
-      // 8 foot row — pinned to the bottom
-      var fy = 1400 - PAD + 8;
-      F(17, MONO);
-      text(rec.pressingLine, x0, fy, 'left', ink2());
-      var right = 'linernotes · departive.com';
-      if (rec.pressingLabel) {
-        F(17, MONO, '500');
-        text(rec.pressingLabel + '   ', x1 - ctx.measureText(right).width / s - 8, fy, 'right', ink2(0.85));
+      // 8 foot row — anchored at the base (content is guaranteed to clear it)
+      if (drawing) {
+        F(17, MONO);
+        text(rec.pressingLine, x0, footY, 'left', ev.ink3);
+        var right = 'linernotes · departive.com';
+        var rightW = ctx.measureText(right).width / s;
+        if (rec.pressingLabel) {
+          F(17, MONO, '500');
+          text(rec.pressingLabel, x1 - rightW - 28, footY, 'right', ev.acc);
+        }
+        F(17, MONO);
+        text(right, x1, footY, 'right', bone(0.35));
       }
-      F(17, MONO);
-      text(right, x1, fy, 'right', ink2(0.5));
 
-      return y + 60; // content height before the pinned foot
+      return y; // content bottom (compared against footClear)
     }
 
     function draw() {
-      // paper ground + deterministic paper grain (seeded speckle)
-      ctx.fillStyle = PAPER;
+      // matte dark board — the site's ground family
+      var grad = ctx.createLinearGradient(0, 0, 0, px);
+      grad.addColorStop(0, '#161009');
+      grad.addColorStop(0.42, '#141009');
+      grad.addColorStop(1, '#100c06');
+      ctx.fillStyle = grad;
       ctx.fillRect(0, 0, px, px);
+      // deterministic grain — bone speckle, very low
       var rg = PLANT.mulberry32(rec.seed ^ 0x9e3779b9);
-      ctx.fillStyle = 'rgba(26,25,23,0.024)';
+      ctx.fillStyle = bone(0.02);
       for (var i = 0; i < 3600; i++) {
         ctx.fillRect(rg() * px, rg() * px, s * (0.8 + rg() * 1.6), s * (0.8 + rg() * 1.6));
       }
+      // board edge hairline
+      ctx.strokeStyle = bone(0.10);
+      ctx.lineWidth = Math.max(1, 1 * s);
+      ctx.strokeRect(0.5 * s, 0.5 * s, px - s, px - s);
       ctx.textBaseline = 'alphabetic';
       layout(true);
     }
@@ -448,17 +517,19 @@
 
   function exportPNG() {
     if (!state.record) return;
-    var canvas = renderCanvas(state.record, state.cover, 2800);
-    var name = 'linernotes-' + state.record.catalog.replace(/[^A-Za-z0-9]+/g, '-').toLowerCase() +
-      (state.k > 0 ? '-p' + (state.k + 1) : '') + '.png';
-    canvas.toBlob(function (blob) {
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
-    }, 'image/png');
+    ensureFonts().then(function () { // never draw before the faces are in
+      var canvas = renderCanvas(state.record, state.cover, 2800);
+      var name = 'linernotes-' + state.record.catalog.replace(/[^A-Za-z0-9]+/g, '-').toLowerCase() +
+        (state.k > 0 ? '-p' + (state.k + 1) : '') + '.png';
+      canvas.toBlob(function (blob) {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+      }, 'image/png');
+    });
   }
 
   /* ============================================================
@@ -488,9 +559,10 @@
   el.exportBtn.addEventListener('click', exportPNG);
 
   /* dev handle (dev mode only) — used by the Phase 0 harness */
-  if (DEV) window.LN_SLEEVE = { renderCanvas: renderCanvas, state: state, typeset: typeset };
+  if (DEV) window.LN_SLEEVE = { renderCanvas: renderCanvas, state: state, typeset: typeset, eraValues: eraValues };
 
   /* boot: empty state, or ?seed= dev shim (synthetic feature vector) */
+  ensureFonts(); // kick the loads early
   if (params.has('seed')) {
     var forced = parseInt(params.get('seed'), 10) >>> 0;
     state.features = PLANT.featuresFromSeed(forced);
