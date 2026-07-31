@@ -1,0 +1,79 @@
+{
+  "slug": "cambodia",
+  "title": "5 Days in Cambodia",
+  "kicker": "Photo story · Cambodia · Dec 2018",
+  "route": "Phnom Penh · Siem Reap · Angkor Wat",
+  "byline": "David Gheorghita",
+  "gear": "iPhone X",
+  "standfirst": "Five days, three cities, one phone in my pocket. Cambodia keeps the twelfth century and this morning in the same frame without apology — gods and demons guarding the gates, a monk blessing the motorbike a family arrived on, grilled fish under a bare bulb, a face in the crowd with a blade at its tongue. Here is what I saw before the light turned ordinary.",
+  "cover": { "file": "cover-1527605337.JPG", "alt": "Angkor Wat at sunrise" },
+  "chapters": [
+    {
+      "number": "One",
+      "title": "Angkor Wat",
+      "paragraph": "We came before the sun. At that hour the largest religious monument on earth belongs to almost no one — the cold, the frogs, and five towers holding their shape against a sky that hasn’t chosen a colour yet. Then it catches fire behind them, and every phone on the causeway goes up at once.",
+      "images": [
+        { "file": "original-16.JPG", "block": "full", "alt": "Angkor Wat at dawn, reflected in the lotus pool", "caption": "Sunrise, across the reflecting pool.", "mode": "plate" },
+        { "file": "original.JPG", "block": "inset", "alt": "The outer gallery of Angkor Wat receding toward the towers at dawn", "caption": "The outer gallery, once the crowd thins.", "mode": "plate" },
+        { "file": "original-3.JPEG", "block": "inset", "alt": "Two women cycling past a food cart at sunrise", "caption": "The town wakes up on two wheels.", "mode": "aside" }
+      ]
+    },
+    {
+      "number": "Two",
+      "title": "Angkor Thom",
+      "paragraph": "North of the temple, a bridge crosses the moat into the walled city of Angkor Thom. Fifty-four gods hold one side of it, fifty-four demons the other, each row hauling on the body of the same stone serpent — a tug-of-war frozen for eight hundred years. You pass between them to get in.",
+      "images": [
+        { "file": "original-3.jpg", "block": "inset", "alt": "The south gate of Angkor Thom, cyclists on the red road", "caption": "The south gate — people still ride through it to get to work.", "mode": "aside" },
+        { "file": "original-15.JPG", "block": "pair", "alt": "Stone faces lining the causeway" },
+        { "file": "original-14.JPG", "block": "pair", "alt": "Stone faces lining the causeway", "caption": "Gods on one side, demons on the other — the same faces, worn softer or fiercer depending on which side time was kinder to.", "mode": "aside" }
+      ]
+    },
+    {
+      "number": "Three",
+      "title": "The monks",
+      "paragraph": "The country is full of monks, and none of them behave the way the postcards promise — they fist-bump after a blessing, hold a pose for a portrait, then go straight back to their phones.",
+      "images": [
+        { "file": "original-9.JPG", "block": "pair", "alt": "Young monks near the temples" },
+        { "file": "original-7.JPG", "block": "pair", "alt": "Young monks near the temples", "caption": "Both agreed to be photographed. Both had somewhere else to be.", "mode": "aside" },
+        { "quote": "One I met drinks Red Bull, carries a battered iPhone 4, and — of course — <a href=\"https://www.instagram.com/bunkham59/\" target=\"_blank\" rel=\"noopener\">is on Instagram</a>." },
+        { "file": "original-2.jpeg", "block": "inset", "alt": "A monk resting in a hammock", "caption": "Off-duty, in the shade.", "mode": "plate" },
+        { "file": "original-6.JPG", "block": "inset", "alt": "A monk pouring a water blessing over a family on temple steps", "caption": "A monk blessing an entire family — and the motorbike they came on. Everyone gets the water.", "mode": "aside" }
+      ]
+    },
+    {
+      "number": "Four",
+      "title": "Ta Prohm",
+      "paragraph": "Then Ta Prohm, the temple the jungle refused to give back. Strangler figs have poured over the walls like candle wax, roots the width of a person holding the stone up and prising it apart in the same slow grip. It’s the one they filmed <em>Tomb Raider</em> in. It’s also the one that looks least like it was ever ours to build.",
+      "images": [
+        { "file": "original-4.jpeg", "block": "full", "alt": "Tree roots draped over the stone galleries of Ta Prohm" },
+        { "file": "original-8.JPG", "block": "inset", "alt": "An apsara carving beside enormous tree roots", "caption": "A dancer carved into the wall; a tree deciding how long she stays.", "mode": "plate" }
+      ]
+    },
+    {
+      "number": "Five",
+      "title": "The night market",
+      "paragraph": "After dark, the food gets braver. The famous dare comes first — three tarantulas, deep-fried whole, legs curled, with a wedge of lime and a peppery dip. Crisp shell, soft inside, and honestly not the ordeal the guidebooks promise. Past the spiders it’s a proper night market: river fish blackening over embers, women sorting the day’s catch on the ground by torchlight, fish amok steamed soft in a banana-leaf cup. You eat standing up, under a bare bulb, and most of it is better than it has any right to be.",
+      "images": [
+        { "file": "original.jpeg", "block": "inset", "alt": "Three fried tarantulas on a plate with lime and dipping sauce", "caption": "The house special — three of them, a lime, and a dip.", "mode": "plate" },
+        { "file": "original-10.JPG", "block": "triptych", "alt": "The Cambodian night market" },
+        { "file": "original-11.JPG", "block": "triptych", "alt": "The Cambodian night market" },
+        { "file": "original-4.jpg", "block": "triptych", "alt": "The Cambodian night market", "caption": "Past the spiders: over the fire, on the ground, on the plate.", "mode": "plate" }
+      ]
+    },
+    {
+      "number": "Six",
+      "title": "Phnom Penh",
+      "paragraph": "The capital kept its strangeness for last. At a festival on the edge of the city, entranced mediums drew blades across their own tongues and cheeks — steel through skin, a bead of blood, and then a calm that didn’t match what I’d just watched. No one explained it. I’m not sure anyone could.",
+      "images": [
+        { "file": "original-12.jpg", "block": "pair", "alt": "Mediums at a Phnom Penh festival" },
+        { "file": "original-13.JPG", "block": "pair", "alt": "Mediums at a Phnom Penh festival", "caption": "Mediums at the festival, mid-trance.", "mode": "plate" }
+      ]
+    }
+  ],
+  "end": {
+    "tally": "Five days. One phone. No regrets — not even about the fish.",
+    "gearLine": "All photographs shot on an iPhone X",
+    "place": "Cambodia",
+    "date": "December 2018"
+  }
+}
