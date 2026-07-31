@@ -59,6 +59,26 @@ This file is the map for any session touching the site — read before editing.
   - `app-echo-frame` — App Store (tile + Echoes-header link)
   - `archived-beta` — ARCHIVE/D beta mailto
   - `leica-100` — Leica Threads feature link
+  - `discover-studies` — /studies opener CTA
+  - `ln-export` / `ln-next-pressing` — Liner Notes actions
+  - `column-compose` / `column-export` — The Column actions
+- **Standalone routes report (Option A, 31 Jul integration).** The GC tag +
+  the delegated click listener now ship on `/studies`, `/stories/`,
+  `/stories/cambodia/`, `/linernotes`, `/column`, `/light` (same body-end
+  pattern). Pageviews cover internal navigation; the named events above cover
+  the in-page actions. (Superseded the earlier "studies stays dark" note.)
+
+## Routes (page doors + contextual links — 31 Jul integration)
+
+- Nav = anchors + TWO page doors: **Studies · Stories** (top, sticky, footer).
+  The three instruments are NOT nav items; they get contextual doors:
+  - Photography II (landing) → `/linernotes` ("Every photograph is the cover…")
+  - Now/Lately Fits card → `/column` ("composed against The Northern Column")
+  - Footer light-ledger heading → `/light` (ledger = teaser, /light = instrument)
+  - `/studies` Sightline plate → `/light`; ARCHIVE/D plate → `/column`
+- `/stories/` is a standalone index (studies conventions) holding one card
+  (Cambodia); built to take more. All contextual copy is swappable — the
+  candidates are in `DeepField_Strategy/prompts/reports/report_08_*`.
 
 ## Footer — "The light today · Stockholm"
 
@@ -102,7 +122,14 @@ This file is the map for any session touching the site — read before editing.
    David to supply the real exports at those paths — **no app UI in frame**
    (see `assets/studies/README.md` → Studio overture). Optional silent loop:
    `overture.mp4/.webm` + `overture-poster.jpg`. Placeholders auto-replace.
-5. **/studies analytics** — the opener CTA carries `data-ev="discover-studies"`,
-   but `studies/index.html` is standalone/static with **no analytics runtime**
-   (per its original brief), so no event fires yet. If the studies route should
-   report to the site's analytics, add the delegated `data-ev` listener there.
+5. ~~**/studies analytics**~~ **DONE 31 Jul** — GoatCounter + delegated listener
+   now on all standalone routes (Option A). See Analytics above.
+6. **New-route copy — David to pick (report_08).** All implemented with a best
+   candidate + flagged swappable: `/stories` premise (2 candidates), the
+   Photography→Liner Notes line, the Sightline→/light line. Approve or swap.
+7. **Footer "Instruments" strip** — proposed in report_08 (quiet-strip pattern,
+   landing footer). NOT shipped; David decides.
+8. **og:image for new routes** — `/stories` (+ future story OG cards) deferred
+   until dedicated art exists; HTML comment marks the expected path.
+9. **`/light` include** — `light/include.html` is built but intentionally left
+   UNWIRED this pass (David hasn't chosen the Now/Lately placement).

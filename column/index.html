@@ -217,7 +217,7 @@
       </div>
 
       <div class="compose-row">
-        <button class="compose-btn" id="composeBtn" data-armed="false">Compose</button>
+        <button class="compose-btn" id="composeBtn" data-ev="column-compose" data-armed="false">Compose</button>
         <span class="compose-hint" id="composeHint">The base four are required</span>
       </div>
 
@@ -227,7 +227,7 @@
         <ul class="verdict-lines" id="verdictLines"></ul>
         <div class="verdict-foot">
           <span class="mark">composed against The Northern Column · ARCHIVE/D</span>
-          <button class="export-btn" id="exportBtn">Export the card &#8599;</button>
+          <button class="export-btn" id="exportBtn" data-ev="column-export">Export the card &#8599;</button>
         </div>
       </div>
     </div>
@@ -678,5 +678,24 @@ document.addEventListener('DOMContentLoaded', function () {
   update();
 });
 </script>
+<!-- click → GoatCounter events (delegated; outbound + data-ev) -->
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-ev], a[href]');
+    if (!el || !(window.goatcounter && window.goatcounter.count)) return;
+    var name, title;
+    if (el.dataset && el.dataset.ev) { name = title = el.dataset.ev; }
+    else {
+      var u; try { u = new URL(el.href, location.href); } catch (_) { return; }
+      if (u.protocol === 'mailto:') { name = 'email'; title = el.href; }
+      else if (u.host === location.host) return;
+      else { name = 'out-' + u.host; title = el.href; }
+    }
+    window.goatcounter.count({ path: name, title: title, event: true });
+  }, true);
+})();
+</script>
+<!-- GoatCounter --><script data-goatcounter="https://departive.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><!-- End GoatCounter -->
 </body>
 </html>

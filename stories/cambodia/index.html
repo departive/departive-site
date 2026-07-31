@@ -344,5 +344,24 @@ blockquote::before{content:"";display:block;width:34px;height:2px;background:var
   layoutTicks(); frame();
 })();
 </script>
+<!-- click → GoatCounter events (delegated; outbound + data-ev) -->
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-ev], a[href]');
+    if (!el || !(window.goatcounter && window.goatcounter.count)) return;
+    var name, title;
+    if (el.dataset && el.dataset.ev) { name = title = el.dataset.ev; }
+    else {
+      var u; try { u = new URL(el.href, location.href); } catch (_) { return; }
+      if (u.protocol === 'mailto:') { name = 'email'; title = el.href; }
+      else if (u.host === location.host) return;
+      else { name = 'out-' + u.host; title = el.href; }
+    }
+    window.goatcounter.count({ path: name, title: title, event: true });
+  }, true);
+})();
+</script>
+<!-- GoatCounter --><script data-goatcounter="https://departive.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><!-- End GoatCounter -->
 </body>
 </html>
