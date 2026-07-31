@@ -236,7 +236,34 @@
       { t: 'Most takes are firsts. The seconds were worse.' },
       { t: 'The bass was recorded last, in one afternoon.' },
       { t: 'Half the record is the same four bars, treated differently.' },
-      { t: 'Microphones were placed and then not touched for a month.' }
+      { t: 'Microphones were placed and then not touched for a month.' },
+      /* — 24 BODY sentences authored via Phase 0 candidates, approved by
+         David 31 Jul 2026. Transcribed byte-exact from the approved list.
+         Pole affinities live in plant.js (BODY_POLE_W), not here. — */
+      { t: 'The kettle is audible twice; both takes were kept.' },
+      { t: 'Recorded with the curtains drawn, on the advice of no one.' },
+      { t: 'The chair creak in the quiet passages is the good chair.' },
+      { t: 'One microphone, moved eleven times, is the whole stereo image.' },
+      { t: 'The upright was recorded from underneath. This was not revisited.' },
+      { t: 'Nothing was played louder than the neighbours would allow.' },
+      { t: 'Four of these were recorded outdoors; the wind decided which four.' },
+      { t: 'The generator is audible on the quiet ones. It was forty metres away.' },
+      { t: 'Boots remained on throughout. The floor is part of the drum sound.' },
+      { t: 'The van served as the control room, engine off.' },
+      { t: 'Two songs were finished on the ferry; the timetable is thanked.' },
+      { t: 'The field recordings are from within a kilometre of the studio door.' },
+      { t: 'The drum machine ran all night; the takes are excerpts.' },
+      { t: 'Vocals were done standing in the corridor, facing the wall.' },
+      { t: 'There is no reverb on this record that a room did not provide.' },
+      { t: 'The guitar was tuned once, in January.' },
+      { t: 'Six amps were tried. The broken one was used.' },
+      { t: 'Nothing was recorded after the heating failed; side B is from before.' },
+      { t: 'The patch was not saved. This is the only document of it.' },
+      { t: 'The sequencer drifted; the drift was promoted to structure.' },
+      { t: 'All four oscillators were borrowed from three people.' },
+      { t: 'The delay unit was set once and taped over.' },
+      { t: 'Mixing took nine evenings, the same fader most of them.' },
+      { t: 'The modular was sold on completion; the invoice is in the sleeve of copy one.' }
     ],
     ODDITY: [
       { t: "The hum audible at {T} is the studio refrigerator, retained at the artist's insistence.", bindT: true },
@@ -359,7 +386,7 @@
     chk('PEOPLE', titlePools.PEOPLE.length, 16);
     chk('NUMBERS', titlePools.NUMBERS.length, 18);
     chk('prose OPENING', prose.OPENING.length, 14);
-    chk('prose BODY', prose.BODY.length, 14);
+    chk('prose BODY', prose.BODY.length, 38); // 14 original + 24 approved 31 Jul 2026
     chk('prose ODDITY', prose.ODDITY.length, 16);
     chk('prose CLOSE', prose.CLOSE.length, 14);
     chk('pressing lines', prose.PRESSING.length, 12);

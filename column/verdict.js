@@ -26,6 +26,14 @@
       "Hard where it counts, soft where it's felt. Correct.",
       "The split is right. Nothing here is negotiating."
     ],
+    ratio_on_target_soft: [
+      /* soft-lane · authored 31 Jul 2026 pending David read-back —
+         the only non-transcribed lines in this corpus (canon ruling:
+         the soft-dominant 30/70 lane opens; drape-dominant framing,
+         softness carried on a hard anchor) */
+      "Thirty-seventy, the soft lane. Drape leads; the anchor consents.",
+      "The ratio holds, inverted. Softness carried on one hard point."
+    ],
     ratio_soft_heavy: [
       "Too much drape, not enough frame. The fit asks for one structured piece.",
       "Comfort is winning. Give it a spine.",
@@ -158,6 +166,20 @@
     return lines[idx];
   }
 
+  /* NEAREST MODE (ruling, David 31 Jul 2026): the closest of the four
+     modes is always identified — affinity argmax; ties broken by the
+     seeded draw (fit hash), deterministic. Display-only on failing fits
+     (quiet mono line); passing fits keep today's headline behaviour. */
+  function nearestMode(scores, hash) {
+    var best = -Infinity, tied = [];
+    forms.MODES.forEach(function (m) {
+      if (scores[m] > best) { best = scores[m]; tied = [m]; }
+      else if (scores[m] === best) tied.push(m);
+    });
+    if (tied.length === 1) return tied[0];
+    return tied[((hash ^ fnv1a('nearest_mode')) >>> 0) % tied.length];
+  }
+
   /* ------------------------------------------------------------------ */
   /* Assembly — fixed order, cap 3–5 with the suppression rule          */
   /* ------------------------------------------------------------------ */
@@ -182,10 +204,12 @@
     });
 
     if (!ev.complete) {
-      return { hash: hash, headline: null, mode: null,
+      return { hash: hash, headline: null, mode: null, nearest: null,
                lines: [{ state: 'incomplete', text: draw('incomplete', hash, avoid) }],
                incomplete: true };
     }
+
+    var nearest = nearestMode(ev.mode.scores, hash);
 
     var lines = [];
     function push(state, key) { lines.push({ state: state, text: draw(key, hash, avoid) }); }
@@ -232,10 +256,11 @@
       throw new Error('COLUMN verdict assertion: line cap exceeded (' + lines.length + ')');
     }
 
-    return { hash: hash, headline: headline, mode: mode, lines: lines,
-             allPass: ev.allPass, incomplete: false };
+    return { hash: hash, headline: headline, mode: mode, nearest: nearest,
+             lines: lines, allPass: ev.allPass, incomplete: false };
   }
 
   return { CORPUS: CORPUS, fnv1a: fnv1a, canonical: canonical,
-           hashFit: hashFit, draw: draw, compose: compose, MAX_LINES: MAX_LINES };
+           hashFit: hashFit, draw: draw, nearestMode: nearestMode,
+           compose: compose, MAX_LINES: MAX_LINES };
 });

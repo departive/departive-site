@@ -714,7 +714,32 @@
     /* 10 firsts / seconds worse */ { STARK: 1.5, TERRAIN: 1.5, INTERIOR: 1.5, CIRCUIT: 1.5 },
     /* 11 bass recorded last     */ { STARK: 2.0, TERRAIN: 1.5, INTERIOR: 1.0, CIRCUIT: 0.7 },
     /* 12 same four bars         */ { STARK: 2.0, TERRAIN: 0.4, INTERIOR: 1.0, CIRCUIT: 3.0 },
-    /* 13 mics not touched       */ { STARK: 0.8, TERRAIN: 2.5, INTERIOR: 2.0, CIRCUIT: 0.5 }
+    /* 13 mics not touched       */ { STARK: 0.8, TERRAIN: 2.5, INTERIOR: 2.0, CIRCUIT: 0.5 },
+    /* — 24 BODY sentences approved 31 Jul 2026; primary pole ~2.6–3.0 — */
+    /* 14 kettle audible twice   */ { STARK: 0.3, TERRAIN: 0.8, INTERIOR: 3.0, CIRCUIT: 0.3 },
+    /* 15 curtains drawn         */ { STARK: 0.8, TERRAIN: 0.3, INTERIOR: 2.8, CIRCUIT: 0.6 },
+    /* 16 chair creak            */ { STARK: 0.2, TERRAIN: 0.7, INTERIOR: 3.0, CIRCUIT: 0.2 },
+    /* 17 one mic, eleven moves  */ { STARK: 0.7, TERRAIN: 1.0, INTERIOR: 2.8, CIRCUIT: 0.4 },
+    /* 18 upright from beneath   */ { STARK: 0.4, TERRAIN: 0.5, INTERIOR: 3.0, CIRCUIT: 0.3 },
+    /* 19 neighbours' volume     */ { STARK: 0.5, TERRAIN: 0.4, INTERIOR: 2.6, CIRCUIT: 0.8 },
+    /* 20 four outdoors, wind    */ { STARK: 0.3, TERRAIN: 3.0, INTERIOR: 0.7, CIRCUIT: 0.2 },
+    /* 21 generator forty metres */ { STARK: 0.8, TERRAIN: 3.0, INTERIOR: 0.4, CIRCUIT: 0.5 },
+    /* 22 boots on, floor sound  */ { STARK: 1.0, TERRAIN: 2.8, INTERIOR: 0.5, CIRCUIT: 0.2 },
+    /* 23 van as control room    */ { STARK: 0.8, TERRAIN: 2.8, INTERIOR: 0.4, CIRCUIT: 0.5 },
+    /* 24 ferry, timetable       */ { STARK: 0.3, TERRAIN: 3.0, INTERIOR: 0.8, CIRCUIT: 0.2 },
+    /* 25 field recs within 1 km */ { STARK: 0.4, TERRAIN: 3.0, INTERIOR: 0.6, CIRCUIT: 0.7 },
+    /* 26 drum machine all night */ { STARK: 3.0, TERRAIN: 0.2, INTERIOR: 0.3, CIRCUIT: 1.5 },
+    /* 27 corridor vocals        */ { STARK: 3.0, TERRAIN: 0.5, INTERIOR: 0.8, CIRCUIT: 0.4 },
+    /* 28 no reverb but rooms    */ { STARK: 2.8, TERRAIN: 1.0, INTERIOR: 0.8, CIRCUIT: 0.3 },
+    /* 29 tuned once, January    */ { STARK: 2.8, TERRAIN: 1.2, INTERIOR: 0.6, CIRCUIT: 0.2 },
+    /* 30 six amps, broken used  */ { STARK: 3.0, TERRAIN: 0.8, INTERIOR: 0.4, CIRCUIT: 0.5 },
+    /* 31 heating failed, side B */ { STARK: 2.8, TERRAIN: 0.7, INTERIOR: 0.9, CIRCUIT: 0.4 },
+    /* 32 patch not saved        */ { STARK: 0.4, TERRAIN: 0.2, INTERIOR: 0.4, CIRCUIT: 3.0 },
+    /* 33 sequencer drift        */ { STARK: 0.7, TERRAIN: 0.2, INTERIOR: 0.4, CIRCUIT: 3.0 },
+    /* 34 four oscillators       */ { STARK: 0.5, TERRAIN: 0.2, INTERIOR: 0.3, CIRCUIT: 3.0 },
+    /* 35 delay set, taped over  */ { STARK: 1.0, TERRAIN: 0.3, INTERIOR: 0.5, CIRCUIT: 2.8 },
+    /* 36 nine evenings, fader   */ { STARK: 0.8, TERRAIN: 0.4, INTERIOR: 1.0, CIRCUIT: 2.6 },
+    /* 37 modular sold, invoice  */ { STARK: 0.6, TERRAIN: 0.2, INTERIOR: 0.4, CIRCUIT: 3.0 }
   ];
   function makeBodyWeight(coords) {
     var p1 = coords.blend[0], p2 = coords.blend[1];
@@ -756,6 +781,9 @@
     function bodyOk(e) {
       if (used[e.t]) return false;
       if (e.minYear && ctx.recYear < e.minYear) return false;
+      // combination veto (SYSTEM §6): a sentence naming side B cannot appear
+      // on an unsided format (CD) — same class as the minYear guard above
+      if (e.t.indexOf('side B') !== -1 && !ctx.hasSides) return false;
       return true;
     }
     var body = bodyDraw(CORPUS.prose.BODY.filter(bodyOk));

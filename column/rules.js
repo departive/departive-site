@@ -79,13 +79,20 @@
       if (e.form.hs === 'H') hard += w;
     });
     var pct = total > 0 ? (hard / total) * 100 : 0;
-    var pass = pct >= 60 && pct <= 80;
+    /* Canon ruling (David, 31 Jul 2026): BOTH lanes pass — hard-dominant
+       60–80% hard, soft-dominant 20–40% hard (softness carried on a hard
+       anchor). The 40–60 dead zone fails as neither committed, voiced by
+       the nearest failure family (<50 soft-heavy, ≥50 hard-heavy);
+       <20 soft-heavy, >80 hard-heavy, exactly 100/0 total. */
+    var pass = (pct >= 60 && pct <= 80) || (pct >= 20 && pct <= 40);
+    var direction = pass ? (pct >= 60 ? 'hard' : 'soft') : null;
     var state;
-    if (pass) state = 'on_target';
+    if (pass) state = direction === 'hard' ? 'on_target' : 'on_target_soft';
     else if (pct === 100 || pct === 0) state = 'total';
-    else if (pct < 60) state = 'soft_heavy';
-    else state = 'hard_heavy';
-    return { hardPct: pct, pass: pass, state: state };
+    else if (pct < 20) state = 'soft_heavy';
+    else if (pct > 80) state = 'hard_heavy';
+    else state = pct < 50 ? 'soft_heavy' : 'hard_heavy';
+    return { hardPct: pct, pass: pass, direction: direction, state: state };
   }
 
   /* §1.2 VOLUME MATCHING */
@@ -167,6 +174,8 @@
 
     assert(r.hardPct >= 0 && r.hardPct <= 100, 'ratio out of range');
     assert(!(r.pass && (r.state === 'soft_heavy' || r.state === 'hard_heavy' || r.state === 'total')), 'ratio state/pass mismatch');
+    assert(!r.pass || (r.direction === 'hard' || r.direction === 'soft'), 'ratio pass requires a lane');
+    assert(r.pass === ((r.hardPct >= 60 && r.hardPct <= 80) || (r.hardPct >= 20 && r.hardPct <= 40)), 'ratio lane bands');
     assert(entries.length >= 4, 'complete fit resolves at least four forms');
 
     return {

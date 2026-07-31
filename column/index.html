@@ -112,8 +112,10 @@
 
   .ratio-track { position:relative; height:10px; background:rgba(237,231,219,0.06); }
   .ratio-band { position:absolute; top:0; bottom:0; left:60%; width:20%; background:rgba(176,131,90,0.16); }
+  .ratio-band.soft { left:20%; } /* soft-dominant lane (canon ruling 31 Jul 2026) */
   .ratio-fill { position:absolute; top:0; bottom:0; left:0; width:0%; background:linear-gradient(90deg, rgba(237,231,219,0.34), rgba(237,231,219,0.5)); transition:width 0.6s cubic-bezier(0.22,1,0.36,1); }
   .ratio-notch { position:absolute; top:-4px; bottom:-4px; left:70%; width:1px; background:var(--accent); }
+  .ratio-notch.soft { left:30%; }
 
   .anchor-pair { display:flex; align-items:center; gap:0; height:22px; }
   .anchor-pair .sw { width:18px; height:18px; border-radius:50%; border:1px solid var(--line-d); transition:margin 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.4s ease; }
@@ -142,6 +144,8 @@
   .verdict-align { font-family:var(--mono); font-size:13px; letter-spacing:0.18em; color:var(--accent); white-space:nowrap; }
   .verdict-align[hidden] { display:none; }
   .verdict-headline { margin:0 0 14px; font-family:var(--serif); font-weight:400; font-size:clamp(26px,3.4vw,36px); line-height:1.05; letter-spacing:0.01em; }
+  .verdict-nearest { margin:0 0 14px; font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--mutedInk); }
+  .verdict-nearest[hidden] { display:none; }
   .verdict-lines { margin:0; padding:0; list-style:none; }
   .verdict-lines li { font-family:var(--sans); font-size:15px; line-height:1.65; color:rgba(237,231,219,0.82); padding:7px 0; border-top:1px solid var(--line-dd); }
   .verdict-lines li:first-child { border-top:none; }
@@ -197,7 +201,7 @@
     <span class="p-kicker">How to read</span>
     <p class="p-lead">Compose a fit; six rules judge it. Pass, and the strongest mode names the verdict.</p>
     <dl class="p-keys">
-      <div><dt>Ratio 70/30</dt><dd>Hard structure to soft texture, seventy to thirty &mdash; within ten.</dd></div>
+      <div><dt>Ratio 70/30</dt><dd>Hard structure to soft texture, seventy to thirty &mdash; either lane, within ten.</dd></div>
       <div><dt>Volume</dt><dd>Bottoms and footwear agree on width; the top half may sit one step off.</dd></div>
       <div><dt>Deviation 0&ndash;1</dt><dd>At most one statement form. Zero is valid; two is a violation.</dd></div>
       <div><dt>Light</dt><dd>At most one non-matte surface &mdash; the Nocturnal Shield excepted.</dd></div>
@@ -226,11 +230,17 @@
           <span class="counter" id="alignVal">ALIGNMENT —/6</span>
         </div>
         <div class="inst">
+          <span class="lbl">Mode</span>
+          <span class="counter" id="nearestVal">NEAREST — —</span>
+        </div>
+        <div class="inst">
           <span class="lbl">Ratio <span class="val" id="ratioVal">H — / S —</span></span>
-          <div class="ratio-track" role="img" aria-label="Hard to soft ratio against the seventy-thirty target">
+          <div class="ratio-track" role="img" aria-label="Hard to soft ratio against the seventy-thirty target, either lane">
             <div class="ratio-band"></div>
+            <div class="ratio-band soft"></div>
             <div class="ratio-fill" id="ratioFill"></div>
             <div class="ratio-notch"></div>
+            <div class="ratio-notch soft"></div>
           </div>
         </div>
         <div class="inst">
@@ -260,6 +270,7 @@
           <span class="verdict-align" id="verdictAlign" hidden></span>
         </div>
         <h3 class="verdict-headline" id="verdictHeadline" hidden></h3>
+        <p class="verdict-nearest" id="verdictNearest" hidden></p>
         <ul class="verdict-lines" id="verdictLines"></ul>
         <div class="verdict-foot">
           <span class="mark">composed against The Northern Column · ARCHIVE/D</span>
@@ -401,6 +412,12 @@ function renderVerdictExport(ctx, W, H, format, payload, forms) {
     headLines.forEach(function (l, i) { ctx.fillText(l, X0, y + (i + 0.85) * headLH); });
   }});
 
+  // nearest mode — quiet mono, failing fits only (the failure stays the story)
+  if (!headLines.length && payload.nearestName) blocks.push({ h: st ? 40 : 22, draw: function (y) {
+    ctx.fillStyle = '#6b6252'; ctx.font = F.align;
+    ctx.fillText('NEAREST MODE — ' + payload.nearestName, X0, y + (st ? 28 : 15));
+  }});
+
   // verdict lines, hairline-separated
   var lineWraps = v.lines.map(function (l) { return wrap(l.text, F.body, CW); });
   var linesGap = st ? 26 : 15, linesH = 0;
@@ -425,15 +442,21 @@ function renderVerdictExport(ctx, W, H, format, payload, forms) {
   var formsAvail = (availBottom - availTop) - otherH - gap * (blocks.length + 1);
   var n = entries.length || 1, scale, formsBlock;
   if (st) {
-    scale = Math.max(0.35, Math.min(1.15, (formsAvail - n * (slotLabelH + 12)) / (n * 120)));
-    formsBlock = { h: n * (120 * scale + slotLabelH + 12), draw: function (y) {
-      var yy = y;
-      entries.forEach(function (e) {
-        drawForm(e, W / 2 - 50 * scale, yy, scale);
+    // two columns of three (David, 31 Jul 2026): column-major — the top
+    // half descends the left column, the bottom half the right
+    var rows = Math.ceil(n / 2) || 1;
+    scale = Math.max(0.5, Math.min(1.7, (formsAvail - rows * (slotLabelH + 14)) / (rows * 120)));
+    var cellH = 120 * scale + slotLabelH + 14;
+    formsBlock = { h: rows * cellH, draw: function (y) {
+      var colX = [X0 + CW * 0.25, X0 + CW * 0.75];
+      entries.forEach(function (e, i) {
+        var col = Math.floor(i / rows), row = i % rows;
+        var cx = colX[Math.min(col, 1)];
+        var yy = y + row * cellH;
+        drawForm(e, cx - 50 * scale, yy, scale);
         ctx.fillStyle = '#6b6252'; ctx.font = F.slot; ctx.textAlign = 'center';
-        ctx.fillText(e.slot.toUpperCase() + ' — ' + e.form.label.toUpperCase(), W / 2, yy + 120 * scale + slotLabelH - 8);
+        ctx.fillText(e.slot.toUpperCase() + ' — ' + e.form.label.toUpperCase(), cx, yy + 120 * scale + slotLabelH - 8);
         ctx.textAlign = 'left';
-        yy += 120 * scale + slotLabelH + 12;
       });
     }};
   } else {
@@ -690,6 +713,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var anchorSwB = document.getElementById('anchorSwB');
   var anchorSwF = document.getElementById('anchorSwF');
   var alignVal = document.getElementById('alignVal');
+  var nearestVal = document.getElementById('nearestVal');
   var devCounter = document.getElementById('devCounter');
   var sheenTally = document.getElementById('sheenTally');
   var sheenVal = document.getElementById('sheenVal');
@@ -743,6 +767,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // ALIGNMENT — derived readout (rules.alignment; display only)
     var al = rules.alignment(complete ? rules.evaluate(fit) : null);
     alignVal.textContent = 'ALIGNMENT ' + (al.n === null ? '—' : al.n) + '/' + al.of;
+
+    // NEAREST MODE — always identified once forms are placed (ruling 31 Jul)
+    if (entries.length) {
+      var nm = verdictM.nearestMode(m.scores, verdictM.hashFit(fit));
+      nearestVal.textContent = 'NEAREST — ' + forms.MODE_NAMES[nm];
+    } else {
+      nearestVal.textContent = 'NEAREST — —';
+    }
   }
 
   /* ---------------- update loop ---------------- */
@@ -775,6 +807,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var verdictCard = document.getElementById('verdictCard');
   var verdictHeadline = document.getElementById('verdictHeadline');
   var verdictAlign = document.getElementById('verdictAlign');
+  var verdictNearest = document.getElementById('verdictNearest');
   var verdictLines = document.getElementById('verdictLines');
   var lastVerdict = null;
 
@@ -790,6 +823,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var al = rules.alignment(ev.complete ? ev : null);
     verdictAlign.hidden = al.n === null;
     verdictAlign.textContent = al.n === null ? '' : 'ALIGNMENT ' + al.n + '/' + al.of;
+    // nearest mode: quiet mono line on failing fits only — the failure stays the story
+    var showNearest = !v.headline && v.nearest;
+    verdictNearest.hidden = !showNearest;
+    verdictNearest.textContent = showNearest ? 'NEAREST MODE — ' + forms.MODE_NAMES[v.nearest] : '';
     verdictLines.innerHTML = '';
     v.lines.forEach(function (l) {
       var li = document.createElement('li');
@@ -815,7 +852,8 @@ document.addEventListener('DOMContentLoaded', function () {
         renderVerdictExport(ctx, W, H, format, {
           entries: lastVerdict.ev.entries || rules.resolve(lastVerdict.fit),
           verdict: lastVerdict.v,
-          align: rules.alignment(lastVerdict.ev.complete ? lastVerdict.ev : null)
+          align: rules.alignment(lastVerdict.ev.complete ? lastVerdict.ev : null),
+          nearestName: (!lastVerdict.v.headline && lastVerdict.v.nearest) ? forms.MODE_NAMES[lastVerdict.v.nearest] : null
         }, forms);
         var a = document.createElement('a');
         a.download = filename;
