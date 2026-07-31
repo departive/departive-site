@@ -1,0 +1,54 @@
+<!-- ============================================================================
+  STOCKHOLM LIGHT — Now/Lately section include (NOT WIRED — David decides placement)
+
+  Drop this fragment into the landing page's Now/Lately area, inside
+  [data-departive-root]. It is built for the dc-runtime host:
+
+  DOUBLE-MOUNT SAFETY (TASKS.md, critical):
+    - The dc-runtime re-mounts page content after load, replacing raw DOM
+      nodes; a naive script that writes to its first querySelector match hits
+      the doomed template copy and gets wiped (flicker-then-revert).
+    - panel.js therefore NEVER caches nodes. Every render re-queries
+      [data-light-panel], filters to visible instances via
+      isVis(el){ return el.getClientRects().length > 0 }, and repaints each
+      one with a full idempotent innerHTML rebuild.
+    - boot() retries via requestAnimationFrame (~300 tries) until a visible
+      instance exists, and a 1.5 s watchdog repaints any instance whose
+      contents a late re-mount wiped ([data-sl-rendered] missing).
+    - boot() is guarded by window.__SL_BOOTED, so it is safe if the runtime
+      duplicates or re-executes this fragment's script tags.
+
+  If the host page already loads /light/solar.js, /light/sky.js and
+  /light/panel.js (e.g. both placements ship), the duplicate <script src>
+  tags below are harmless: each module is a bare re-assignment of the same
+  global, and boot() runs once.
+
+  Styling is self-contained: panel.js emits inline styles that read the
+  site's custom properties (--serif/--mono/--accent/--muted/--mutedInk/
+  --onDark) with hardcoded fallbacks, so the include inherits the house
+  type/ground with zero extra CSS. data-light-compact selects the tighter
+  variant for in-page placement.
+============================================================================ -->
+
+<section id="stockholm-light" style="padding:clamp(48px,8vh,96px) 0; border-top:1px solid rgba(237,231,219,0.08);">
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:clamp(20px,3vh,30px);" data-reveal>
+    <span style="width:22px; height:1px; background:var(--accent,#b0835a);"></span>
+    <span style="font-family:var(--mono,monospace); font-size:11px; letter-spacing:0.26em; text-transform:uppercase; color:var(--accent,#b0835a);">The light, now &middot; Stockholm</span>
+  </div>
+
+  <!-- the mount — panel.js re-queries this on every tick; never cached -->
+  <div data-light-panel data-light-compact aria-live="off"></div>
+
+  <p style="margin:clamp(16px,2.5vh,22px) 0 0; font-family:var(--mono,monospace); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mutedInk,#6b6252);">
+    Sightline V0 &middot; <a href="/light/" style="color:var(--muted,#9e9484); text-decoration:none; border-bottom:1px solid var(--accent,#b0835a); padding-bottom:1px;">the full panel &#8599;</a>
+  </p>
+</section>
+
+<script src="/light/solar.js"></script>
+<script src="/light/sky.js"></script>
+<script src="/light/panel.js"></script>
+<script>
+  // Idempotent — guarded by window.__SL_BOOTED; survives duplicate execution
+  // under the dc-runtime. Rendering targets visible instances only.
+  if (window.SLPanel) SLPanel.boot();
+</script>
