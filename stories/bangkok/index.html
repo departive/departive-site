@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<title>5 Days in Bangkok — departive</title>
+<meta name="description" content="Five days in Chinatown with one camera and no plan — nine fruits we couldn’t name, a market that never quite closed, and one afternoon somewhere built to look">
+<meta name="theme-color" content="#141009">
+<link rel="canonical" href="https://departive.com/stories/bangkok/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141009'/%3E%3Ccircle cx='16' cy='16' r='4.4' fill='%23b0835a'/%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="departive">
+<meta property="og:title" content="5 Days in Bangkok">
+<meta property="og:description" content="Five days in Chinatown with one camera and no plan — nine fruits we couldn’t name, a market that never quite closed, and one afternoon somewhere built to look">
+<meta property="og:url" content="https://departive.com/stories/bangkok/">
+<meta property="og:image" content="https://departive.com/stories/bangkok/img/01-2-jpg-1600.jpg">
+<style>
+:root{--accent:#b0835a;--bone:#f2eee6;--ink:#1a150d;--muted:#9e9484;--mutedInk:#6b6252;
+--line:rgba(26,21,13,.12);--onDark:#ede7db;
+--serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+--sans:'Instrument Sans',system-ui,-apple-system,sans-serif;
+--mono:ui-monospace,'SF Mono',Menlo,monospace;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block}
+::selection{background:var(--accent);color:var(--bone)}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(176,131,90,.4)}
+
+@keyframes riseIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.reveal-on [data-reveal]{opacity:0}
+.reveal-on [data-reveal].is-in{animation:riseIn 1s cubic-bezier(0.22,1,0.36,1) both}
+@media(prefers-reduced-motion:reduce){.reveal-on [data-reveal]{opacity:1!important;animation:none!important}html{scroll-behavior:auto}}
+
+/* cover */
+.cover{position:relative;height:96vh;height:96svh;min-height:560px;overflow:hidden;background:#241f1a}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,16,9,.15),rgba(20,16,9,0) 32%,rgba(20,16,9,0) 55%,rgba(20,16,9,.74))}
+.chrome{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(22px,3vw,30px) clamp(24px,5vw,56px)}
+.chrome .logo{font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.14em;color:var(--onDark);text-decoration:none;border-bottom:none;transition:letter-spacing .6s cubic-bezier(.22,1,.36,1)}
+.chrome .logo:hover{letter-spacing:.24em}
+.chrome .logo span{color:var(--accent)}
+.chrome .back{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,231,219,.6);text-decoration:none;border-bottom:none;transition:color .35s ease}
+.chrome .back:hover{color:var(--onDark)}
+.cover-text{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:0 clamp(24px,7vw,120px) clamp(40px,7vh,84px);color:#f4efe6}
+.cover-text .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.82);margin-bottom:18px}
+.cover-text h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,9vw,120px);line-height:.96;letter-spacing:-.01em;margin:0}
+.cover-text .sub{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.6vw,30px);color:rgba(244,239,230,.9);margin-top:12px}
+
+/* standfirst + byline */
+.byline{max-width:640px;margin:clamp(38px,6vh,64px) auto clamp(8px,3vh,22px);padding:0 24px;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--mutedInk);text-transform:uppercase}
+.byline .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.lede{max-width:720px;margin:clamp(18px,4vh,40px) auto clamp(28px,6vh,60px);padding:0 24px}
+.lede p{font-family:var(--serif);font-size:clamp(22px,3vw,30px);line-height:1.34;margin:0;color:var(--ink)}
+
+/* chapters — tint + ink come from the hero palette, computed at build time */
+.chapter{background:var(--chTint,transparent);padding:1px 0 clamp(28px,5vh,56px)}
+.section-head{max-width:640px;margin:clamp(56px,9vh,104px) auto clamp(18px,3vh,28px);padding:0 24px}
+.section-head .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.section-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,5vw,54px);line-height:1;letter-spacing:-.01em;margin:0}
+.prose{max-width:640px;margin:0 auto;padding:0 24px}
+.prose p{margin:1.15em 0;color:#2b2418}
+
+/* image blocks */
+figure{margin:clamp(20px,3.4vh,34px) 0}
+.cap{max-width:640px;margin:12px auto 0;padding:0 24px;font-family:var(--serif);font-style:italic;font-size:16px;color:var(--chInk,var(--mutedInk));text-align:center}
+.fullwrap{margin-left:0;margin-right:0}
+.full{position:relative;left:50%;margin-left:-50vw;width:100vw;max-height:96vh;overflow:hidden}
+.full .media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.par-on .full .media{height:124%;top:-12%}
+.inset picture{display:block}
+.inset .contained{width:auto;max-width:min(1180px,100%);max-height:90vh;margin:0 auto;height:auto;padding:0 clamp(0px,2vw,24px)}
+.group .grid{display:grid;gap:clamp(8px,1.4vw,18px);max-width:1180px;margin:0 auto;padding:0 clamp(0px,3vw,40px)}
+.pair .grid{grid-template-columns:1fr 1fr}
+.triptych .grid{grid-template-columns:1fr 1fr 1fr;gap:clamp(8px,1.2vw,16px)}
+.group .cell{position:relative;overflow:hidden;background:#241f1a10}
+.group .cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.pair .grid,.triptych .grid{grid-template-columns:1fr}}
+
+blockquote{max-width:680px;margin:clamp(44px,6vh,66px) auto;padding:0 24px;font-family:var(--serif);font-size:clamp(24px,3.4vw,34px);line-height:1.3;text-align:center}
+blockquote::before{content:"";display:block;width:34px;height:2px;background:var(--accent);margin:0 auto 26px}
+
+/* end plate */
+.end{max-width:640px;margin:clamp(72px,11vh,130px) auto 0;padding:0 24px clamp(60px,10vh,120px);border-top:1px solid var(--line)}
+.end .sig{font-family:var(--serif);font-size:22px;margin-top:22px}
+.end .foot{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-top:18px;line-height:1.9}
+.end .foot a{color:var(--muted);border-bottom:none;transition:color .35s ease}
+.end .foot a:hover{color:var(--ink)}
+
+/* chapter spine */
+.spine{position:fixed;left:18px;top:50%;transform:translateY(-50%);height:min(46vh,420px);z-index:8;display:none}
+@media(min-width:980px){.spine{display:block}}
+.spine .track{position:relative;width:2px;height:100%;background:rgba(26,21,13,.1)}
+.spine .fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--accent);transform-origin:top}
+.spine .tick{position:absolute;left:-3px;width:8px;height:2px;background:rgba(26,21,13,.28);border-bottom:none}
+.spine .tick:hover{background:var(--accent)}
+
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;mix-blend-mode:soft-light;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:140px 140px}
+</style>
+</head>
+<body>
+
+<header class="cover">
+<picture>
+<source type="image/webp" srcset="img/01-2-jpg-480.webp 480w, img/01-2-jpg-960.webp 960w, img/01-2-jpg-1600.webp 1600w, img/01-2-jpg-2400.webp 2400w" sizes="100vw">
+<img class="media" src="img/01-2-jpg-2400.jpg" srcset="img/01-2-jpg-480.jpg 480w, img/01-2-jpg-960.jpg 960w, img/01-2-jpg-1600.jpg 1600w, img/01-2-jpg-2400.jpg 2400w" sizes="100vw" width="3952" height="5929" alt="Yaowarat Road at golden hour, tuk-tuks beneath a canopy of Chinese neon." fetchpriority="high" decoding="async">
+</picture>
+<div class="chrome">
+<a class="logo" href="/">departive<span>.</span></a>
+<a class="back" href="/">&larr; departive.com</a>
+</div>
+<div class="cover-text"><div class="eyebrow">Photo story · Bangkok · February 2026</div><h1>5 Days in Bangkok</h1><div class="sub">Yaowarat · Chinatown · the ancient city</div></div>
+</header>
+
+<div class="byline"><span class="dot"></span> By David Gheorghita &middot; shot on Leica Q3 43</div>
+<div class="lede" data-reveal><p>Five days in Chinatown with one camera and no plan — nine fruits we couldn’t name, a market that never quite closed, and one afternoon somewhere built to look old.</p></div>
+
+<section class="chapter" id="ch-1" data-chapter style="--chTint:#d4d0c5;--chInk:#16120b">
+<div class="section-head" data-reveal><div class="eyebrow">One</div><h2>Yaowarat</h2></div>
+<div class="prose" data-reveal><p>We stayed in Chinatown, which in Bangkok means Yaowarat — one road that runs on neon and engine noise and never quite goes dark. I went down into it every morning with the Leica and no particular plan, and by evening the same street had changed its mind: the fruit stalls folded away, the grills lit, the signs I’d read at breakfast buried under three more. You don’t work a street like this so much as let it reach you through the gaps — a cart already leaving, a face between a leaf and a lantern. I stopped trying to keep up on the second day.</p></div>
+<figure class="inset" data-reveal>
+<picture>
+<source type="image/webp" srcset="img/02-3-jpg-480.webp 480w, img/02-3-jpg-960.webp 960w, img/02-3-jpg-1600.webp 1600w, img/02-3-jpg-2400.webp 2400w" sizes="(min-width:1240px) 1180px, 96vw">
+<img class="contained" src="img/02-3-jpg-2400.jpg" srcset="img/02-3-jpg-480.jpg 480w, img/02-3-jpg-960.jpg 960w, img/02-3-jpg-1600.jpg 1600w, img/02-3-jpg-2400.jpg 2400w" sizes="(min-width:1240px) 1180px, 96vw" width="3807" height="5710" alt="A vendor’s food cart on a Chinatown street, seen through green leaves." loading="lazy" decoding="async">
+</picture>
+<figcaption class="cap aside">A vendor’s cart, already leaving.</figcaption>
+</figure>
+</section>
+
+<section class="chapter" id="ch-2" data-chapter style="--chTint:#d7d0c6;--chInk:#14160e">
+<div class="section-head" data-reveal><div class="eyebrow">Two</div><h2>Ground floor</h2></div>
+<div class="prose" data-reveal><p>The good part is at ankle height. Off the main road the alleys turn into one long working kitchen — a scale, a stack of bags, three men resting on crates between deliveries, a tray of fried fish under a hand-lettered 20. The one rule we kept was simple: if a fruit had no English name it went in the bag — nine of them did. In a back room a man ate his lunch alone under a wall of clocks, all set to different times, none of which he checked.</p></div>
+<figure class="fullwrap" data-reveal>
+<div class="full" data-parallax style="aspect-ratio:9520/6336"><picture>
+<source type="image/webp" srcset="img/05-jpg-480.webp 480w, img/05-jpg-960.webp 960w, img/05-jpg-1600.webp 1600w, img/05-jpg-2400.webp 2400w" sizes="100vw">
+<img class="media" src="img/05-jpg-2400.jpg" srcset="img/05-jpg-480.jpg 480w, img/05-jpg-960.jpg 960w, img/05-jpg-1600.jpg 1600w, img/05-jpg-2400.jpg 2400w" sizes="100vw" width="9520" height="6336" alt="Four young men resting on crates in a narrow Chinatown alley, one with a hand trolley." loading="lazy" decoding="async">
+</picture></div>
+<figcaption class="cap plate">An alley off Yaowarat, the slow hour.</figcaption>
+</figure>
+<figure class="inset" data-reveal>
+<picture>
+<source type="image/webp" srcset="img/08-jpg-480.webp 480w, img/08-jpg-960.webp 960w, img/08-jpg-1600.webp 1600w, img/08-jpg-2400.webp 2400w" sizes="(min-width:1240px) 1180px, 96vw">
+<img class="contained" src="img/08-jpg-2400.jpg" srcset="img/08-jpg-480.jpg 480w, img/08-jpg-960.jpg 960w, img/08-jpg-1600.jpg 1600w, img/08-jpg-2400.jpg 2400w" sizes="(min-width:1240px) 1180px, 96vw" width="5293" height="7939" alt="A tray of whole fried fish under a hand-lettered price sign reading 20." loading="lazy" decoding="async">
+</picture>
+<figcaption class="cap aside">Dinner, sold by weight and by pointing.</figcaption>
+</figure>
+<figure class="fullwrap" data-reveal>
+<div class="full" data-parallax style="aspect-ratio:8819/5869"><picture>
+<source type="image/webp" srcset="img/l1050561-jpg-480.webp 480w, img/l1050561-jpg-960.webp 960w, img/l1050561-jpg-1600.webp 1600w, img/l1050561-jpg-2400.webp 2400w" sizes="100vw">
+<img class="media" src="img/l1050561-jpg-2400.jpg" srcset="img/l1050561-jpg-480.jpg 480w, img/l1050561-jpg-960.jpg 960w, img/l1050561-jpg-1600.jpg 1600w, img/l1050561-jpg-2400.jpg 2400w" sizes="100vw" width="8819" height="5869" alt="A man eating alone at a table beneath a wall of mismatched clocks." loading="lazy" decoding="async">
+</picture></div>
+<figcaption class="cap plate">A back-room lunch, Chinatown.</figcaption>
+</figure>
+</section>
+
+<section class="chapter" id="ch-3" data-chapter style="--chTint:#d8ccc2;--chInk:#1c0c02">
+<div class="section-head" data-reveal><div class="eyebrow">Three</div><h2>Errands</h2></div>
+<div class="prose" data-reveal><p>Thailand keeps its monks in plain sight. One stood in a temple doorway near the market, in an orange you could pick out from the far end of the street; another crossed a shopfront hung with red and gold, in a face mask the exact shade of his robe. Neither was performing anything. They were between one place and the next, the way anyone is. The orange is the loudest colour in the country, and it never once tries to be.</p></div>
+<figure class="group pair" data-reveal>
+<div class="grid">
+<div class="cell" style="aspect-ratio:0.6665"><picture>
+<source type="image/webp" srcset="img/02-jpg-480.webp 480w, img/02-jpg-960.webp 960w, img/02-jpg-1600.webp 1600w, img/02-jpg-1655.webp 1655w" sizes="(max-width:720px) 96vw, (min-width:1240px) 581px, 47vw">
+<img class="media" src="img/02-jpg-1655.jpg" srcset="img/02-jpg-480.jpg 480w, img/02-jpg-960.jpg 960w, img/02-jpg-1600.jpg 1600w, img/02-jpg-1655.jpg 1655w" sizes="(max-width:720px) 96vw, (min-width:1240px) 581px, 47vw" width="1655" height="2483" alt="A monk in orange robes standing in a dark temple doorway." loading="lazy" decoding="async">
+</picture></div>
+<div class="cell" style="aspect-ratio:0.6665"><picture>
+<source type="image/webp" srcset="img/l1040711-jpg-480.webp 480w, img/l1040711-jpg-960.webp 960w, img/l1040711-jpg-1600.webp 1600w, img/l1040711-jpg-2400.webp 2400w" sizes="(max-width:720px) 96vw, (min-width:1240px) 581px, 47vw">
+<img class="media" src="img/l1040711-jpg-2400.jpg" srcset="img/l1040711-jpg-480.jpg 480w, img/l1040711-jpg-960.jpg 960w, img/l1040711-jpg-1600.jpg 1600w, img/l1040711-jpg-2400.jpg 2400w" sizes="(max-width:720px) 96vw, (min-width:1240px) 581px, 47vw" width="3336" height="5004" alt="A monk in an orange face mask among red-and-gold Chinatown decorations." loading="lazy" decoding="async">
+</picture></div>
+</div>
+<figcaption class="cap aside cap-wide">On errands, both — in the loudest colour in the country.</figcaption>
+</figure>
+</section>
+
+<section class="chapter" id="ch-4" data-chapter style="--chTint:#e1d9ce;--chInk:#463017">
+<div class="section-head" data-reveal><div class="eyebrow">Four</div><h2>The ancient city</h2></div>
+<div class="prose" data-reveal><p>On the last full day we went out to the ancient city. Whatever it is officially, it is immaculate in a way no genuinely old place manages — the topiary clipped, the moats clean, the gilding still bright, the grand pavilion holding a perfect copy of itself in the water below. Two monks took a red bridge under one orange umbrella, in no apparent hurry. A woman stood near the far end in full traditional dress, gold at her wrists and throat, dressed for a photograph. Nothing here had been left to time. Everything had been finished on purpose.</p></div>
+<figure class="inset" data-reveal>
+<picture>
+<source type="image/webp" srcset="img/05-4-jpg-480.webp 480w, img/05-4-jpg-960.webp 960w, img/05-4-jpg-1600.webp 1600w, img/05-4-jpg-2400.webp 2400w" sizes="(min-width:1240px) 1180px, 96vw">
+<img class="contained" src="img/05-4-jpg-2400.jpg" srcset="img/05-4-jpg-480.jpg 480w, img/05-4-jpg-960.jpg 960w, img/05-4-jpg-1600.jpg 1600w, img/05-4-jpg-2400.jpg 2400w" sizes="(min-width:1240px) 1180px, 96vw" width="6336" height="9504" alt="A gilded multi-tiered Thai pavilion mirrored in a still moat, bougainvillea in the foreground." loading="lazy" decoding="async">
+</picture>
+<figcaption class="cap plate">The grand hall, doubled in its own moat.</figcaption>
+</figure>
+<figure class="group pair" data-reveal>
+<div class="grid">
+<div class="cell" style="aspect-ratio:0.6667"><picture>
+<source type="image/webp" srcset="img/03-jpg-480.webp 480w, img/03-jpg-960.webp 960w, img/03-jpg-1600.webp 1600w, img/03-jpg-2400.webp 2400w" sizes="(max-width:720px) 96vw, (min-width:1240px) 581px, 47vw">
+<img class="media" src="img/03-jpg-2400.jpg" srcset="img/03-jpg-480.jpg 480w, img/03-jpg-960.jpg 960w, img/03-jpg-1600.jpg 1600w, img/03-jpg-2400.jpg 2400w" sizes="(max-width:720px) 96vw, (min-width:1240px) 581px, 47vw" width="4194" height="6291" alt="Two monks crossing a red wooden bridge under a single orange umbrella." loading="lazy" decoding="async">
+</picture></div>
+<div class="cell" style="aspect-ratio:0.6667"><picture>
+<source type="image/webp" srcset="img/05-3-jpg-480.webp 480w, img/05-3-jpg-960.webp 960w, img/05-3-jpg-1600.webp 1600w, img/05-3-jpg-2400.webp 2400w" sizes="(max-width:720px) 96vw, (min-width:1240px) 581px, 47vw">
+<img class="media" src="img/05-3-jpg-2400.jpg" srcset="img/05-3-jpg-480.jpg 480w, img/05-3-jpg-960.jpg 960w, img/05-3-jpg-1600.jpg 1600w, img/05-3-jpg-2400.jpg 2400w" sizes="(max-width:720px) 96vw, (min-width:1240px) 581px, 47vw" width="4589" height="6883" alt="A young woman in traditional Thai dress with gold jewellery and a headdress." loading="lazy" decoding="async">
+</picture></div>
+</div>
+<figcaption class="cap plate cap-wide">Crossing the bridge, and dressed for the photograph.</figcaption>
+</figure>
+</section>
+
+<section class="chapter" id="ch-5" data-chapter style="--chTint:#ddd1c6;--chInk:#2f160f">
+<div class="section-head" data-reveal><div class="eyebrow">Five</div><h2>The seated</h2></div>
+<div class="prose" data-reveal><p>In one open hall the monks were still sitting. Rows of them, shoulder to shoulder, the same orange, every head bowed to the same degree — and not one of them a person. The faces are painted calm, the eyes closed on nothing, the robes set mid-fold; whoever made them gave each a slightly different mouth, so that from the doorway they read as a crowd holding its breath. They will kneel here long after the topiary has grown out and the gates are shut. I didn’t stay to work out why. I don’t think the hall wanted me to.</p></div>
+<figure class="inset" data-reveal>
+<picture>
+<source type="image/webp" srcset="img/04-2-jpg-480.webp 480w, img/04-2-jpg-960.webp 960w, img/04-2-jpg-1600.webp 1600w, img/04-2-jpg-2400.webp 2400w" sizes="(min-width:1240px) 1180px, 96vw">
+<img class="contained" src="img/04-2-jpg-2400.jpg" srcset="img/04-2-jpg-480.jpg 480w, img/04-2-jpg-960.jpg 960w, img/04-2-jpg-1600.jpg 1600w, img/04-2-jpg-2400.jpg 2400w" sizes="(min-width:1240px) 1180px, 96vw" width="2741" height="4111" alt="Rows of seated monk statues in orange robes, heads bowed and eyes lowered." loading="lazy" decoding="async">
+</picture>
+<figcaption class="cap plate">The seated hall, mid-morning.</figcaption>
+</figure>
+</section>
+
+<div class="end" data-reveal>
+<div class="sig">Five days. One camera. Nine fruits we couldn’t name, and a hall of monks who never once looked up.</div>
+<div class="foot">All photographs shot on a Leica Q3 43 &middot; Bangkok, February 2026<br>David Gheorghita &middot; <a href="/">departive</a></div>
+</div>
+
+<nav class="spine" aria-hidden="true"><div class="track"><div class="fill"></div></div></nav>
+<div class="grain" aria-hidden="true"></div>
+
+<script>
+// Islands: reveals + FULL-image parallax + chapter spine. Self-contained.
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* scroll reveals — same pattern as the rest of the site */
+  if (!reduce) {
+    document.documentElement.classList.add('reveal-on');
+    var els = [].slice.call(document.querySelectorAll('[data-reveal]'));
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); } });
+      }, { rootMargin:'0px 0px -6% 0px', threshold:0.04 });
+      els.forEach(function(e){ io.observe(e); });
+    } else { els.forEach(function(e){ e.classList.add('is-in'); }); }
+  }
+
+  /* chapter spine — ticks at real chapter offsets, fill tracks scroll */
+  var spine = document.querySelector('.spine');
+  var track = spine && spine.querySelector('.track');
+  var fill = spine && spine.querySelector('.fill');
+  var chapters = [].slice.call(document.querySelectorAll('[data-chapter]'));
+  function layoutTicks(){
+    if (!track) return;
+    [].slice.call(track.querySelectorAll('.tick')).forEach(function(t){ t.remove(); });
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+    if (docH <= 0) return;
+    chapters.forEach(function(ch, i){
+      var t = document.createElement('a');
+      t.className = 'tick'; t.href = '#' + ch.id; t.tabIndex = -1;
+      t.style.top = Math.min(100, (ch.offsetTop / docH) * 100) + '%';
+      track.appendChild(t);
+    });
+  }
+
+  /* parallax on FULL blocks only — content moves at ~0.85x scroll rate */
+  var pars = [];
+  if (!reduce) {
+    document.documentElement.classList.add('par-on');
+    pars = [].slice.call(document.querySelectorAll('[data-parallax]')).map(function(fig){
+      return { fig: fig, img: fig.querySelector('.media') };
+    });
+  }
+  var ticking = false;
+  function frame(){
+    ticking = false;
+    var vh = window.innerHeight;
+    if (fill) {
+      var docH = document.documentElement.scrollHeight - vh;
+      var p = docH > 0 ? Math.min(1, Math.max(0, window.scrollY / docH)) : 0;
+      fill.style.height = (p * 100) + '%';
+    }
+    for (var i = 0; i < pars.length; i++) {
+      var r = pars[i].fig.getBoundingClientRect();
+      if (r.bottom < -80 || r.top > vh + 80) continue;
+      var progress = r.top + r.height / 2 - vh / 2;       // px from viewport centre
+      var bleed = pars[i].img.offsetHeight - r.height;    // extra height available
+      var ty = Math.max(-bleed/2, Math.min(bleed/2, -progress * 0.15));
+      pars[i].img.style.transform = 'translate3d(0,' + ty.toFixed(1) + 'px,0)';
+    }
+  }
+  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', function(){ layoutTicks(); onScroll(); }, { passive:true });
+  window.addEventListener('load', function(){ layoutTicks(); onScroll(); });
+  layoutTicks(); frame();
+})();
+</script>
+</body>
+</html>

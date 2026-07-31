@@ -1,6 +1,10 @@
 # Working notes — local only, not part of the public repo
 TASKS.md
 .claude/
+stories/*/trip.md
+
+# Build tooling deps (Field Notes) — not served, not tracked
+node_modules/
 
 # macOS
 .DS_Store

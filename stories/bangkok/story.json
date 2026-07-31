@@ -1,0 +1,65 @@
+{
+  "slug": "bangkok",
+  "title": "5 Days in Bangkok",
+  "kicker": "Photo story · Bangkok · February 2026",
+  "route": "Yaowarat · Chinatown · the ancient city",
+  "byline": "David Gheorghita",
+  "gear": "Leica Q3 43",
+  "standfirst": "Five days in Chinatown with one camera and no plan — nine fruits we couldn’t name, a market that never quite closed, and one afternoon somewhere built to look old.",
+  "cover": { "file": "01 2.JPG", "alt": "Yaowarat Road at golden hour, tuk-tuks beneath a canopy of Chinese neon." },
+
+  "chapters": [
+    {
+      "number": "One",
+      "title": "Yaowarat",
+      "paragraph": "We stayed in Chinatown, which in Bangkok means Yaowarat — one road that runs on neon and engine noise and never quite goes dark. I went down into it every morning with the Leica and no particular plan, and by evening the same street had changed its mind: the fruit stalls folded away, the grills lit, the signs I’d read at breakfast buried under three more. You don’t work a street like this so much as let it reach you through the gaps — a cart already leaving, a face between a leaf and a lantern. I stopped trying to keep up on the second day.",
+      "images": [
+        { "file": "02 3.JPG", "block": "inset", "alt": "A vendor’s food cart on a Chinatown street, seen through green leaves.", "caption": "A vendor’s cart, already leaving.", "mode": "aside" }
+      ]
+    },
+    {
+      "number": "Two",
+      "title": "Ground floor",
+      "paragraph": "The good part is at ankle height. Off the main road the alleys turn into one long working kitchen — a scale, a stack of bags, three men resting on crates between deliveries, a tray of fried fish under a hand-lettered 20. The one rule we kept was simple: if a fruit had no English name it went in the bag — nine of them did. In a back room a man ate his lunch alone under a wall of clocks, all set to different times, none of which he checked.",
+      "images": [
+        { "file": "05.JPG", "block": "full", "alt": "Four young men resting on crates in a narrow Chinatown alley, one with a hand trolley.", "caption": "An alley off Yaowarat, the slow hour.", "mode": "plate" },
+        { "file": "08.JPG", "block": "inset", "alt": "A tray of whole fried fish under a hand-lettered price sign reading 20.", "caption": "Dinner, sold by weight and by pointing.", "mode": "aside" },
+        { "file": "L1050561.JPG", "block": "full", "alt": "A man eating alone at a table beneath a wall of mismatched clocks.", "caption": "A back-room lunch, Chinatown.", "mode": "plate" }
+      ]
+    },
+    {
+      "number": "Three",
+      "title": "Errands",
+      "paragraph": "Thailand keeps its monks in plain sight. One stood in a temple doorway near the market, in an orange you could pick out from the far end of the street; another crossed a shopfront hung with red and gold, in a face mask the exact shade of his robe. Neither was performing anything. They were between one place and the next, the way anyone is. The orange is the loudest colour in the country, and it never once tries to be.",
+      "images": [
+        { "file": "02.jpg", "block": "pair", "alt": "A monk in orange robes standing in a dark temple doorway." },
+        { "file": "L1040711.JPG", "block": "pair", "alt": "A monk in an orange face mask among red-and-gold Chinatown decorations.", "caption": "On errands, both — in the loudest colour in the country.", "mode": "aside" }
+      ]
+    },
+    {
+      "number": "Four",
+      "title": "The ancient city",
+      "paragraph": "On the last full day we went out to the ancient city. Whatever it is officially, it is immaculate in a way no genuinely old place manages — the topiary clipped, the moats clean, the gilding still bright, the grand pavilion holding a perfect copy of itself in the water below. Two monks took a red bridge under one orange umbrella, in no apparent hurry. A woman stood near the far end in full traditional dress, gold at her wrists and throat, dressed for a photograph. Nothing here had been left to time. Everything had been finished on purpose.",
+      "images": [
+        { "file": "05 4.JPG", "block": "inset", "alt": "A gilded multi-tiered Thai pavilion mirrored in a still moat, bougainvillea in the foreground.", "caption": "The grand hall, doubled in its own moat.", "mode": "plate" },
+        { "file": "03.JPG", "block": "pair", "alt": "Two monks crossing a red wooden bridge under a single orange umbrella." },
+        { "file": "05 3.JPG", "block": "pair", "alt": "A young woman in traditional Thai dress with gold jewellery and a headdress.", "caption": "Crossing the bridge, and dressed for the photograph.", "mode": "plate" }
+      ]
+    },
+    {
+      "number": "Five",
+      "title": "The seated",
+      "paragraph": "In one open hall the monks were still sitting. Rows of them, shoulder to shoulder, the same orange, every head bowed to the same degree — and not one of them a person. The faces are painted calm, the eyes closed on nothing, the robes set mid-fold; whoever made them gave each a slightly different mouth, so that from the doorway they read as a crowd holding its breath. They will kneel here long after the topiary has grown out and the gates are shut. I didn’t stay to work out why. I don’t think the hall wanted me to.",
+      "images": [
+        { "file": "04 2.JPG", "block": "inset", "alt": "Rows of seated monk statues in orange robes, heads bowed and eyes lowered.", "caption": "The seated hall, mid-morning.", "mode": "plate" }
+      ]
+    }
+  ],
+
+  "end": {
+    "tally": "Five days. One camera. Nine fruits we couldn’t name, and a hall of monks who never once looked up.",
+    "gearLine": "All photographs shot on a Leica Q3 43",
+    "place": "Bangkok",
+    "date": "February 2026"
+  }
+}
