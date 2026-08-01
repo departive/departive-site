@@ -54,6 +54,27 @@ story template). Defined by the homepage hero topbar; don't let a page drift.
   mckp.live opener experiment, so the chrome spec was NOT applied there this
   pass. Apply it when that work merges.
 
+### Hover-tilt media — `assets/tilt.js`
+
+Native, dependency-free depth for device mockups (the quiet, self-hosted
+counterpart to the mckp.live live embeds). Include once per standalone page:
+`<script src="/assets/tilt.js" defer></script>` — the script injects its own
+CSS, so the tag is all a page needs.
+
+- **Contract:** any `[data-tilt]` element wrapping a `.media` child gains a
+  pointer-reactive perspective tilt (max 4.5°, `perspective(1200px)`), easing
+  back to rest on pointerleave (0.6s, site cubic-bezier). A faint pointer-
+  tracked specular sheen is on by default (the `::after` block in the file —
+  delete that pair of rules to drop it; David verdicts from a preview).
+- **Guards:** rAF-throttled pointermove; transform-only (zero layout / CLS);
+  fully inert on touch (`hover:none` / `pointer:coarse`) and
+  `prefers-reduced-motion`.
+- **Mounts (pending):** the /studies hero + per-study media slots (paths in
+  `assets/studies/README.md`). NOT wired anywhere yet — `studies/index.html`
+  is David's WIP and the landing is dc-runtime (kept script-free this pass).
+  When studies settles: add the `<script>` tag and wrap each media slot in
+  `<div data-tilt>…<img class="media">…</div>`.
+
 ## Hosting & deploy
 
 - **Cloudflare Workers static assets.** Worker name: `departive-site`,
