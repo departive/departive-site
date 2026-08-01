@@ -77,7 +77,19 @@
   #stickyNav nav a.sn-page { color: #1a150d; }
   #stickyNav nav a.sn-page::before { content: "\00b7"; color: #b0835a; margin-right: 6px; }
   #stickyNav nav a.sn-page:hover { color: #b0835a; }
-  @media (max-width: 640px) { #stickyNav { padding: 11px clamp(16px,6vw,40px); } #stickyNav .sn-logo { display: none; } #stickyNav nav { width: 100%; justify-content: space-between; gap: 8px; } #stickyNav nav a { font-size: 10px; letter-spacing: 0.1em; } }
+  @media (max-width: 640px) {
+    #stickyNav { padding: 11px clamp(16px,6vw,40px); }
+    #stickyNav .sn-logo { display: none; }
+    /* prompt_09 C: always one line — drop interpunct, tighten, and scroll
+       horizontally with 24px fade masks both ends rather than clip or wrap */
+    #stickyNav nav { width: 100%; justify-content: flex-start; gap: 9px; flex-wrap: nowrap;
+      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%); }
+    #stickyNav nav::-webkit-scrollbar { display: none; }
+    #stickyNav nav a { font-size: 9.5px; letter-spacing: 0.08em; flex: 0 0 auto; white-space: nowrap; }
+    #stickyNav nav a.sn-page::before { content: none; margin: 0; } /* step 1: drop interpunct on mobile */
+  }
   #echoRefresh, #rotationRefresh, #fitRefresh, #objectsRefresh { background:none; border:0; padding:2px; margin:-2px 0; cursor:pointer; color:var(--muted); display:inline-flex; align-items:center; transition:color 0.3s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1); }
   #echoRefresh:hover, #rotationRefresh:hover, #fitRefresh:hover, #objectsRefresh:hover { color:var(--accent); }
   [data-exif-line] { display:block; margin-top:4px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--muted); opacity:0; transform:translateY(2px); transition:opacity 0.5s ease, transform 0.5s ease; }
