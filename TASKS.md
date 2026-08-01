@@ -26,6 +26,34 @@ This file is the map for any session touching the site — read before editing.
   Note: GoatCounter filters localhost — pageviews/events only register on
   the live domain. Local silence is not breakage.
 
+## Site chrome (canonical — 1 Aug 2026)
+
+One spec, every page (homepage + all standalone routes + the Field Notes
+story template). Defined by the homepage hero topbar; don't let a page drift.
+
+- **Logo** "departive." — Instrument Sans 500, 15px, letter-spacing 0.14em,
+  accent dot (`--accent`); the breathing dot animation is homepage-only.
+- **Chrome padding** (the header/topbar box holding logo + back link):
+  `clamp(24px,3vw,40px) clamp(22px,5vw,64px)`. On standalone pages the
+  header is a full-width sibling ABOVE `.wrap` (not inside it), so the logo
+  sits at the same viewport-edge offset everywhere. The old standalone value
+  `clamp(22px,3vw,34px) clamp(22px,6vw,96px)` is retired.
+- **No tracking-on-hover, anywhere.** Logo hover is a quiet `opacity:0.7`
+  fade (`transition:opacity 0.35s ease`); the old letter-spacing expansion
+  (0.14em→0.24/0.26em) is gone on every page, homepage included. No element
+  animates its letter-spacing on hover.
+- **Back link** "← departive.com" (subpages): mono 11px uppercase, `--muted`
+  → `--onDark` on hover, flush right via the header's `space-between` at the
+  same right padding (`clamp(22px,5vw,64px)`) — it lands exactly where the
+  homepage nav's last item (Stories) sits, so the return click is muscle
+  memory. Vertically centered with the logo.
+- Story pages inherit this from the `tools/fieldnotes` template (`.chrome`);
+  rebuild after any chrome change (`node tools/fieldnotes/build.js
+  stories/<slug>/` — renditions are reused, only the HTML regenerates).
+- **EXCLUDED (WIP):** `studies/index.html` carries David's uncommitted
+  mckp.live opener experiment, so the chrome spec was NOT applied there this
+  pass. Apply it when that work merges.
+
 ## Hosting & deploy
 
 - **Cloudflare Workers static assets.** Worker name: `departive-site`,

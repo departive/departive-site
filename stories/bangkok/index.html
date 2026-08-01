@@ -39,9 +39,9 @@ a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(176,131,
 .cover{position:relative;height:96vh;height:96svh;min-height:560px;overflow:hidden;background:#241f1a}
 .cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,16,9,.15),rgba(20,16,9,0) 32%,rgba(20,16,9,0) 55%,rgba(20,16,9,.74))}
-.chrome{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(22px,3vw,30px) clamp(24px,5vw,56px)}
-.chrome .logo{font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.14em;color:var(--onDark);text-decoration:none;border-bottom:none;transition:letter-spacing .6s cubic-bezier(.22,1,.36,1)}
-.chrome .logo:hover{letter-spacing:.24em}
+.chrome{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(24px,3vw,40px) clamp(22px,5vw,64px)}
+.chrome .logo{font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.14em;color:var(--onDark);text-decoration:none;border-bottom:none;transition:opacity .35s ease}
+.chrome .logo:hover{opacity:.7}
 .chrome .logo span{color:var(--accent)}
 .chrome .back{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,231,219,.6);text-decoration:none;border-bottom:none;transition:color .35s ease}
 .chrome .back:hover{color:var(--onDark)}
