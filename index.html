@@ -52,8 +52,13 @@
   @media (max-width: 768px) { [data-hero-kb] { object-position: 88% 38% !important; } }
   @media (max-width: 480px) { [data-hero-kb] { object-position: 92% 34% !important; } }
   @media (max-width: 700px) {
-    [data-hero-topbar] { flex-direction: column; align-items: flex-start; gap: 18px !important; }
+    /* align-items !important beats the inline align-items:center on the topbar,
+       so the logo left-aligns with the nav rows (prompt_09 B) */
+    [data-hero-topbar] { flex-direction: column; align-items: flex-start !important; gap: 18px !important; }
     [data-hero-nav] { justify-content: flex-start !important; width: 100%; row-gap: 12px; column-gap: 20px !important; }
+    /* page doors distinguish by colour/weight on mobile; drop the leading
+       interpunct so their text hangs from the same left edge as WORK…LATELY */
+    [data-hero-nav] .nav-door-sep { display: none; }
   }
   @media (max-width: 640px) {
     [data-idx-row] { grid-template-columns: 1fr !important; gap: 6px !important; }
@@ -122,8 +127,8 @@
         <a href="#craft" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Craft</a>
         <a href="#apps" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Apps</a>
         <a href="#now" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Lately</a>
-        <a href="/studies/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Studies</a>
-        <a href="/stories/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Stories</a>
+        <a href="/studies/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:var(--accent);">·&nbsp;</span>Studies</a>
+        <a href="/stories/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:var(--accent);">·&nbsp;</span>Stories</a>
       </nav>
     </header>
 
