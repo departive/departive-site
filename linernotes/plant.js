@@ -739,7 +739,20 @@
     /* 34 four oscillators       */ { STARK: 0.5, TERRAIN: 0.2, INTERIOR: 0.3, CIRCUIT: 3.0 },
     /* 35 delay set, taped over  */ { STARK: 1.0, TERRAIN: 0.3, INTERIOR: 0.5, CIRCUIT: 2.8 },
     /* 36 nine evenings, fader   */ { STARK: 0.8, TERRAIN: 0.4, INTERIOR: 1.0, CIRCUIT: 2.6 },
-    /* 37 modular sold, invoice  */ { STARK: 0.6, TERRAIN: 0.2, INTERIOR: 0.4, CIRCUIT: 3.0 }
+    /* 37 modular sold, invoice  */ { STARK: 0.6, TERRAIN: 0.2, INTERIOR: 0.4, CIRCUIT: 3.0 },
+    /* — 12 added 1 Aug 2026 (pool 38→50); index-aligned to CORPUS.prose.BODY — */
+    /* 38 dropped pick kept      */ { STARK: 3.0, TERRAIN: 0.6, INTERIOR: 0.5, CIRCUIT: 0.3 },
+    /* 39 loud, once             */ { STARK: 3.0, TERRAIN: 0.7, INTERIOR: 0.4, CIRCUIT: 0.4 },
+    /* 40 vocal single pass cold */ { STARK: 2.8, TERRAIN: 0.5, INTERIOR: 0.9, CIRCUIT: 0.3 },
+    /* 41 tide kept the hours    */ { STARK: 0.5, TERRAIN: 3.0, INTERIOR: 0.7, CIRCUIT: 0.2 },
+    /* 42 tractor, third minute  */ { STARK: 0.6, TERRAIN: 3.0, INTERIOR: 0.5, CIRCUIT: 0.3 },
+    /* 43 barn, swallows         */ { STARK: 0.7, TERRAIN: 3.0, INTERIOR: 0.6, CIRCUIT: 0.2 },
+    /* 44 hall clock stopped     */ { STARK: 0.4, TERRAIN: 0.5, INTERIOR: 3.0, CIRCUIT: 0.3 },
+    /* 45 house asleep           */ { STARK: 0.5, TERRAIN: 0.6, INTERIOR: 2.9, CIRCUIT: 0.3 },
+    /* 46 window, courtyard      */ { STARK: 0.4, TERRAIN: 1.0, INTERIOR: 2.8, CIRCUIT: 0.3 },
+    /* 47 arpeggiator outlived   */ { STARK: 0.6, TERRAIN: 0.2, INTERIOR: 0.4, CIRCUIT: 3.0 },
+    /* 48 sequencer left running */ { STARK: 0.7, TERRAIN: 0.2, INTERIOR: 0.4, CIRCUIT: 3.0 },
+    /* 49 one oscillator palette */ { STARK: 0.5, TERRAIN: 0.2, INTERIOR: 0.3, CIRCUIT: 3.0 }
   ];
   function makeBodyWeight(coords) {
     var p1 = coords.blend[0], p2 = coords.blend[1];

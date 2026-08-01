@@ -263,7 +263,22 @@
       { t: 'All four oscillators were borrowed from three people.' },
       { t: 'The delay unit was set once and taped over.' },
       { t: 'Mixing took nine evenings, the same fader most of them.' },
-      { t: 'The modular was sold on completion; the invoice is in the sleeve of copy one.' }
+      { t: 'The modular was sold on completion; the invoice is in the sleeve of copy one.' },
+      /* — 12 BODY sentences added 1 Aug 2026 (pool 38→50); ~3 per pole for even
+         coverage. Voice per §VOICE (deadpan studio micro-fact); pole affinities
+         appended index-aligned to plant.js BODY_POLE_W. — */
+      { t: 'The take with the dropped pick is the one that was kept.' },
+      { t: 'Played loud, played once; nothing here was rehearsed twice.' },
+      { t: 'The vocal was cut in a single pass, cold, before coffee.' },
+      { t: 'The tide kept the hours; two takes went out with it.' },
+      { t: 'A tractor passes in the third minute and is not faded.' },
+      { t: 'Recorded in the barn until the swallows objected.' },
+      { t: 'The hall clock was stopped for the week and not wound back.' },
+      { t: 'Recorded in the hours the house was asleep.' },
+      { t: 'The window stayed open to the courtyard; the courtyard is on the tape.' },
+      { t: 'The arpeggiator was set on the first day and outlived the sessions.' },
+      { t: 'The sequencer was left running between sessions; nothing reset it.' },
+      { t: 'One oscillator, multiplied and detuned, is the entire palette.' }
     ],
     ODDITY: [
       { t: "The hum audible at {T} is the studio refrigerator, retained at the artist's insistence.", bindT: true },
