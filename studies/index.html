@@ -144,10 +144,10 @@
      colours at full strength), replacing the indistinguishable 5% grounds. */
   .chapter { position:relative; padding:clamp(80px,12vh,130px) 0; }
   /* full-bleed seam: an edge-to-edge thin line + a soft, diffused amber glow (the study's own accent) */
-  .chapter::before { content:""; position:absolute; top:0; left:50%; margin-left:-50vw; width:100vw; height:clamp(200px,26vh,320px);
+  .chapter::before, .thread::before { content:""; position:absolute; top:0; left:50%; margin-left:-50vw; width:100vw; height:clamp(200px,26vh,320px);
     pointer-events:none; border-top:1px solid var(--line-dd);
     background:radial-gradient(62% 100% at 50% 0%, color-mix(in srgb, var(--chap-accent,var(--accent)) 8%, transparent) 0%, transparent 72%); }
-  .chapter > * { position:relative; }   /* content sits above the glow */
+  .chapter > *, .thread > * { position:relative; }   /* content sits above the glow */
   .chapter > .rule { display:block; width:clamp(48px,6vw,72px); height:2px; background:var(--chap-accent,var(--accent)); margin-bottom:clamp(16px,2.2vh,24px); }
   .masthead { display:flex; align-items:baseline; flex-wrap:wrap; gap:clamp(12px,2vw,24px); }
   .masthead .no { font-family:var(--mono); font-size:12px; letter-spacing:0.18em; color:var(--chap-accent,var(--accent)); }
@@ -240,7 +240,7 @@
   .sig .dom a:hover { color:var(--onDark); }
 
   /* closing passage + foot */
-  .thread { padding:clamp(64px,10vh,120px) 0 0; border-top:1px solid var(--line-dd); }
+  .thread { position:relative; padding:clamp(64px,10vh,120px) 0 0; }   /* seam is the full-bleed ::before (accent fallback → --accent) */
   .thread .lbl { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mutedInk); }
   .thread p { margin:clamp(20px,3vh,30px) 0 0; max-width:62ch; font-family:var(--sans); font-size:clamp(16px,1.35vw,19px); line-height:1.68; color:var(--muted); }
   footer.site { margin-top:clamp(72px,11vh,140px); padding:clamp(40px,6vh,64px) 0 clamp(48px,7vh,72px); border-top:1px solid var(--line-dd); display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
