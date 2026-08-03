@@ -51,11 +51,8 @@
   /* ===== STUDIES OPENER — the studio overture (full-bleed studio hero) ===== */
   .intro-hero { position:relative; width:100%; min-height:100vh; min-height:100svh;
                 background:#0C0906; overflow:hidden; isolation:isolate; }
-  @keyframes overtureDrift { from { transform:scale(1.02); } to { transform:scale(1.09); } }
-  .hero-media { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
-                animation:overtureDrift 40s ease-in-out infinite alternate; will-change:transform; }
-  /* Motion layer — exported device-mockup video loop. Cover-fills the hero and paints over the
-     poster <picture> (reduced-motion / no-JS / very-portrait fall back to it). The hero clips a
+  /* Motion layer — exported device-mockup video loop. Cover-fills the hero; reduced-motion /
+     no-JS fall back to the dark studio ground beneath the scrim. The hero clips a
      video sized 130vw × 130vh so the pointer TILT (assets/tilt.js, [data-tilt], up to 7°) can
      rotate it without exposing an edge — and the #100C06 ground matches the video's dark edges,
      so any sliver at the extreme is invisible anyway. */
@@ -64,7 +61,11 @@
      transform free for tilt.js — so the 30% overscan sits evenly on all four sides */
   .hero-mockup video.media { position:absolute; inset:0; margin:auto;
     width:130vw; height:130vh; object-fit:cover; display:block; }
-  @media (max-aspect-ratio:3/4) { .hero-mockup { display:none; } } /* tall phones → art-directed poster */
+  .hero-mockup video.m-tall { display:none; }      /* default: landscape cut */
+  @media (max-aspect-ratio:3/4) {                  /* tall phones → the vertical cut */
+    .hero-mockup video.m-wide { display:none; }
+    .hero-mockup video.m-tall { display:block; }
+  }
   .hero-scrim { position:absolute; inset:0; z-index:1; pointer-events:none;
     background:
       linear-gradient(to right,  rgba(9,7,4,0.90) 0%, rgba(9,7,4,0.55) 38%, rgba(9,7,4,0.08) 66%),
@@ -112,7 +113,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior:auto; }
-    .hero-media { animation:none; }
     .hero-mockup { display:none; }
     .now .dot { animation:none; }
   }
@@ -257,19 +257,15 @@
 
   <!-- ==================== STUDIES OPENER — the studio overture ==================== -->
   <section class="intro-hero" data-tilt data-tilt-max="7">
-    <!-- Media layer = LCP; not lazy. App-agnostic scene (no app name/UI), so no caption.
-         These are soft placeholder stand-ins at the real paths until David's overture exports land. -->
-    <picture>
-      <source media="(min-width:700px)" srcset="/assets/studies/studio/overture-wide.jpg">
-      <img class="hero-media" src="/assets/studies/studio/overture-tall.jpg" alt="" fetchpriority="high" decoding="async">
-    </picture>
-    <!-- Motion layer: exported device-mockup video loop over the poster above.
-         Reduced-motion / no-JS / very-portrait fall back to the <picture>.
-         [data-tilt-sheen] adds a quiet pointer-tracked sheen (assets/tilt.js). -->
+    <!-- Motion layer = the studio overture loop, cover-filling the hero. App-agnostic scene
+         (no app name/UI), so no caption. Landscape → hero.mp4; tall phones → hero-vertical.mp4.
+         Reduced-motion / no-JS fall back to the dark studio ground (#0C0906) under the scrim. -->
     <div class="hero-mockup" aria-hidden="true">
-      <video class="media" autoplay muted loop playsinline preload="metadata"
-             poster="/assets/studies/studio/overture-wide.jpg">
+      <video class="media m-wide" autoplay muted loop playsinline preload="metadata">
         <source src="/assets/studies/studio/hero.mp4" type="video/mp4">
+      </video>
+      <video class="media m-tall" autoplay muted loop playsinline preload="metadata">
+        <source src="/assets/studies/studio/hero-vertical.mp4" type="video/mp4">
       </video>
     </div>
     <div class="hero-scrim"></div>
@@ -281,7 +277,7 @@
 
     <div class="masthead-hero">
       <div class="kicker" data-reveal><span class="rule"></span><span class="lbl">Deep Field · Stockholm</span></div>
-      <h1 data-reveal style="animation-delay:0.09s">Independent studies<br class="h1-brk">in software.</h1>
+      <h1 data-reveal style="animation-delay:0.09s">Independent studies <br class="h1-brk">in software.</h1>
       <p class="sub" data-reveal style="animation-delay:0.18s"><span class="desktop-only">Small tools, made slowly and released when they're ready &mdash; and each a record from the same desk.</span><span class="phone-only">Small tools, made slowly and released when they're ready.</span></p>
       <a class="hero-cta" href="#study-01" data-ev="discover-studies" data-reveal style="animation-delay:0.27s">Discover the studies <span class="arr">&darr;</span></a>
     </div>
