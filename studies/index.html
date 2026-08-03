@@ -84,6 +84,8 @@
   .masthead-hero .kicker .rule { width:22px; height:1px; background:#B0835A; }
   .masthead-hero .kicker .lbl { font-family:var(--mono); font-size:11px; letter-spacing:0.26em; text-transform:uppercase; color:#B0835A; }
   .masthead-hero h1 { margin:0 0 26px; font-family:var(--serif); font-weight:400; font-size:clamp(44px,6vw,86px); line-height:0.97; letter-spacing:-0.015em; color:#F2EEE6; }
+  .h1-brk { display:none; }                              /* mobile: wrap naturally */
+  @media (min-width:701px) { .h1-brk { display:inline; } }  /* desktop: 'in software.' on the 2nd row */
   .masthead-hero .sub { margin:0 0 36px; max-width:450px; font-family:var(--sans); font-weight:400; font-size:16px; line-height:1.62; color:#B8AE9C; }
   .masthead-hero .sub .phone-only { display:none; }
   .hero-cta { display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#100C06; background:#B0835A; padding:15px 26px; border-radius:100px; transition:transform 0.4s ease; }
@@ -140,7 +142,11 @@
   /* chapter — plain --dark2 ground (tinted rooms reverted). Text lives in the .wrap content column;
      media breaks out edge-to-edge. A full-strength accent rule marks each chapter (four DIFFERENT
      colours at full strength), replacing the indistinguishable 5% grounds. */
-  .chapter { border-top:1px solid var(--line-dd); padding:clamp(80px,12vh,130px) 0; }
+  .chapter { position:relative; border-top:1px solid var(--line-dd); padding:clamp(80px,12vh,130px) 0; }
+  /* diffused amber glow bleeding down from the chapter seam (the study's own accent) */
+  .chapter::before { content:""; position:absolute; inset:0 0 auto 0; height:clamp(200px,26vh,320px); pointer-events:none;
+    background:radial-gradient(62% 100% at 50% 0%, color-mix(in srgb, var(--chap-accent,var(--accent)) 24%, transparent) 0%, transparent 72%); }
+  .chapter > * { position:relative; }   /* content sits above the glow */
   .chapter > .rule { display:block; width:clamp(48px,6vw,72px); height:2px; background:var(--chap-accent,var(--accent)); margin-bottom:clamp(16px,2.2vh,24px); }
   .masthead { display:flex; align-items:baseline; flex-wrap:wrap; gap:clamp(12px,2vw,24px); }
   .masthead .no { font-family:var(--mono); font-size:12px; letter-spacing:0.18em; color:var(--chap-accent,var(--accent)); }
@@ -274,13 +280,13 @@
 
     <div class="masthead-hero">
       <div class="kicker" data-reveal><span class="rule"></span><span class="lbl">Deep Field · Stockholm</span></div>
-      <h1 data-reveal style="animation-delay:0.09s">Independent studies in software.</h1>
+      <h1 data-reveal style="animation-delay:0.09s">Independent studies<br class="h1-brk">in software.</h1>
       <p class="sub" data-reveal style="animation-delay:0.18s"><span class="desktop-only">Small tools, made slowly and released when they're ready &mdash; and each a record from the same desk.</span><span class="phone-only">Small tools, made slowly and released when they're ready.</span></p>
       <a class="hero-cta" href="#study-01" data-ev="discover-studies" data-reveal style="animation-delay:0.27s">Discover the studies <span class="arr">&darr;</span></a>
     </div>
 
     <div class="base-rail">
-      <div class="daylight"><span class="now"><span class="tick"></span><span class="dot"></span></span></div>
+      <div class="daylight"></div>
       <div class="index-row">
         <div class="name-index">
           <span class="nm echo">Echo <span class="sl">/</span> Frame</span><span class="sep">&middot;</span>
@@ -324,7 +330,7 @@
         <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/echo-frame/shot1@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
         <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/echo-frame/shot2@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
       </div>
-      <div class="slot tv-band">
+      <div class="slot tv-band" data-tilt data-tilt-max="4" data-tilt-scale="1.16">
         <img class="media" src="/images/echo-frame-tv.jpg" loading="lazy" alt="Echo Frame's Apple TV app on a living-room television" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
         <span class="ph"><span class="dev"></span>Apple TV &middot; echo-tv &middot; 16:9</span>
       </div>
