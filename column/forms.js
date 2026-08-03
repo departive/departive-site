@@ -59,7 +59,7 @@
         // generous, soft shoulders, long fall; lapel V as the interior line
         'M37,14 C43,21 57,21 63,14 C72,16 79,20 82,25 C88,43 90,62 88,80 L77,82 C73,62 72,48 72,40 C73,64 74,86 75,108 L25,108 C26,86 27,64 28,40 C28,48 27,62 23,82 L12,80 C10,62 12,43 18,25 C21,20 28,16 37,14 Z',
         'M42,16 L50,36 L58,16'),
-      f('puffer', 'puffer', 'S', 'V', 'h', 1, 1, [0, 1, 0, 3],
+      f('puffer', 'puffer', 'S', 'V', 'h', 0, 1, [0, 1, 0, 3],
         // pure lobed mass, nipped at the quilt channels; one channel drawn
         'M36,12 C43,17 57,17 64,12 C76,15 84,22 85,31 C88,39 87,46 83,50 C88,55 88,64 84,69 C88,74 87,82 82,87 C73,93 27,93 18,87 C13,82 12,74 16,69 C12,64 12,55 17,50 C13,46 12,39 15,31 C16,22 24,15 36,12 Z',
         'M17,50 C35,57 65,57 83,50'),
@@ -70,7 +70,28 @@
       f('long_shield_coat', 'long shield coat', 'H', 'L', 'h', 0, 1, [1, 0, 1, 3],
         // severe full-length, tall funnel collar; off-centre storm seam
         'M39,8 C44,12 56,12 61,8 L63,17 L79,22 L84,80 L73,82 L69,38 L69,112 L31,112 L31,38 L27,82 L16,80 L21,22 L37,17 Z',
-        'M58,24 L58,110')
+        'M58,24 L58,110'),
+      /* ── wardrobe-grounded additions, 4 Aug 2026 (weights are proposals) ── */
+      f('denim_trucker', 'denim trucker', 'H', 'S', 'm', 0, 0, [2, 1, 0, 1],
+        // cropped squared trucker box, collar points; chest-seam bar
+        'M35,13 L39,20 C44,24 56,24 61,20 L65,13 L82,22 L87,63 L76,65 L71,39 L71,74 L29,74 L29,39 L24,65 L13,63 L18,22 Z',
+        'M30,43 L70,43'),
+      f('bomber', 'bomber', 'S', 'S', 'm', 0, 0, [1, 1, 0, 2],
+        // soft dome shoulders, blouson body gathered to a ribbed hem
+        'M37,16 C43,22 57,22 63,16 C71,18 77,21 80,25 C85,44 86,62 83,78 L72,80 C70,64 69,52 69,44 C69,68 67,82 64,88 L36,88 C33,82 31,68 31,44 C31,52 30,64 28,80 L17,78 C14,62 15,44 20,25 C23,21 29,18 37,16 Z',
+        'M35,82 L65,82'),
+      f('biker_leather', 'biker leather', 'H', 'S', 'm', 0, 1, [1, 0, 0, 3],
+        // cropped moto with notched lapel snap; asymmetric zip line
+        'M33,14 L39,19 C44,22 56,22 61,19 L67,14 L83,22 L87,62 L76,64 L71,38 L71,74 L29,74 L29,38 L24,64 L13,62 L17,22 Z',
+        'M45,22 L55,42 L55,73'),
+      f('rain_coat', 'rain coat', 'H', 'L', 'h', 0, 1, [1, 0, 1, 2],
+        // long straight rubberised A-line fall; single storm-flap seam
+        'M38,13 C43,19 57,19 62,13 L80,20 L86,74 L75,76 L69,37 L72,112 L28,112 L31,37 L25,76 L14,74 L20,20 Z',
+        'M55,21 L55,108'),
+      f('anorak', 'anorak', 'S', 'V', 'm', 1, 0, [1, 2, 0, 2],
+        // pullover shell, hood dome, roomy volume; kangaroo-pocket curve — ★ moved from puffer (David rules)
+        'M32,20 C30,7 70,7 68,20 L82,27 C88,47 89,66 85,82 L73,84 C71,68 71,52 71,44 L71,96 L29,96 L29,44 C29,52 29,68 27,84 L15,82 C11,66 12,47 18,27 Z',
+        'M35,72 C42,75 58,75 65,72')
     ],
     mid: [
       f('crew_knit', 'crew knit', 'S', 'S', 'm', 0, 0, [0, 3, 1, 1],
@@ -96,7 +117,24 @@
       f('tailored_waistcoat', 'tailored waistcoat', 'H', 'L', 'l', 0, 0, [1, 0, 2, 1],
         // deep V, pointed double hem; button line to the notch
         'M40,14 L50,40 L60,14 L70,18 L72,50 L68,88 L58,92 L50,84 L42,92 L32,88 L28,50 L30,18 Z',
-        'M50,46 L50,80')
+        'M50,46 L50,80'),
+      /* ── wardrobe-grounded additions, 4 Aug 2026 ── */
+      f('cardigan', 'cardigan', 'S', 'S', 'm', 0, 0, [0, 3, 1, 1],
+        // soft open-V cardigan in the knit grammar; button line to the hem
+        'M37,16 C43,22 47,30 50,44 C53,30 57,22 63,16 C71,18 77,21 80,25 C85,45 86,65 84,82 L73,84 C70,66 69,50 69,42 L69,92 L31,92 L31,42 C31,50 30,66 27,84 L16,82 C14,65 15,45 20,25 C23,21 29,18 37,16 Z',
+        'M50,44 L50,90'),
+      f('unstructured_blazer', 'unstructured blazer', 'H', 'L', 'm', 0, 0, [1, 0, 3, 1],
+        // notch-lapel V outline, slim straight sides; one lapel-roll line
+        'M36,13 L41,19 L38,27 L47,21 L50,42 L53,21 L62,27 L59,19 L64,13 L81,22 L85,74 L74,76 L70,40 L70,96 L30,96 L30,40 L26,76 L15,74 L19,22 Z',
+        'M47,22 L51,40'),
+      f('sheer_overshirt', 'sheer overshirt', 'S', 'S', 'l', 0, 0, [0, 1, 2, 2],
+        // soft open shirt; interior placket doubled faint (the translucency cue)
+        'M37,15 C43,21 57,21 63,15 C71,17 77,20 80,24 L83,72 L72,74 L69,40 L69,92 L31,92 L31,40 L28,74 L17,72 L20,24 C23,20 29,17 37,15 Z',
+        'M46,24 L46,90 M54,24 L54,90'),
+      f('striped_shirt', 'striped shirt', 'S', 'S', 'l', 0, 0, [0, 2, 2, 0],
+        // soft shirt outline; interior line = one stripe pair
+        'M37,15 C43,21 57,21 63,15 C71,17 77,20 80,24 L83,72 L72,74 L69,40 L69,92 L31,92 L31,40 L28,74 L17,72 L20,24 C23,20 29,17 37,15 Z',
+        'M31,47 L69,47 M31,53 L69,53')
     ],
     base: [
       f('tee', 'tee', 'S', 'S', 'l', 0, 0, [1, 1, 1, 1],
@@ -122,7 +160,16 @@
       f('zip_base', 'zip base', 'H', 'L', 'l', 0, 1, [2, 0, 1, 2],
         // stand collar, close linear body; the zip runs the full column
         'M40,12 C45,15 55,15 60,12 L61,18 L76,23 L80,76 L70,78 L66,42 L66,92 L34,92 L34,42 L30,78 L20,76 L24,23 L39,18 Z',
-        'M50,15 L50,90')
+        'M50,15 L50,90'),
+      /* ── wardrobe-grounded additions, 4 Aug 2026 ── */
+      f('tank', 'tank', 'S', 'S', 'l', 0, 0, [1, 1, 0, 2],
+        // narrow shoulders, deep armhole scoop; one armhole line
+        'M40,18 C42,22 46,23 49,23 L51,23 C54,23 58,22 60,18 C65,22 68,32 68,44 L68,94 L32,94 L32,44 C32,32 35,22 40,18 Z',
+        'M40,20 C35,30 34,40 34,50'),
+      f('jersey', 'jersey', 'S', 'V', 'm', 0, 0, [1, 1, 0, 2],
+        // boxy dropped-shoulder vee; one sleeve-band line
+        'M36,16 L44,16 L50,28 L56,16 L64,16 L84,26 L89,50 L75,55 L72,42 L72,90 L28,90 L28,42 L25,55 L11,50 L16,26 Z',
+        'M73,50 L86,46')
     ],
     bottoms: [
       f('wide_trouser', 'wide trouser', 'S', 'V', 'm', 0, 0, [0, 2, 2, 1],
@@ -174,7 +221,16 @@
       f('statement_runner', 'statement runner', 'H', 'V', 'h', 1, 1, [1, 1, 0, 2],
         // sculpted oversized sole — the loud one; midsole ridge
         'M16,66 L18,48 C22,42 30,40 38,44 L44,48 C57,52 71,58 82,64 L92,68 C96,73 95,80 88,83 C78,88 66,84 56,87 C44,90 32,90 20,86 C10,83 7,72 16,66 Z',
-        'M12,79 C30,71 56,84 90,73')
+        'M12,79 C30,71 56,84 90,73'),
+      /* ── wardrobe-grounded additions, 4 Aug 2026 ── */
+      f('loafer', 'loafer', 'H', 'L', 'm', 0, 1, [1, 0, 2, 1],
+        // clean low slip-on, no lacing; penny-strap line across the vamp
+        'M17,80 L16,72 L18,60 C21,55 28,54 33,57 L39,60 L43,57 C48,55 54,56 58,59 C67,63 77,69 84,73 L86,76 L86,80 Z',
+        'M31,61 L47,61'),
+      f('clog', 'clog', 'S', 'S', 'm', 0, 0, [0, 2, 0, 1],
+        // closed-toe mule on a thick footbed, open heel; buckle-strap line
+        'M18,82 L19,64 C22,58 30,57 37,60 L55,63 L55,73 L86,73 L87,82 Z',
+        'M27,61 L47,62')
     ],
     accent: [
       f('beanie', 'beanie', 'S', 'S', 'l', 0, 0, [1, 2, 1, 1],
@@ -200,7 +256,20 @@
       f('watch', 'watch', 'H', 'L', 'l', 0, 1, [1, 0, 2, 1],
         // case and strap, face-on; hands
         'M42,18 L58,18 L58,45 L42,45 Z M42,75 L58,75 L58,102 L42,102 Z M34,60 A16,16 0 1 0 66,60 A16,16 0 1 0 34,60 Z',
-        'M50,60 L50,50 M50,60 L58,63')
+        'M50,60 L50,50 M50,60 L58,63'),
+      /* ── wardrobe-grounded additions, 4 Aug 2026 ── */
+      f('shades', 'shades', 'H', 'L', 'l', 0, 1, [1, 0, 2, 2],
+        // two joined lens rectangles + bridge; temple lines
+        'M22,52 L44,52 L44,68 L22,68 Z M56,52 L78,52 L78,68 L56,68 Z M44,57 L56,57 L56,61 L44,61 Z',
+        'M22,54 L13,51 M78,54 L87,51'),
+      f('necklace', 'necklace', 'H', 'L', 'l', 0, 1, [0, 0, 2, 3],
+        // short chain arc; single pendant bar (the Ladon)
+        'M30,34 C34,56 66,56 70,34 C68,42 62,50 54,52 C50,53 42,52 38,50 C34,47 31,42 30,34 Z',
+        'M50,52 L50,64'),
+      f('belt', 'belt', 'H', 'L', 'l', 0, 0, [1, 0, 2, 1],
+        // band + buckle rectangle; prong line
+        'M20,53 L68,53 L68,63 L20,63 Z M64,48 L82,48 L82,68 L64,68 Z',
+        'M73,53 L73,63')
     ]
   };
 
@@ -215,9 +284,11 @@
   function assertCatalog() {
     var fail = function (m) { throw new Error('COLUMN catalog assertion: ' + m); };
     if (SLOTS.length !== 6) fail('six slots');
+    /* per-slot form counts (wardrobe-grounded additions, 4 Aug 2026) */
+    var COUNTS = { outer: 11, mid: 10, base: 8, bottoms: 6, footwear: 8, accent: 9 };
     SLOTS.forEach(function (slot) {
       var list = CATALOG[slot];
-      if (!list || list.length !== 6) fail(slot + ': six forms required');
+      if (!list || list.length !== COUNTS[slot]) fail(slot + ': ' + COUNTS[slot] + ' forms required (found ' + (list ? list.length : 0) + ')');
       var stars = 0, seen = {};
       list.forEach(function (fm) {
         if (seen[fm.id]) fail('duplicate id ' + fm.id); seen[fm.id] = 1;
