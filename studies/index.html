@@ -54,16 +54,29 @@
   @keyframes overtureDrift { from { transform:scale(1.02); } to { transform:scale(1.09); } }
   .hero-media { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
                 animation:overtureDrift 40s ease-in-out infinite alternate; will-change:transform; }
+  /* Motion layer — exported device-mockup video loop. Cover-fills the hero and paints over the
+     poster <picture> (reduced-motion / no-JS / very-portrait fall back to it). The hero clips a
+     video sized 130vw × 130vh so the pointer TILT (assets/tilt.js, [data-tilt], up to 7°) can
+     rotate it without exposing an edge — and the #100C06 ground matches the video's dark edges,
+     so any sliver at the extreme is invisible anyway. */
+  .hero-mockup { position:absolute; inset:0; z-index:0; overflow:hidden; background:#100C06; }
+  /* inset:0 + margin:auto centers an oversized child WITHOUT a transform, leaving
+     transform free for tilt.js — so the 30% overscan sits evenly on all four sides */
+  .hero-mockup video.media { position:absolute; inset:0; margin:auto;
+    width:130vw; height:130vh; object-fit:cover; display:block; }
+  @media (max-aspect-ratio:3/4) { .hero-mockup { display:none; } } /* tall phones → art-directed poster */
   .hero-scrim { position:absolute; inset:0; z-index:1; pointer-events:none;
     background:
       linear-gradient(to right,  rgba(9,7,4,0.90) 0%, rgba(9,7,4,0.55) 38%, rgba(9,7,4,0.08) 66%),
       linear-gradient(to bottom, rgba(9,7,4,0.62) 0%, rgba(9,7,4,0.10) 30%, rgba(9,7,4,0.55) 74%, rgba(9,7,4,0.92) 100%); }
 
+  /* canonical chrome — matches every other page (see TASKS.md → Site chrome) */
   .intro-hero .chrome { position:absolute; top:0; left:0; right:0; z-index:3; display:flex;
-                        align-items:center; justify-content:space-between; gap:16px; padding:30px 56px; }
-  .intro-hero .chrome .logo { font-family:var(--sans); font-weight:500; font-size:15px; letter-spacing:0.14em; color:#EDE7DB; text-decoration:none; }
+                        align-items:center; justify-content:space-between; gap:16px; padding:clamp(24px,3vw,40px) clamp(22px,5vw,64px); }
+  .intro-hero .chrome .logo { font-family:var(--sans); font-weight:500; font-size:15px; letter-spacing:0.14em; color:#EDE7DB; text-decoration:none; transition:opacity 0.35s ease; }
+  .intro-hero .chrome .logo:hover { opacity:0.7; }
   .intro-hero .chrome .logo span { color:#B0835A; }
-  .intro-hero .chrome .back { font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(237,231,219,0.55); text-decoration:none; transition:color 0.35s ease; }
+  .intro-hero .chrome .back { font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(237,231,219,0.55); text-decoration:none; transition:color 0.35s ease; }
   .intro-hero .chrome .back:hover { color:#EDE7DB; }
 
   .masthead-hero { position:absolute; z-index:3; left:56px; top:50%; transform:translateY(-56%); max-width:730px; }
@@ -98,14 +111,13 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior:auto; }
     .hero-media { animation:none; }
+    .hero-mockup { display:none; }
     .now .dot { animation:none; }
   }
 
   @media (max-width:700px) {
     .hero-scrim { background:linear-gradient(to bottom, rgba(9,7,4,0.86) 0%, rgba(9,7,4,0.30) 34%, rgba(9,7,4,0.72) 72%, rgba(9,7,4,0.95) 100%); }
-    .intro-hero .chrome { padding:26px 24px; }
-    .intro-hero .chrome .logo { font-size:13px; }
-    .intro-hero .chrome .back { font-size:9px; }
+    /* chrome keeps the canonical clamp padding + 15px logo / 11px back on mobile too */
     .masthead-hero { left:24px; right:24px; top:132px; transform:none; max-width:none; }
     .masthead-hero .kicker { margin-bottom:16px; }
     .masthead-hero .kicker .rule { width:16px; }
@@ -125,17 +137,22 @@
     .count { font-size:9px; width:100%; margin-top:14px; }
   }
 
-  /* chapter (text lives in the content column; imagery breaks out full-bleed) */
-  .chapter { padding:clamp(64px,10vh,120px) 0 clamp(72px,12vh,150px); border-top:1px solid var(--line-dd); }
+  /* chapter = full-bleed tinted "room" — HEAD/FOOT text in an inner column, PLATES media edge-to-edge.
+     Room tint % is one obvious value (5% default) per chapter, tune via --room-tint below. */
+  .chapter { background:color-mix(in srgb, var(--chap-accent,var(--accent)) var(--room-tint,5%), var(--dark2));
+             border-top:1px solid var(--line-dd); padding:clamp(60px,9vh,92px) 0; }
+  .room { max-width:1180px; margin:0 auto; padding:0 clamp(22px,6vw,96px); }
   .masthead { display:flex; align-items:baseline; flex-wrap:wrap; gap:clamp(12px,2vw,24px); }
   .masthead .no { font-family:var(--mono); font-size:12px; letter-spacing:0.18em; color:var(--chap-accent,var(--accent)); }
   .masthead .word { font-family:var(--serif); font-weight:400; font-size:clamp(44px,7vw,96px); line-height:0.95; letter-spacing:-0.01em; color:var(--onDark); }
   .masthead .word .sl { color:var(--chap-accent,var(--accent)); }
-  .tagline { margin:clamp(12px,2vh,18px) 0 0; font-family:var(--serif); font-style:italic; font-size:clamp(24px,3.2vw,44px); line-height:1.15; color:var(--onDark); }
+  .tagline { margin:clamp(10px,1.5vh,14px) 0 0; font-family:var(--serif); font-style:italic; font-size:clamp(24px,3.2vw,44px); line-height:1.15; color:var(--onDark); }
 
-  /* full-bleed imagery bands */
-  .band { position:relative; left:50%; margin-left:-50vw; width:100vw;
-          margin-top:clamp(40px,6vh,68px); margin-bottom:clamp(40px,6vh,68px); }
+  /* PLATES — hero + diptych (+ Echo TV) as ONE edge-to-edge media block, 3px gutters throughout.
+     The block is full-bleed inside the tinted room; intra-chapter gap to HEAD/FOOT via its margin. */
+  .plates { position:relative; left:50%; margin-left:-50vw; width:100vw;
+            margin-top:clamp(40px,6vh,56px); margin-bottom:clamp(40px,6vh,56px); }
+  .plates > * + * { margin-top:3px; }   /* 3px gutters between hero / diptych / TV — block keeps each band's aspect-ratio height */
   .slot { position:relative; overflow:hidden; background:
       radial-gradient(120% 130% at 50% 30%, color-mix(in srgb, var(--chap-accent,var(--accent)) 15%, var(--dark)) 0%, var(--dark2) 74%);
       display:grid; place-items:center; }
@@ -144,14 +161,25 @@
   .slot .ph .dev { display:block; width:clamp(46px,7vw,72px); height:1px; margin:0 auto 14px; background:var(--chap-accent,var(--accent)); opacity:0.5; }
   .slot.has-img .ph { display:none; }
 
-  .hero-band { aspect-ratio:16/10; max-height:88vh; }
+  .hero-band { aspect-ratio:16/9; max-height:88vh; }
+  /* swap-ready per-app hero video: drop hero.mp4 (16:9) + hero-vertical.mp4 (9:16) in the app
+     folder and it plays with a pointer TILT (assets/tilt.js). Art-directed — wide on desktop,
+     tall on mobile. The media covers the slot 1:1; tilt.js's data-tilt-scale overscans it while
+     rotating so an edge is never exposed (scale is immune to the slot's grid centering). Tilt is
+     inert on touch, so mobile keeps a plain cover of the vertical clip. */
+  .hero-band .m-tall { display:none; }
+  @media (max-width:700px) {
+    .hero-band { aspect-ratio:3/4; max-height:none; }
+    .hero-band .m-wide { display:none; }
+    .hero-band .m-tall { display:block; }
+  }
   .tv-band { aspect-ratio:16/9; max-height:82vh; }
   .diptych { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
-  .diptych .slot { aspect-ratio:16/10; }
+  .diptych .slot { aspect-ratio:16/9; }
   @media (max-width:760px) { .diptych { grid-template-columns:1fr; } }
 
-  /* apple tv subsection */
-  .tvsub { margin-top:clamp(40px,6vh,72px); padding-top:clamp(36px,5vh,56px); border-top:1px solid var(--line-dd); }
+  /* apple tv copy block — sits in the FOOT room, below the media block, before the foot row */
+  .tvsub { margin:0 0 clamp(40px,6vh,56px); }
   .tvsub .lbl { font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--chap-accent,var(--accent)); display:block; }
   .tvsub .copy { display:flex; gap:clamp(20px,4vw,64px); flex-wrap:wrap; align-items:flex-start; }
   .tvsub h3 { margin:0; flex:1 1 320px; font-family:var(--serif); font-weight:400; font-size:clamp(24px,2.8vw,38px); line-height:1.08; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance; }
@@ -178,6 +206,16 @@
   .beta { text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid transparent; padding-bottom:4px; transition:color 0.4s ease, border-color 0.4s ease; }
   .beta:hover { color:var(--onDark); border-bottom-color:var(--chap-accent,var(--accent)); }
   @media (max-width:760px) { .plate { grid-template-columns:1fr; gap:26px; } .meta { text-align:left; } .cta-row { justify-content:flex-start; } }
+
+  /* HEAD — masthead + tagline + spec, tight; spec now sits directly under the tagline */
+  .spec { margin-top:clamp(12px,2vh,18px); }
+  .room > .crosslink { display:inline-block; }
+  /* FOOT — one row: platform + CTA/status LEFT, signature card RIGHT (stack on mobile, signature last) */
+  .foot { display:grid; grid-template-columns:1fr auto; gap:clamp(28px,4vw,64px); align-items:end; }
+  .foot-left .platform { margin-bottom:clamp(14px,2vh,20px); }
+  .foot-left .cta-row { justify-content:flex-start; }
+  .foot .sig { margin-top:0; }
+  @media (max-width:760px) { .foot { grid-template-columns:1fr; gap:30px; } .foot-left .cta-row { justify-content:flex-start; } }
 
   /* signature card (pressing mark) — no study-line on the web */
   .sig { margin-top:clamp(44px,6vh,72px); max-width:360px; padding:clamp(20px,2.4vw,26px); border:1px solid var(--line-dd);
@@ -210,13 +248,22 @@
 <body>
 
   <!-- ==================== STUDIES OPENER — the studio overture ==================== -->
-  <section class="intro-hero">
+  <section class="intro-hero" data-tilt data-tilt-max="7">
     <!-- Media layer = LCP; not lazy. App-agnostic scene (no app name/UI), so no caption.
          These are soft placeholder stand-ins at the real paths until David's overture exports land. -->
     <picture>
       <source media="(min-width:700px)" srcset="/assets/studies/studio/overture-wide.jpg">
       <img class="hero-media" src="/assets/studies/studio/overture-tall.jpg" alt="" fetchpriority="high" decoding="async">
     </picture>
+    <!-- Motion layer: exported device-mockup video loop over the poster above.
+         Reduced-motion / no-JS / very-portrait fall back to the <picture>.
+         [data-tilt-sheen] adds a quiet pointer-tracked sheen (assets/tilt.js). -->
+    <div class="hero-mockup" aria-hidden="true">
+      <video class="media" autoplay muted loop playsinline preload="metadata"
+             poster="/assets/studies/studio/overture-wide.jpg">
+        <source src="/assets/studies/studio/video-hero.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="hero-scrim"></div>
 
     <header class="chrome">
@@ -245,197 +292,233 @@
     </div>
   </section>
 
-<div class="wrap">
-
   <!-- ==================== STUDY 01 · ECHO FRAME ==================== -->
-  <section class="chapter" id="study-01" style="--chap-accent:#c1894f;">
-    <div class="masthead" data-reveal>
-      <span class="no">STUDY 01</span>
-      <span class="word">Echo <span class="sl">/</span> Frame</span>
-    </div>
-    <p class="tagline" data-reveal>Every frame has a frequency.</p>
-
-    <!-- HERO BAND — real render migrated from the landing (echo-frame-mockup.jpg). David's landscape hero.{png|mp4} replaces it. -->
-    <div class="band slot hero-band" data-reveal>
-      <img class="media" src="/images/echo-frame-mockup.jpg" loading="lazy" alt="Echo Frame's Echoes gallery on an iPhone 15 Pro" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
-      <span class="ph"><span class="dev"></span>Hero &middot; hero.png / hero.mp4 &middot; 16:10</span>
-    </div>
-
-    <div class="plate" data-reveal>
-      <p class="spec">Studies a photograph &mdash; its colour, light, and composition &mdash; and answers with the one song that resonates, drawn from your library or the whole catalogue.</p>
-      <div class="meta">
-        <div class="platform"><b>iOS</b> &middot; tvOS</div>
-        <div class="cta-row"><a class="btn" href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" data-ev="app-echo-frame">App Store &#8599;</a></div>
+  <section class="chapter" id="study-01" style="--chap-accent:#c1894f; --room-tint:5%;">
+    <div class="room" data-reveal>
+      <div class="masthead">
+        <span class="no">STUDY 01</span>
+        <span class="word">Echo <span class="sl">/</span> Frame</span>
       </div>
+      <p class="tagline">Every frame has a frequency.</p>
+      <p class="spec">Studies a photograph &mdash; its colour, light, and composition &mdash; and answers with the one song that resonates, drawn from your library or the whole catalogue.</p>
     </div>
 
-    <!-- SUPPORTING DIPTYCH — two landscape frames, full-bleed 2-up -->
-    <div class="band diptych" data-reveal>
-      <div class="slot"><img class="media" src="/assets/studies/echo-frame/shot1@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; landscape</span></div>
-      <div class="slot"><img class="media" src="/assets/studies/echo-frame/shot2@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; landscape</span></div>
-    </div>
-
-    <!-- FOR APPLE TV — real TV render + real TestFlight join links migrated from the landing -->
-    <div class="tvsub" data-reveal>
-      <span class="lbl">For Apple TV</span>
-      <div class="band slot tv-band">
+    <!-- PLATES — hero + diptych + Apple TV render as one edge-to-edge media block -->
+    <div class="plates" data-reveal>
+      <div class="slot hero-band" data-tilt data-tilt-max="5" data-tilt-scale="1.16">
+        <video class="media m-wide" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/echo-frame/hero.mp4" type="video/mp4">
+        </video>
+        <video class="media m-tall" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/echo-frame/hero-vertical.mp4" type="video/mp4">
+        </video>
+        <span class="ph"><span class="dev"></span>Hero &middot; hero.mp4 (16:9 &middot; 1920&times;1080) + hero-vertical.mp4 (9:16 &middot; 1080&times;1920)</span>
+      </div>
+      <div class="diptych">
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/echo-frame/shot1@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/echo-frame/shot2@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
+      </div>
+      <div class="slot tv-band">
         <img class="media" src="/images/echo-frame-tv.jpg" loading="lazy" alt="Echo Frame's Apple TV app on a living-room television" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
         <span class="ph"><span class="dev"></span>Apple TV &middot; echo-tv &middot; 16:9</span>
       </div>
-      <div class="copy">
-        <h3>Every photograph and its sonic double &mdash; on the biggest screen in your home.</h3>
-        <p>The Apple TV app pairs each photo with the track that resonates with it and projects the two together on your television. A separate app that shows the Echoes you sync from your phone, so it needs the iPhone beta first. Join the <a class="link" href="https://testflight.apple.com/join/v5jHRCqt" target="_blank" rel="noopener" data-ev="beta-iphone">iPhone 2.0 beta &#8599;</a>, sign into iCloud and save a few Echoes, then install the <a class="link" href="https://testflight.apple.com/join/tg5tS1ZY" target="_blank" rel="noopener" data-ev="beta-appletv">Apple TV beta &#8599;</a> on the same account &mdash; they appear on your TV automatically.</p>
-      </div>
-      <div class="cta-row">
-        <span class="status"><span class="dot"></span>In beta soon</span>
-        <a class="beta" href="https://testflight.apple.com/join/tg5tS1ZY" target="_blank" rel="noopener" data-ev="beta-appletv">Request the beta &#8599;</a>
-      </div>
     </div>
 
-    <div class="sig" data-reveal>
-      <div class="row1">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>
-        <span class="name">Echo Frame</span><span class="ver">1.0</span>
+    <div class="room" data-reveal>
+      <div class="tvsub">
+        <span class="lbl">For Apple TV</span>
+        <div class="copy">
+          <h3>Every photograph and its sonic double &mdash; on the biggest screen in your home.</h3>
+          <p>The Apple TV app pairs each photo with the track that resonates with it and projects the two together on your television. A separate app that shows the Echoes you sync from your phone, so it needs the iPhone beta first. Join the <a class="link" href="https://testflight.apple.com/join/v5jHRCqt" target="_blank" rel="noopener" data-ev="beta-iphone">iPhone 2.0 beta &#8599;</a>, sign into iCloud and save a few Echoes, then install the <a class="link" href="https://testflight.apple.com/join/tg5tS1ZY" target="_blank" rel="noopener" data-ev="beta-appletv">Apple TV beta &#8599;</a> on the same account &mdash; they appear on your TV automatically.</p>
+        </div>
+        <div class="cta-row">
+          <span class="status"><span class="dot"></span>In beta soon</span>
+          <a class="beta" href="https://testflight.apple.com/join/tg5tS1ZY" target="_blank" rel="noopener" data-ev="beta-appletv">Request the beta &#8599;</a>
+        </div>
       </div>
-      <div class="hr"></div>
-      <span class="shared">Crafted in the low light of Stockholm.</span>
-      <span class="cat">Deep Field · Stockholm · Study 01</span>
-      <span class="dom"><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a> · <a href="/">departive.com</a></span>
+      <div class="foot">
+        <div class="foot-left">
+          <div class="platform"><b>iOS</b> &middot; tvOS</div>
+          <div class="cta-row"><a class="btn" href="https://apps.apple.com/us/app/echo-frame-tonal-resonance/id6759442682" target="_blank" rel="noopener" data-ev="app-echo-frame">App Store &#8599;</a></div>
+        </div>
+        <div class="sig">
+          <div class="row1">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>
+            <span class="name">Echo Frame</span><span class="ver">1.0</span>
+          </div>
+          <div class="hr"></div>
+          <span class="shared">Crafted in the low light of Stockholm.</span>
+          <span class="cat">Deep Field · Stockholm · Study 01</span>
+          <span class="dom"><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a> · <a href="/">departive.com</a></span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ==================== STUDY 02 · SIGHTLINE ==================== -->
-  <section class="chapter" style="--chap-accent:#d7a24a;">
-    <div class="masthead" data-reveal>
-      <span class="no">STUDY 02</span>
-      <span class="word">Sightline</span>
-    </div>
-    <p class="tagline" data-reveal>Read the light.</p>
-
-    <div class="band slot hero-band" data-reveal>
-      <img class="media" src="/assets/studies/sightline/hero@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
-      <span class="ph"><span class="dev"></span>Hero &middot; hero.png / hero.mp4 &middot; 16:10</span>
-    </div>
-
-    <div class="plate" data-reveal>
-      <div>
-        <p class="spec">Computes where the sun falls from real building geometry &mdash; to the minute, to the meter. NOAA solar math &middot; 4,499 Stockholm buildings &middot; Copernicus elevation, all on device. <span class="refuse">No network. No account. No AI.</span></p>
-        <!-- cross-link → /light (copy swappable) -->
-        <a class="crosslink" href="/light">The same light, watched live &mdash; Stockholm today <span>&rarr;</span></a>
+  <section class="chapter" style="--chap-accent:#d7a24a; --room-tint:5%;">
+    <div class="room" data-reveal>
+      <div class="masthead">
+        <span class="no">STUDY 02</span>
+        <span class="word">Sightline</span>
       </div>
-      <div class="meta">
-        <div class="platform"><b>iOS</b></div>
-        <div class="cta-row">
-          <span class="status"><span class="dot"></span>Coming 2026</span>
-          <a class="beta" href="mailto:david@departive.com?subject=BETA%20%E2%80%94%20Sightline&amp;body=I'd%20like%20to%20test%20Sightline.%20Device%3A%20" data-ev="beta-sightline">Request the beta &#8599;</a>
+      <p class="tagline">Read the light.</p>
+      <p class="spec">Computes where the sun falls from real building geometry &mdash; to the minute, to the meter. NOAA solar math &middot; 4,499 Stockholm buildings &middot; Copernicus elevation, all on device. <span class="refuse">No network. No account. No AI.</span></p>
+      <a class="crosslink" href="/light">The same light, watched live &mdash; Stockholm today <span>&rarr;</span></a>
+    </div>
+
+    <div class="plates" data-reveal>
+      <div class="slot hero-band" data-tilt data-tilt-max="5" data-tilt-scale="1.16">
+        <video class="media m-wide" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/sightline/hero.mp4" type="video/mp4">
+        </video>
+        <video class="media m-tall" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/sightline/hero-vertical.mp4" type="video/mp4">
+        </video>
+        <span class="ph"><span class="dev"></span>Hero &middot; hero.mp4 (16:9 &middot; 1920&times;1080) + hero-vertical.mp4 (9:16 &middot; 1080&times;1920)</span>
+      </div>
+      <div class="diptych">
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/sightline/shot1@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/sightline/shot2@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
+      </div>
+    </div>
+
+    <div class="room" data-reveal>
+      <div class="foot">
+        <div class="foot-left">
+          <div class="platform"><b>iOS</b></div>
+          <div class="cta-row">
+            <span class="status"><span class="dot"></span>Coming 2026</span>
+            <a class="beta" href="mailto:david@departive.com?subject=BETA%20%E2%80%94%20Sightline&amp;body=I'd%20like%20to%20test%20Sightline.%20Device%3A%20" data-ev="beta-sightline">Request the beta &#8599;</a>
+          </div>
+        </div>
+        <div class="sig">
+          <div class="row1">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17 h18" stroke-linecap="round"/><path d="M6.5 17 a5.5 5.5 0 0 1 11 0"/><path d="M12 4 v2 M19.5 7.5 l-1.4 1.4 M4.5 7.5 l1.4 1.4" stroke-linecap="round"/></svg>
+            <span class="name">Sightline</span><span class="ver">beta</span>
+          </div>
+          <div class="hr"></div>
+          <span class="shared">Crafted in the low light of Stockholm.</span>
+          <span class="cat">Deep Field · Stockholm · Study 02</span>
+          <span class="dom"><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a> · <a href="/">departive.com</a></span>
         </div>
       </div>
-    </div>
-
-    <div class="band diptych" data-reveal>
-      <div class="slot"><img class="media" src="/assets/studies/sightline/shot1@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; landscape</span></div>
-      <div class="slot"><img class="media" src="/assets/studies/sightline/shot2@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; landscape</span></div>
-    </div>
-
-    <div class="sig" data-reveal>
-      <div class="row1">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17 h18" stroke-linecap="round"/><path d="M6.5 17 a5.5 5.5 0 0 1 11 0"/><path d="M12 4 v2 M19.5 7.5 l-1.4 1.4 M4.5 7.5 l1.4 1.4" stroke-linecap="round"/></svg>
-        <span class="name">Sightline</span><span class="ver">beta</span>
-      </div>
-      <div class="hr"></div>
-      <span class="shared">Crafted in the low light of Stockholm.</span>
-      <span class="cat">Deep Field · Stockholm · Study 02</span>
-      <span class="dom"><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a> · <a href="/">departive.com</a></span>
     </div>
   </section>
 
   <!-- ==================== STUDY 03 · SOLPLATS ==================== -->
-  <section class="chapter" style="--chap-accent:#cf7b3e;">
-    <div class="masthead" data-reveal>
-      <span class="no">STUDY 03</span>
-      <span class="word">Solplats</span>
-    </div>
-    <p class="tagline" data-reveal>Find the sun.</p>
-
-    <div class="band slot hero-band" data-reveal>
-      <img class="media" src="/assets/studies/solplats/hero@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
-      <span class="ph"><span class="dev"></span>Hero &middot; hero.png / hero.mp4 &middot; 16:10</span>
-    </div>
-
-    <div class="plate" data-reveal>
+  <section class="chapter" style="--chap-accent:#cf7b3e; --room-tint:5%;">
+    <div class="room" data-reveal>
+      <div class="masthead">
+        <span class="no">STUDY 03</span>
+        <span class="word">Solplats</span>
+      </div>
+      <p class="tagline">Find the sun.</p>
       <!-- PLACEHOLDER spec — no canon spec block for Solplats yet; confirm register + numbers. -->
       <p class="spec">Maps sun and shade across the street through the day, from real building geometry &mdash; the lit bench, the warm terrace, the corner that keeps the last light. <span class="refuse">Offline.</span></p>
-      <div class="meta">
-        <div class="platform"><b>iOS</b></div>
-        <div class="cta-row">
-          <span class="status"><span class="dot"></span>Coming 2026</span>
-          <a class="beta" href="mailto:david@departive.com?subject=BETA%20%E2%80%94%20Solplats&amp;body=I'd%20like%20to%20test%20Solplats.%20Device%3A%20" data-ev="beta-solplats">Request the beta &#8599;</a>
+    </div>
+
+    <div class="plates" data-reveal>
+      <div class="slot hero-band" data-tilt data-tilt-max="5" data-tilt-scale="1.16">
+        <video class="media m-wide" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/solplats/hero.mp4" type="video/mp4">
+        </video>
+        <video class="media m-tall" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/solplats/hero-vertical.mp4" type="video/mp4">
+        </video>
+        <span class="ph"><span class="dev"></span>Hero &middot; hero.mp4 (16:9 &middot; 1920&times;1080) + hero-vertical.mp4 (9:16 &middot; 1080&times;1920)</span>
+      </div>
+      <div class="diptych">
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/solplats/shot1@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/solplats/shot2@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
+      </div>
+    </div>
+
+    <div class="room" data-reveal>
+      <div class="foot">
+        <div class="foot-left">
+          <div class="platform"><b>iOS</b></div>
+          <div class="cta-row">
+            <span class="status"><span class="dot"></span>Coming 2026</span>
+            <a class="beta" href="mailto:david@departive.com?subject=BETA%20%E2%80%94%20Solplats&amp;body=I'd%20like%20to%20test%20Solplats.%20Device%3A%20" data-ev="beta-solplats">Request the beta &#8599;</a>
+          </div>
+        </div>
+        <div class="sig">
+          <div class="row1">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="10.5" r="4"/><path d="M12 3 v1.8 M12 16.2 v1.8 M4.5 10.5 h1.8 M17.7 10.5 h1.8 M6.7 5.2 l1.3 1.3 M16 5.2 l-1.3 1.3" stroke-linecap="round"/><path d="M3 20.5 h18" stroke-linecap="round" opacity="0.5"/></svg>
+            <span class="name">Solplats</span><span class="ver">beta</span>
+          </div>
+          <div class="hr"></div>
+          <span class="shared">Crafted in the low light of Stockholm.</span>
+          <span class="cat">Deep Field · Stockholm · Study 03</span>
+          <span class="dom"><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a> · <a href="/">departive.com</a></span>
         </div>
       </div>
-    </div>
-
-    <div class="band diptych" data-reveal>
-      <div class="slot"><img class="media" src="/assets/studies/solplats/shot1@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; landscape</span></div>
-      <div class="slot"><img class="media" src="/assets/studies/solplats/shot2@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; landscape</span></div>
-    </div>
-
-    <div class="sig" data-reveal>
-      <div class="row1">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="10.5" r="4"/><path d="M12 3 v1.8 M12 16.2 v1.8 M4.5 10.5 h1.8 M17.7 10.5 h1.8 M6.7 5.2 l1.3 1.3 M16 5.2 l-1.3 1.3" stroke-linecap="round"/><path d="M3 20.5 h18" stroke-linecap="round" opacity="0.5"/></svg>
-        <span class="name">Solplats</span><span class="ver">beta</span>
-      </div>
-      <div class="hr"></div>
-      <span class="shared">Crafted in the low light of Stockholm.</span>
-      <span class="cat">Deep Field · Stockholm · Study 03</span>
-      <span class="dom"><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a> · <a href="/">departive.com</a></span>
     </div>
   </section>
 
   <!-- ==================== STUDY 04 · ARCHIVE/D ==================== -->
-  <section class="chapter" style="--chap-accent:#8c7b5a;">
-    <div class="masthead" data-reveal>
-      <span class="no">STUDY 04</span>
-      <span class="word">Archive <span class="sl">/</span> D</span>
-    </div>
-    <p class="tagline" data-reveal>Dress deliberately.</p>
-
-    <div class="band slot hero-band" data-reveal>
-      <img class="media" src="/assets/studies/archived/hero@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
-      <span class="ph"><span class="dev"></span>Hero &middot; hero.png / hero.mp4 &middot; 16:10</span>
-    </div>
-
-    <div class="plate" data-reveal>
-      <div>
-        <!-- PLACEHOLDER spec — refine to TOOL_DOCTRINE register once canon lands. -->
-        <p class="spec">Your wardrobe, archived &mdash; photographed, sorted, and composed into outfits worth wearing. <span class="refuse">Yours only. On device.</span></p>
-        <!-- cross-link → /column -->
-        <a class="crosslink" href="/column">Composed against The Northern Column <span>&rarr;</span></a>
+  <section class="chapter" style="--chap-accent:#8c7b5a; --room-tint:5%;">
+    <div class="room" data-reveal>
+      <div class="masthead">
+        <span class="no">STUDY 04</span>
+        <span class="word">Archive <span class="sl">/</span> D</span>
       </div>
-      <div class="meta">
-        <div class="platform"><b>iOS</b></div>
-        <div class="cta-row">
-          <span class="status"><span class="dot"></span>In beta soon</span>
-          <a class="beta" href="mailto:david@departive.com?subject=BETA%20%E2%80%94%20ARCHIVE%2FD&amp;body=I'd%20like%20to%20test%20ARCHIVE%2FD.%20Device%3A%20" data-ev="beta-archived">Request the beta &#8599;</a>
+      <p class="tagline">Dress deliberately.</p>
+      <!-- PLACEHOLDER spec — refine to TOOL_DOCTRINE register once canon lands. -->
+      <p class="spec">Your wardrobe, archived &mdash; photographed, sorted, and composed into outfits worth wearing. <span class="refuse">Yours only. On device.</span></p>
+      <a class="crosslink" href="/column">Composed against The Northern Column <span>&rarr;</span></a>
+    </div>
+
+    <div class="plates" data-reveal>
+      <div class="slot hero-band" data-tilt data-tilt-max="5" data-tilt-scale="1.16">
+        <video class="media m-wide" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/archived/hero.mp4" type="video/mp4">
+        </video>
+        <video class="media m-tall" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/archived/hero-vertical.mp4" type="video/mp4">
+        </video>
+        <span class="ph"><span class="dev"></span>Hero &middot; hero.mp4 (16:9 &middot; 1920&times;1080) + hero-vertical.mp4 (9:16 &middot; 1080&times;1920)</span>
+      </div>
+      <div class="diptych">
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/archived/shot1@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/archived/shot2@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
+      </div>
+    </div>
+
+    <div class="room" data-reveal>
+      <div class="foot">
+        <div class="foot-left">
+          <div class="platform"><b>iOS</b></div>
+          <div class="cta-row">
+            <span class="status"><span class="dot"></span>In beta soon</span>
+            <a class="beta" href="mailto:david@departive.com?subject=BETA%20%E2%80%94%20ARCHIVE%2FD&amp;body=I'd%20like%20to%20test%20ARCHIVE%2FD.%20Device%3A%20" data-ev="beta-archived">Request the beta &#8599;</a>
+          </div>
+        </div>
+        <div class="sig">
+          <div class="row1">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4 l4 3 4-3 M8 4 v4 l-4 2 v8 h16 v-8 l-4-2 V4" stroke-linejoin="round"/></svg>
+            <span class="name">ARCHIVE/D</span><span class="ver">beta</span>
+          </div>
+          <div class="hr"></div>
+          <span class="shared">Crafted in the low light of Stockholm.</span>
+          <span class="cat">Deep Field · Stockholm · Study 04</span>
+          <span class="dom"><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a> · <a href="/">departive.com</a></span>
         </div>
       </div>
     </div>
-
-    <div class="band diptych" data-reveal>
-      <div class="slot"><img class="media" src="/assets/studies/archived/shot1@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; landscape</span></div>
-      <div class="slot"><img class="media" src="/assets/studies/archived/shot2@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; landscape</span></div>
-    </div>
-
-    <div class="sig" data-reveal>
-      <div class="row1">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4 l4 3 4-3 M8 4 v4 l-4 2 v8 h16 v-8 l-4-2 V4" stroke-linejoin="round"/></svg>
-        <span class="name">ARCHIVE/D</span><span class="ver">beta</span>
-      </div>
-      <div class="hr"></div>
-      <span class="shared">Crafted in the low light of Stockholm.</span>
-      <span class="cat">Deep Field · Stockholm · Study 04</span>
-      <span class="dom"><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a> · <a href="/">departive.com</a></span>
-    </div>
   </section>
+
+  <!-- closing thread + foot keep the plain ground (outside the tinted rooms) -->
+  <div class="wrap">
 
   <!-- ==================== THE QUIETER THREAD (closing passage) ==================== -->
   <section class="thread" data-reveal>
@@ -496,6 +579,8 @@
   }, true);
 })();
 </script>
+<!-- pointer-tracked sheen on the hero video ([data-tilt-sheen]); injects its own CSS -->
+<script src="/assets/tilt.js" defer></script>
 <!-- GoatCounter --><script data-goatcounter="https://departive.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><!-- End GoatCounter -->
 </body>
 </html>

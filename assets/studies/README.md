@@ -35,21 +35,41 @@ exports at the same paths (the `<img>`/`<source>` self-upgrade on load).
 ## Files per app
 | file | what | ratio · size (@2x) | notes |
 |------|------|-----|-------|
-| `hero@2x.png` **or** `hero.mp4` (+ `hero.webm`) | the hero band — one landscape still **or** a silent loop | **16:10 · 2880 × 1800** | full-bleed; ~88vh cap |
-| `shot1@2x.png`, `shot2@2x.png` | the two supporting frames (landscape) | **16:10 · 2560 × 1600** | full-bleed 2-up diptych |
+| `hero.mp4` | hero band — silent loop, **desktop** | **16:9 · 1920 × 1080** | plays with tilt; cover-fit so any landscape ratio works |
+| `hero-vertical.mp4` | hero band — silent loop, **mobile** (≤700px) | **9:16 · 1080 × 1920** | art-directed portrait crop |
+| `shot1@2x.png`, `shot2@2x.png` | the two supporting frames (landscape stills) | **16:9 · 2560 × 1440** (@2x) | 2-up diptych; subtle pointer tilt (4°); optimise < ~500 KB — drop the file, no markup change |
 
-### Video heroes (supported)
-Swap the hero `<img class="media">` for:
+### Swap-ready hero (tilt video) — how to drop one in
+The hero slot markup already carries the pattern (see `studies/index.html`; Sightline
+is wired as the live reference). **To finalize an app's hero you only drop files** —
+no HTML edits needed if the block is present:
+
+1. Export a **16:9** loop → `assets/studies/APP/hero.mp4`.
+2. Export a **9:16** loop → `assets/studies/APP/hero-vertical.mp4`.
+3. Reload. The wide clip plays on desktop with a pointer **tilt**
+   (`assets/tilt.js`, via `data-tilt` on the slot); the tall clip plays on mobile.
+   Until a file exists the slot shows its styled placeholder (`onerror` removes the
+   missing `<video>`); reduced-motion / no-JS also fall back to the placeholder.
+
+The slot block (already in place per app):
 ```html
-<video class="media" autoplay muted loop playsinline poster="/assets/studies/APP/hero-poster.jpg">
-  <source src="/assets/studies/APP/hero.webm" type="video/webm">
-  <source src="/assets/studies/APP/hero.mp4"  type="video/mp4">
-</video>
+<div class="band slot hero-band" data-reveal data-tilt data-tilt-max="5" data-tilt-scale="1.16">
+  <video class="media m-wide" autoplay muted loop playsinline preload="metadata"
+         onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+    <source src="/assets/studies/APP/hero.mp4" type="video/mp4"></video>
+  <video class="media m-tall" autoplay muted loop playsinline preload="metadata"
+         onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+    <source src="/assets/studies/APP/hero-vertical.mp4" type="video/mp4"></video>
+  <span class="ph">…placeholder…</span>
+</div>
 ```
-- Keep it **silent** and short (a 4–8 s loop). `prefers-reduced-motion` → the
-  page shows the **poster only** (autoplay is stripped) — so always ship a good
-  `hero-poster.jpg` (16:10).
-- H.264 `.mp4` + VP9/AV1 `.webm`; target < ~3 MB.
+- **Silent**, short (4–8 s), **H.264 .mp4**, Web-Optimized, target < ~3 MB each
+  (HandBrake `Fast 1080p30`, RF ~20, audio track removed).
+- `data-tilt-scale` overscans the media so the tilt never exposes an edge — it's
+  immune to the slot's grid centering (don't size the media past 100%). Tilt is
+  inert on touch and reduced-motion; mobile just plays the vertical clip flat.
+- Optional stills fallback: add `poster="…jpg"` to each `<video>` **only once the
+  poster file exists** (the page hides the placeholder as soon as a poster is set).
 
 ## Echo Frame only — additional
 | file | what | ratio · size (@2x) | notes |
