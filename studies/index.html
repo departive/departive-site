@@ -137,11 +137,11 @@
     .count { font-size:9px; width:100%; margin-top:14px; }
   }
 
-  /* chapter = full-bleed tinted "room" — HEAD/FOOT text in an inner column, PLATES media edge-to-edge.
-     Room tint % is one obvious value (5% default) per chapter, tune via --room-tint below. */
-  .chapter { background:color-mix(in srgb, var(--chap-accent,var(--accent)) var(--room-tint,5%), var(--dark2));
-             border-top:1px solid var(--line-dd); padding:clamp(60px,9vh,92px) 0; }
-  .room { max-width:1180px; margin:0 auto; padding:0 clamp(22px,6vw,96px); }
+  /* chapter — plain --dark2 ground (tinted rooms reverted). Text lives in the .wrap content column;
+     media breaks out edge-to-edge. A full-strength accent rule marks each chapter (four DIFFERENT
+     colours at full strength), replacing the indistinguishable 5% grounds. */
+  .chapter { border-top:1px solid var(--line-dd); padding:clamp(80px,12vh,130px) 0; }
+  .chapter > .rule { display:block; width:clamp(48px,6vw,72px); height:2px; background:var(--chap-accent,var(--accent)); margin-bottom:clamp(16px,2.2vh,24px); }
   .masthead { display:flex; align-items:baseline; flex-wrap:wrap; gap:clamp(12px,2vw,24px); }
   .masthead .no { font-family:var(--mono); font-size:12px; letter-spacing:0.18em; color:var(--chap-accent,var(--accent)); }
   .masthead .word { font-family:var(--serif); font-weight:400; font-size:clamp(44px,7vw,96px); line-height:0.95; letter-spacing:-0.01em; color:var(--onDark); }
@@ -152,7 +152,8 @@
      The block is full-bleed inside the tinted room; intra-chapter gap to HEAD/FOOT via its margin. */
   .plates { position:relative; left:50%; margin-left:-50vw; width:100vw;
             margin-top:clamp(40px,6vh,56px); margin-bottom:clamp(40px,6vh,56px); }
-  .plates > * + * { margin-top:3px; }   /* 3px gutters between hero / diptych / TV — block keeps each band's aspect-ratio height */
+  .plates > * { width:100%; }            /* explicit width so max-height caps height only (never shrinks width → no side gap) */
+  .plates > * + * { margin-top:3px; }    /* 3px gutters between hero / diptych / TV */
   .slot { position:relative; overflow:hidden; background:
       radial-gradient(120% 130% at 50% 30%, color-mix(in srgb, var(--chap-accent,var(--accent)) 15%, var(--dark)) 0%, var(--dark2) 74%);
       display:grid; place-items:center; }
@@ -292,8 +293,11 @@
     </div>
   </section>
 
+  <div class="wrap">
+
   <!-- ==================== STUDY 01 · ECHO FRAME ==================== -->
-  <section class="chapter" id="study-01" style="--chap-accent:#c1894f; --room-tint:5%;">
+  <section class="chapter" id="study-01" style="--chap-accent:#c1894f;">
+    <span class="rule"></span>
     <div class="room" data-reveal>
       <div class="masthead">
         <span class="no">STUDY 01</span>
@@ -358,7 +362,8 @@
   </section>
 
   <!-- ==================== STUDY 02 · SIGHTLINE ==================== -->
-  <section class="chapter" style="--chap-accent:#d7a24a; --room-tint:5%;">
+  <section class="chapter" style="--chap-accent:#d7a24a;">
+    <span class="rule"></span>
     <div class="room" data-reveal>
       <div class="masthead">
         <span class="no">STUDY 02</span>
@@ -411,7 +416,8 @@
   </section>
 
   <!-- ==================== STUDY 03 · SOLPLATS ==================== -->
-  <section class="chapter" style="--chap-accent:#cf7b3e; --room-tint:5%;">
+  <section class="chapter" style="--chap-accent:#cf7b3e;">
+    <span class="rule"></span>
     <div class="room" data-reveal>
       <div class="masthead">
         <span class="no">STUDY 03</span>
@@ -464,7 +470,8 @@
   </section>
 
   <!-- ==================== STUDY 04 · ARCHIVE/D ==================== -->
-  <section class="chapter" style="--chap-accent:#8c7b5a; --room-tint:5%;">
+  <section class="chapter" style="--chap-accent:#8c7b5a;">
+    <span class="rule"></span>
     <div class="room" data-reveal>
       <div class="masthead">
         <span class="no">STUDY 04</span>
@@ -516,9 +523,6 @@
       </div>
     </div>
   </section>
-
-  <!-- closing thread + foot keep the plain ground (outside the tinted rooms) -->
-  <div class="wrap">
 
   <!-- ==================== THE QUIETER THREAD (closing passage) ==================== -->
   <section class="thread" data-reveal>
