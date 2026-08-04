@@ -23,5 +23,12 @@ stories/*/*.PNG
 stories/*/*.heic
 stories/*/*.HEIC
 
+# Stories section held back from the live site (kept local until ready).
+# /stories/ serves only the "coming soon" index; the real listing + the
+# rendered story pages stay in the repo but are NOT uploaded/served.
+stories/_index-full.html
+stories/bangkok/
+stories/cambodia/
+
 # build engine (carries a package.json)
 tools/
