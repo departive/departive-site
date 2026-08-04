@@ -183,7 +183,10 @@
   }
   .tv-band { aspect-ratio:16/9; max-height:82vh; }
   .diptych { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
-  .diptych .slot { aspect-ratio:16/9; }
+  /* 4:3 — the native frame of the LS Graphics device exports (6000×4500).
+     The slot must match the source or object-fit:cover crops the screens;
+     at 16/9 it was slicing a quarter off the top and bottom of every shot. */
+  .diptych .slot { aspect-ratio:4/3; }
   @media (max-width:760px) { .diptych { grid-template-columns:1fr; } }
 
   /* apple tv copy block — sits in the FOOT room, below the media block, before the foot row */
@@ -324,8 +327,8 @@
         <span class="ph"><span class="dev"></span>Hero &middot; hero.mp4 (16:9 &middot; 1920&times;1080) + hero-vertical.mp4 (9:16 &middot; 1080&times;1920)</span>
       </div>
       <div class="diptych">
-        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/echo-frame/shot1@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
-        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/echo-frame/shot2@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/echo-frame/shot1@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 4:3 &middot; 2560&times;1920</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/echo-frame/shot2@2x.png" loading="lazy" alt="Echo Frame" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 4:3 &middot; 2560&times;1920</span></div>
       </div>
       <div class="slot tv-band" data-tilt data-tilt-max="4" data-tilt-scale="1.16">
         <img class="media" src="/images/echo-frame-tv.jpg" loading="lazy" alt="Echo Frame's Apple TV app on a living-room television" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
@@ -390,8 +393,8 @@
         <span class="ph"><span class="dev"></span>Hero &middot; hero.mp4 (16:9 &middot; 1920&times;1080) + hero-vertical.mp4 (9:16 &middot; 1080&times;1920)</span>
       </div>
       <div class="diptych">
-        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/sightline/shot1@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
-        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/sightline/shot2@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/sightline/shot1@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 4:3 &middot; 2560&times;1920</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/sightline/shot2@2x.png" loading="lazy" alt="Sightline" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 4:3 &middot; 2560&times;1920</span></div>
       </div>
     </div>
 
@@ -444,8 +447,8 @@
         <span class="ph"><span class="dev"></span>Hero &middot; hero.mp4 (16:9 &middot; 1920&times;1080) + hero-vertical.mp4 (9:16 &middot; 1080&times;1920)</span>
       </div>
       <div class="diptych">
-        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/solplats/shot1@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
-        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/solplats/shot2@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/solplats/shot1@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 4:3 &middot; 2560&times;1920</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/solplats/shot2@2x.png" loading="lazy" alt="Solplats" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 4:3 &middot; 2560&times;1920</span></div>
       </div>
     </div>
 
@@ -499,8 +502,8 @@
         <span class="ph"><span class="dev"></span>Hero &middot; hero.mp4 (16:9 &middot; 1920&times;1080) + hero-vertical.mp4 (9:16 &middot; 1080&times;1920)</span>
       </div>
       <div class="diptych">
-        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/archived/shot1@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 16:9 &middot; 2560&times;1440</span></div>
-        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/archived/shot2@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 16:9 &middot; 2560&times;1440</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/archived/shot1@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot1 &middot; 4:3 &middot; 2560&times;1920</span></div>
+        <div class="slot" data-tilt data-tilt-max="4" data-tilt-scale="1.16"><img class="media" src="/assets/studies/archived/shot2@2x.png" loading="lazy" alt="ARCHIVE/D" onload="this.closest('.slot').classList.add('has-img')" onerror="this.remove()"><span class="ph"><span class="dev"></span>shot2 &middot; 4:3 &middot; 2560&times;1920</span></div>
       </div>
     </div>
 

@@ -37,7 +37,7 @@ exports at the same paths (the `<img>`/`<source>` self-upgrade on load).
 |------|------|-----|-------|
 | `hero.mp4` | hero band — silent loop, **desktop** | **16:9 · 1920 × 1080** | plays with tilt; cover-fit so any landscape ratio works |
 | `hero-vertical.mp4` | hero band — silent loop, **mobile** (≤700px) | **9:16 · 1080 × 1920** | art-directed portrait crop |
-| `shot1@2x.png`, `shot2@2x.png` | the two supporting frames (landscape stills) | **16:9 · 2560 × 1440** (@2x) | 2-up diptych; subtle pointer tilt (4°); optimise < ~500 KB — drop the file, no markup change |
+| `shot1@2x.png`, `shot2@2x.png` | the two supporting frames (landscape stills) | **4:3 · 2560 × 1920** (@2x) | 2-up diptych; subtle pointer tilt (4°); optimise < ~500 KB — drop the file, no markup change |
 
 ### Swap-ready hero (tilt video) — how to drop one in
 The hero slot markup already carries the pattern (see `studies/index.html`; Sightline
@@ -46,7 +46,14 @@ no HTML edits needed if the block is present:
 
 1. Export a **16:9** loop → `assets/studies/APP/hero.mp4`.
 2. Export a **9:16** loop → `assets/studies/APP/hero-vertical.mp4`.
-3. Reload. The wide clip plays on desktop with a pointer **tilt**
+   *(Filenames are exactly these — an `archived-hero.mp4` will silently show
+   the placeholder instead. Rename before dropping in.)*
+3. Export the two stills at **4:3** → `shot1@2x.png`, `shot2@2x.png`.
+   The LS Graphics device exports are 6000 × 4500 (4:3); scaled to the
+   2560 width the site uses, that is **2560 × 1920**. The diptych slot is
+   `aspect-ratio:4/3` to match — export any other ratio and `object-fit:
+   cover` will crop the screens.
+4. Reload. The wide clip plays on desktop with a pointer **tilt**
    (`assets/tilt.js`, via `data-tilt` on the slot); the tall clip plays on mobile.
    Until a file exists the slot shows its styled placeholder (`onerror` removes the
    missing `<video>`); reduced-motion / no-JS also fall back to the placeholder.
