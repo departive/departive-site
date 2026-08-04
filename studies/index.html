@@ -169,6 +169,34 @@
   .slot .ph .dev { display:block; width:clamp(46px,7vw,72px); height:1px; margin:0 auto 14px; background:var(--chap-accent,var(--accent)); opacity:0.5; }
   .slot.has-img .ph { display:none; }
 
+  /* ===== SHOT VIEWER =====================================================
+     The stills ship at 2560×1920 but the diptych only ever renders them
+     ~640px wide. Click one and it opens at full size, so the UI in the
+     screenshots is actually readable — which is the point of a page about
+     software. Native <dialog>: the top layer beats the grain sheet's
+     z-index, and Esc, the focus trap and inertness come for free. Stills
+     only; the hero loops stay where they are. */
+  .slot.has-img.zoomable { cursor:zoom-in; }
+  .slot.zoomable:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+  .viewer { border:0; padding:clamp(14px,3vw,48px); margin:auto; background:transparent;
+            width:100vw; height:100vh; max-width:100vw; max-height:100vh;
+            place-items:center; cursor:zoom-out; overflow:hidden; }
+  .viewer[open] { display:grid; }
+  .viewer::backdrop { background:rgba(8,6,3,0.93); backdrop-filter:blur(7px); }
+  .viewer img { display:block; max-width:100%; max-height:100%; width:auto; height:auto;
+                object-fit:contain; box-shadow:0 40px 120px rgba(0,0,0,0.6); }
+  .viewer .hint { position:fixed; left:0; right:0; bottom:clamp(14px,3vh,26px); text-align:center;
+                  font-family:var(--mono); font-size:10px; letter-spacing:0.18em;
+                  text-transform:uppercase; color:rgba(237,231,219,0.42); pointer-events:none; }
+  @keyframes viewerIn { from { opacity:0; transform:scale(0.985); } to { opacity:1; transform:none; } }
+  .viewer[open] img { animation:viewerIn 0.32s cubic-bezier(0.22,1,0.36,1) both; }
+  @media (prefers-reduced-motion: reduce) { .viewer[open] img { animation:none; } }
+  /* On a phone the diptych is already full-width, so the viewer must not
+     inset the image — it would show it SMALLER than the page does. Here it
+     buys isolation and an easy pinch into the 2560px source, not scale;
+     the real gain is on desktop. */
+  @media (max-width:760px) { .viewer { padding:0; } .viewer img { box-shadow:none; } }
+
   .hero-band { aspect-ratio:16/9; max-height:88vh; }
   /* swap-ready per-app hero video: drop hero.mp4 (16:9) + hero-vertical.mp4 (9:16) in the app
      folder and it plays with a pointer TILT (assets/tilt.js). Art-directed — wide on desktop,
@@ -544,6 +572,12 @@
 
 </div>
 
+<!-- full-size viewer for the stills (see .viewer in the stylesheet) -->
+<dialog class="viewer" id="shotViewer" aria-label="Screenshot, full size">
+  <img alt="">
+  <span class="hint">Click anywhere &middot; or press Esc</span>
+</dialog>
+
 <div class="grain" aria-hidden="true"></div>
 
 <script>
@@ -590,6 +624,62 @@
 })();
 </script>
 <!-- pointer-tracked sheen on the hero video ([data-tilt-sheen]); injects its own CSS -->
+<script>
+/* SHOT VIEWER — open a still at full size. Any .slot holding an <img class="media">
+   qualifies; the video heroes are left alone. The slot becomes a real button
+   (role + tabindex + Enter/Space) rather than a click-only div, and focus
+   returns to it on close. Degrades to nothing where <dialog> is unsupported —
+   the page behaves exactly as it did before. */
+(function () {
+  var dlg = document.getElementById('shotViewer');
+  if (!dlg || typeof dlg.showModal !== 'function') return;
+  var view = dlg.querySelector('img');
+  var opener = null;
+
+  function open(slot, img) {
+    if (!slot.classList.contains('has-img')) return; // still a placeholder
+    opener = slot;
+    view.src = img.currentSrc || img.src;
+    view.alt = img.alt || '';
+    dlg.showModal();
+  }
+
+  [].forEach.call(document.querySelectorAll('.slot'), function (slot) {
+    var img = slot.querySelector('img.media');
+    if (!img) return;
+    slot.classList.add('zoomable');
+    slot.setAttribute('role', 'button');
+    slot.setAttribute('tabindex', '0');
+    // both frames in a diptych carry the same alt, so number them — otherwise
+    // a screen reader announces two identical buttons per chapter
+    var n = (img.getAttribute('src') || '').match(/shot(\d)@2x/);
+    slot.setAttribute('aria-label',
+      (img.alt || 'Screenshot') + (n ? ', frame ' + n[1] : '') + ' — view full size');
+    slot.addEventListener('click', function () { open(slot, img); });
+    slot.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(slot, img); }
+    });
+  });
+
+  /* Teardown is deliberately NOT hung off the 'close' event alone: some
+     engines never fire it on a programmatic close(), which silently costs
+     the focus return (an accessibility regression) and leaves the decoded
+     bitmap resident. dismiss() is idempotent, so every route can call it —
+     click, Esc, and the close event where it does arrive. */
+  function dismiss() {
+    if (dlg.open) dlg.close();
+    view.removeAttribute('src');
+    if (opener && opener.focus) opener.focus();
+    opener = null;
+  }
+  dlg.addEventListener('click', dismiss);          // backdrop or image
+  dlg.addEventListener('close', dismiss);
+  dlg.addEventListener('cancel', function () { setTimeout(dismiss, 0); });  // Esc
+  dlg.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' || e.key === 'Esc') setTimeout(dismiss, 0);
+  });
+})();
+</script>
 <script src="/assets/tilt.js" defer></script>
 <!-- GoatCounter --><script data-goatcounter="https://departive.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><!-- End GoatCounter -->
 </body>
