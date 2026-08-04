@@ -96,10 +96,6 @@
     { id: '2000–2012', span: [2000, 2012], bucket: '2000s' },
     { id: '2013–now', span: [2013, 2026], bucket: '2010s' }
   ];
-  /* INVARIANT: BODY_POLE_W is index-aligned with CORPUS.prose.BODY (same length/order). */
-  if (typeof CORPUS !== 'undefined' && CORPUS.prose && CORPUS.prose.BODY.length !== BODY_POLE_W.length) {
-    console.warn('LN: BODY_POLE_W(' + BODY_POLE_W.length + ') != BODY(' + CORPUS.prose.BODY.length + ')');
-  }
 
   /* ============================================================
      COORDINATES — SEED_MAPPING §2 (+ §4 guard)
@@ -846,6 +842,12 @@
     { STARK: 0.5, TERRAIN: 0.2, INTERIOR: 0.4, CIRCUIT: 2.9 },
     { STARK: 0.6, TERRAIN: 0.2, INTERIOR: 0.3, CIRCUIT: 2.9 }
   ];
+  /* INVARIANT: BODY_POLE_W is index-aligned with CORPUS.prose.BODY (same length/order).
+     Checked after BODY_POLE_W is declared — referencing it before its `var` init above
+     read `undefined` and threw at load, blocking the LN_PLANT export (silent-intake bug). */
+  if (typeof CORPUS !== 'undefined' && CORPUS.prose && CORPUS.prose.BODY.length !== BODY_POLE_W.length) {
+    console.warn('LN: BODY_POLE_W(' + BODY_POLE_W.length + ') != BODY(' + CORPUS.prose.BODY.length + ')');
+  }
   function makeBodyWeight(coords) {
     var p1 = coords.blend[0], p2 = coords.blend[1];
     return function (e) {
