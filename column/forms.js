@@ -30,7 +30,10 @@
   };
 
   var SLOTS = ['outer', 'mid', 'base', 'bottoms', 'footwear', 'accent'];
-  var REQUIRED = ['outer', 'base', 'bottoms', 'footwear'];
+  /* RULES v2 (4 Aug 2026): MID and OUTER are each optional — a fit is
+     judged on the three slots that always exist. Ratio and volume compute
+     over PRESENT slots only. */
+  var REQUIRED = ['base', 'bottoms', 'footwear'];
   var MODES = ['TA', 'TS', 'SM', 'NS'];
   var MODE_NAMES = {
     TA: 'TACTICAL ARCHITECT', TS: 'TACTILE SCULPTOR',
@@ -47,14 +50,6 @@
 
   var CATALOG = {
     outer: [
-      f('mac_coat', 'mac coat', 'H', 'L', 'm', 0, 1, [2, 0, 2, 1],
-        // clean knee-length column, shallow neck, straight fall; offset fly
-        'M38,14 C43,20 57,20 62,14 L80,21 L86,76 L75,78 L69,38 L69,104 L31,104 L31,38 L25,78 L14,76 L20,21 Z',
-        'M56,26 L56,101'),
-      f('field_jacket', 'field jacket', 'H', 'S', 'm', 0, 0, [3, 0, 0, 1],
-        // boxy, collar points, squared hem; one bar where the pockets sit
-        'M35,13 L39,20 C44,24 56,24 61,20 L65,13 L82,22 L88,72 L76,74 L71,40 L71,84 L29,84 L29,40 L24,74 L12,72 L18,22 Z',
-        'M34,47 L66,47'),
       f('wool_overcoat', 'wool overcoat', 'S', 'V', 'h', 0, 0, [0, 2, 1, 2],
         // generous, soft shoulders, long fall; lapel V as the interior line
         'M37,14 C43,21 57,21 63,14 C72,16 79,20 82,25 C88,43 90,62 88,80 L77,82 C73,62 72,48 72,40 C73,64 74,86 75,108 L25,108 C26,86 27,64 28,40 C28,48 27,62 23,82 L12,80 C10,62 12,43 18,25 C21,20 28,16 37,14 Z',
@@ -63,11 +58,10 @@
         // pure lobed mass, nipped at the quilt channels; one channel drawn
         'M36,12 C43,17 57,17 64,12 C76,15 84,22 85,31 C88,39 87,46 83,50 C88,55 88,64 84,69 C88,74 87,82 82,87 C73,93 27,93 18,87 C13,82 12,74 16,69 C12,64 12,55 17,50 C13,46 12,39 15,31 C16,22 24,15 36,12 Z',
         'M17,50 C35,57 65,57 83,50'),
-      f('chore_coat', 'chore coat', 'H', 'S', 'm', 0, 0, [2, 1, 1, 0],
-        // plain box, round collarless neck, straight hem; centre placket
-        'M37,15 C43,21 57,21 63,15 L81,22 L86,73 L75,75 L70,40 L70,86 L30,86 L30,40 L25,75 L14,73 L19,22 Z',
-        'M50,25 L50,84'),
-      f('long_shield_coat', 'long shield coat', 'H', 'L', 'h', 0, 1, [1, 0, 1, 3],
+      /* RENAMED 4 Aug 2026 (prune §D): "long shield coat" → "long coat" —
+         attributes, ~ and silhouette unchanged; the old name was jargon.
+         SM 1→2 restores the SM≥2 outer coverage the mac coat carried. */
+      f('long_coat', 'long coat', 'H', 'L', 'h', 0, 1, [1, 0, 2, 3],
         // severe full-length, tall funnel collar; off-centre storm seam
         'M39,8 C44,12 56,12 61,8 L63,17 L79,22 L84,80 L73,82 L69,38 L69,112 L31,112 L31,38 L27,82 L16,80 L21,22 L37,17 Z',
         'M58,24 L58,110'),
@@ -131,7 +125,10 @@
         // straight sides; centre opening line below the button
         'M38,14 L44,28 L41,31 L50,52 L59,31 L56,28 L62,14 L80,21 L84,74 L73,76 L69,40 L69,96 L31,96 L31,40 L27,76 L16,74 L20,21 Z',
         'M50,52 L50,94'),
-      f('sheer_overshirt', 'sheer overshirt', 'S', 'S', 'l', 0, 0, [0, 1, 2, 2],
+      /* RENAMED 4 Aug 2026 (prune §D): "sheer overshirt" → "open shirt".
+         Not cut — this form IS the Our Legacy Above Shirt (Penumbra Check)
+         worn open, from the Smoke monolith; only the label alienated. */
+      f('open_shirt', 'open shirt', 'S', 'S', 'l', 0, 0, [0, 1, 2, 2],
         // soft open shirt; interior placket doubled faint (the translucency cue)
         'M37,15 C43,21 57,21 63,15 C71,17 77,20 80,24 L83,72 L72,74 L69,40 L69,92 L31,92 L31,40 L28,74 L17,72 L20,24 C23,20 29,17 37,15 Z',
         'M46,24 L46,90 M54,24 L54,90'),
@@ -220,7 +217,9 @@
         // low and exact: heel block, laced instep; quarter line
         'M16,80 L15,73 L17,61 C19,56 25,54 30,57 L36,60 L40,57 C45,54 51,55 55,58 C65,62 76,68 83,72 L86,75 L86,80 Z',
         'M38,59 C42,64 48,66 54,65'),
-      f('boot', 'boot', 'H', 'S', 'h', 0, 0, [2, 1, 0, 2],
+      /* TS 1→2 (4 Aug 2026): leather/suede boot is the tactile-material
+         footwear archetype; restores the TS≥2 coverage floor in FOOTWEAR. */
+      f('boot', 'boot', 'H', 'S', 'h', 0, 0, [2, 2, 0, 2],
         // straight shaft, weighted sole slab; welt line
         'M20,81 L23,36 L45,36 L47,56 C58,58 70,63 80,68 L85,72 L86,82 C60,86 32,86 18,83 Z',
         'M19,76 C46,80 68,78 86,75'),
@@ -281,10 +280,59 @@
     ]
   };
 
+  /* ------------------------------------------------------------------ */
+  /* DUAL-SLOT (rules v2 §3) — a few forms legitimately wear in two slots.
+     Each form carries `slots`; its home slot (the CATALOG array it lives
+     in) is always first. A blazer over a tank is a real fit, so the
+     blazer is offered in OUTER as well as MID.                           */
+  /* ------------------------------------------------------------------ */
+  var DUAL_SLOT = {
+    unstructured_blazer: ['mid', 'outer'],
+    overshirt:           ['mid', 'outer'],
+    denim_trucker:       ['outer', 'mid']
+  };
+  SLOTS.forEach(function (slot) {
+    CATALOG[slot].forEach(function (fm) {
+      var dual = DUAL_SLOT[fm.id];
+      fm.slots = dual ? dual.slice() : [slot];
+      if (fm.slots[0] !== slot) throw new Error('COLUMN catalog: ' + fm.id + ' home slot must lead its slots list');
+    });
+  });
+
+  /* Forms selectable in a slot: the slot's own list, then any dual-slot
+     form visiting from elsewhere (stable order — shared ?fit= URLs and the
+     page's index-based cycling both depend on it). */
+  var SLOT_FORMS = {};
+  SLOTS.forEach(function (slot) {
+    SLOT_FORMS[slot] = CATALOG[slot].slice();
+    SLOTS.forEach(function (other) {
+      if (other === slot) return;
+      CATALOG[other].forEach(function (fm) {
+        if (fm.slots.indexOf(slot) >= 0) SLOT_FORMS[slot].push(fm);
+      });
+    });
+  });
+  function formsForSlot(slot) { return SLOT_FORMS[slot] || []; }
+
+  /* Retired/renamed ids — shared ?fit= URLs must fail gracefully (prune
+     §D, 4 Aug 2026). null = the form is gone; the slot loads empty. */
+  var ALIASES = {
+    long_shield_coat: 'long_coat',
+    sheer_overshirt:  'open_shirt',
+    mac_coat:    null,
+    field_jacket: null,
+    chore_coat:  null
+  };
+  function resolveId(id) {
+    return Object.prototype.hasOwnProperty.call(ALIASES, id) ? ALIASES[id] : id;
+  }
+
   function getForm(slot, id) {
-    var list = CATALOG[slot];
-    if (!list) return null;
-    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    var list = formsForSlot(slot);
+    if (!list.length) return null;
+    var wanted = resolveId(id);
+    if (!wanted) return null;
+    for (var i = 0; i < list.length; i++) if (list[i].id === wanted) return list[i];
     return null;
   }
 
@@ -292,8 +340,10 @@
   function assertCatalog() {
     var fail = function (m) { throw new Error('COLUMN catalog assertion: ' + m); };
     if (SLOTS.length !== 6) fail('six slots');
-    /* per-slot form counts (wardrobe-grounded additions, 4 Aug 2026) */
-    var COUNTS = { outer: 11, mid: 10, base: 8, bottoms: 6, footwear: 8, accent: 9 };
+    /* per-slot HOME counts (wardrobe-grounded additions 4 Aug 2026, less
+       the §D prune of three unowned outers) — dual-slot visitors are not
+       counted here; see the coverage assertion below. */
+    var COUNTS = { outer: 8, mid: 10, base: 8, bottoms: 6, footwear: 8, accent: 9 };
     SLOTS.forEach(function (slot) {
       var list = CATALOG[slot];
       if (!list || list.length !== COUNTS[slot]) fail(slot + ': ' + COUNTS[slot] + ' forms required (found ' + (list ? list.length : 0) + ')');
@@ -312,12 +362,46 @@
       });
       if (stars !== 1) fail(slot + ': exactly one statement variant (found ' + stars + ')');
     });
+
+    /* MODE COVERAGE FLOOR (prune §D, 4 Aug 2026) — cutting forms must not
+       strand a mode. Every mode keeps at least two forms weighted ≥2 in
+       OUTER and in FOOTWEAR, counted over what is SELECTABLE in the slot
+       (dual-slot visitors included, since the composer offers them). */
+    ['outer', 'footwear'].forEach(function (slot) {
+      MODES.forEach(function (m) {
+        var n = formsForSlot(slot).filter(function (fm) { return fm.modes[m] >= 2; }).length;
+        if (n < 2) fail(slot + '/' + m + ': mode coverage floor is 2 forms at weight ≥2 (found ' + n + ')');
+      });
+    });
+
+    /* dual-slot integrity */
+    Object.keys(DUAL_SLOT).forEach(function (id) {
+      var declared = DUAL_SLOT[id];
+      var fm = getForm(declared[0], id);
+      if (!fm) fail('dual-slot ' + id + ' not found in its home slot');
+      declared.forEach(function (s) {
+        if (formsForSlot(s).indexOf(fm) < 0) fail(id + ': not selectable in declared slot ' + s);
+      });
+    });
     return true;
+  }
+
+  /* Mode coverage table (report/dev aid — same counting as the assertion) */
+  function modeCoverage(slot) {
+    var out = {};
+    MODES.forEach(function (m) {
+      out[m] = formsForSlot(slot)
+        .filter(function (fm) { return fm.modes[m] >= 2; })
+        .map(function (fm) { return fm.id + '(' + fm.modes[m] + ')'; });
+    });
+    return out;
   }
 
   return {
     TONES: TONES, TONE_FILL: TONE_FILL, SLOTS: SLOTS, REQUIRED: REQUIRED,
     MODES: MODES, MODE_NAMES: MODE_NAMES, CATALOG: CATALOG,
+    DUAL_SLOT: DUAL_SLOT, ALIASES: ALIASES, resolveId: resolveId,
+    formsForSlot: formsForSlot, modeCoverage: modeCoverage,
     getForm: getForm, assertCatalog: assertCatalog
   };
 });

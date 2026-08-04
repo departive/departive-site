@@ -37,6 +37,15 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* REFLOW MODE (<=700px). On a phone the 1400² board would have to be scaled
+     to ~0.27× — the prose lands at 6px and the sleeve becomes a picture of
+     itself. Below 700px index.html re-sets the same skeleton as a portrait
+     column at native type sizes, so everything here that assumes the fixed
+     board — the transform, the stage height, the autofit governor — must stand
+     down. The breakpoint is duplicated in the stylesheet; keep the two in step. */
+  var reflowMQ = window.matchMedia ? window.matchMedia('(max-width:700px)') : null;
+  function isReflow() { return !!(reflowMQ && reflowMQ.matches); }
+
   /* ---------------- fonts: load before any measuring ---------------- */
   var SERIF = "'Instrument Serif', Georgia, serif";
   var SANS = "'Instrument Sans', system-ui, sans-serif";
@@ -116,13 +125,41 @@
       state.forcedSeed = null;
       state.cover = cover;
       state.k = 0;
-      press();
+      press(true); // true = a fresh photograph, so fold the box and go look
     };
     img.onerror = function () { URL.revokeObjectURL(url); };
     img.src = url;
   }
 
-  function press() {
+  /* The drop box is a means, not a monument: once a photograph is in it folds
+     to a one-line chip (same element, same handlers — only its clothes change),
+     so on a phone the load reads as something that HAPPENED. */
+  function collapseDrop() {
+    if (!el.drop || el.drop.classList.contains('compact')) return;
+    el.drop.classList.add('compact');
+    el.drop.setAttribute('aria-label', 'Photograph loaded — choose a different photograph');
+  }
+
+  /* Mobile only: the stage sits BELOW the rail there, so without this the
+     sleeve is generated off-screen and nothing appears to happen. On desktop
+     the stage is already beside the rail — moving the page would be rude. */
+  function revealSleeve() {
+    if (!isReflow() || !el.stage) return;
+    var from = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var top = el.stage.getBoundingClientRect().top + from - 12;
+    if (top < 0) top = 0;
+    function jump() { window.scrollTo(0, top); }
+    if (reduceMotion || !('scrollBehavior' in document.documentElement.style)) { jump(); return; }
+    try { window.scrollTo({ top: top, behavior: 'smooth' }); } catch (e) { jump(); return; }
+    // Some engines accept the smooth request and then quietly ignore it. If
+    // nothing has moved a beat later, take the jump — a silent no-op here is
+    // exactly the "nothing happened" this whole change exists to fix.
+    setTimeout(function () {
+      if (Math.abs((window.pageYOffset || document.documentElement.scrollTop || 0) - from) < 2) jump();
+    }, 400);
+  }
+
+  function press(fromPhoto) {
     var opts = { dev: DEV };
     if (state.forcedSeed != null) opts.seed = state.forcedSeed;
     state.record = PLANT.generateRecord(state.features, state.k, opts);
@@ -134,6 +171,8 @@
       el.next.disabled = false;
       el.exportBtns.forEach(function (b) { b.disabled = false; });
       el.counter.textContent = state.record.pressingLabel || 'first pressing';
+      if (state.cover) collapseDrop();
+      if (fromPhoto) revealSleeve();
     });
   }
 
@@ -271,13 +310,31 @@
   function rescale() {
     var card = el.stage.firstChild;
     if (!card) return;
+    if (isReflow()) {
+      // fluid card: no transform, and the stage must go back to auto height —
+      // a px height computed from the 1400² board would crop the column.
+      card.style.transform = '';
+      el.stage.style.height = '';
+      return;
+    }
     var w = el.stage.clientWidth;
     card.style.transform = 'scale(' + (w / 1400) + ')';
     el.stage.style.height = w + 'px';
   }
+
+  var wasReflow = isReflow();
   window.addEventListener('resize', function () {
     if (scaleRAF) cancelAnimationFrame(scaleRAF);
-    scaleRAF = requestAnimationFrame(rescale);
+    scaleRAF = requestAnimationFrame(function () {
+      rescale();
+      if (isReflow() === wasReflow) return; // mobile URL-bar resizes are not mode changes
+      wasReflow = isReflow();
+      var card = el.stage.firstChild; // crossing the breakpoint re-opens the fit question
+      if (card && card.classList.contains('sleeve') && !card.classList.contains('sleeve-empty')) {
+        var inner = card.querySelector('.sleeve-inner');
+        if (inner) fit(card, inner);
+      }
+    });
   });
 
   /* CARD_DESIGN §5 — the card must survive the longest content without
@@ -287,6 +344,10 @@
     var scales = ['1', '0.96', '0.92', '0.88', '0.84'];
     card.style.setProperty('--gapscale', '1');
     card.style.setProperty('--ts', '1');
+    // In reflow mode the column grows instead of clipping, so there is nothing
+    // to fit — and shrinking type here would silently undercut the mobile
+    // sizes. Neutral 1/1 is the whole contract with the stylesheet.
+    if (isReflow()) return;
     function fits() { return inner.scrollHeight <= inner.clientHeight; }
     if (fits()) return;
     for (var g = 0; g < gaps.length; g++) {
@@ -706,7 +767,10 @@
   el.drop.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.file.click(); }
   });
-  el.file.addEventListener('change', function () { handleFile(el.file.files[0]); });
+  el.file.addEventListener('change', function () {
+    handleFile(el.file.files[0]); // reads the file synchronously, so clearing after is safe
+    el.file.value = ''; // otherwise re-choosing the SAME photograph fires no change event
+  });
   ['dragover', 'dragenter'].forEach(function (ev) {
     el.drop.addEventListener(ev, function (e) { e.preventDefault(); el.drop.classList.add('over'); });
   });

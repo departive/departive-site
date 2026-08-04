@@ -16,10 +16,16 @@
      exactly 100 or 0 → total).
    - §1.2 the footwear side of bottoms/footwear agreement is judged by the
      footwear's MASS (per the build prompt: "footwear mass drives Volume
-     Matching"), mapped l→LINEAR m→STANDARD h→VOLUME; agreement is exact.
+     Matching"), mapped l→LINEAR m→STANDARD h→VOLUME. RULES v2 (4 Aug
+     2026): agreement softens to ±1 step — exact is the clean pass, ONE
+     step passes and is voiced ("acceptable — noticed"), TWO steps fail.
+     A two-step failure is voiced by its DIRECTION: footwear lighter than
+     the bottoms → underbuilt/"whisper shoes"; heavier → "heavy shoe".
      The top half is read at its outermost filled slot (outer, else mid,
      else base) — the silhouette that shows — and may deviate from the
      bottoms by at most one step.
+   - RULES v2 §3: MID and OUTER are optional (REQUIRED is base + bottoms +
+     footwear); ratio and volume compute over PRESENT slots only.
    - §1.3 the strip is linear (no wrap): BLACK–COGNAC are not adjacent.
      Adjacent (distance 1) passes, and is voiced by its own corpus state.
    - §1.5 the Nocturnal Shield exception is decided by mode affinity alone
@@ -95,24 +101,38 @@
     return { hardPct: pct, pass: pass, direction: direction, state: state };
   }
 
-  /* §1.2 VOLUME MATCHING */
+  /* §1.2 VOLUME MATCHING — v2: bottoms/footwear tolerate ±1 step.
+     anchorDelta is SIGNED (footwear minus bottoms), so a two-step failure
+     names its own direction: negative = footwear too light (underbuilt),
+     positive = footwear too heavy. The state carries that family so the
+     corpus cannot draw a line that contradicts the geometry. */
   function volume(entries) {
     var by = {};
     entries.forEach(function (e) { by[e.slot] = e; });
     var bottomsV = by.bottoms.form.vol;
     var footwearV = MASS_AS_VOL[by.footwear.form.mass];
-    var anchorAgree = footwearV === bottomsV;
+    var anchorDelta = VOL_STEP[footwearV] - VOL_STEP[bottomsV];
+    var anchorSteps = Math.abs(anchorDelta);
+    var anchorOk = anchorSteps <= 1;
 
     var topEntry = by.outer || by.mid || by.base;
     var topV = topEntry.form.vol;
     var topDelta = Math.abs(VOL_STEP[topV] - VOL_STEP[bottomsV]);
     var topOk = topDelta <= 1;
 
-    var state = 'matched';
-    if (!anchorAgree) state = 'clash';           // bottoms/footwear first —
-    else if (!topOk) state = 'fighting';         // the rule's own emphasis
-    return { pass: anchorAgree && topOk, state: state,
-             bottomsV: bottomsV, footwearV: footwearV, topV: topV, topDelta: topDelta };
+    var direction = anchorOk ? null : (anchorDelta < 0 ? 'underbuilt' : 'heavy');
+    var state;
+    if (!anchorOk) state = 'clash_' + direction;   // bottoms/footwear first —
+    else if (!topOk) state = 'fighting';           // the rule's own emphasis
+    else state = anchorSteps === 0 ? 'matched' : 'near';
+
+    assert(anchorSteps <= 2, 'volume steps within the three-tier scale');
+    assert(anchorOk || (direction === (anchorDelta < 0 ? 'underbuilt' : 'heavy')),
+           'volume failure direction matches the signed delta');
+
+    return { pass: anchorOk && topOk, state: state, direction: direction,
+             bottomsV: bottomsV, footwearV: footwearV, topV: topV, topDelta: topDelta,
+             anchorDelta: anchorDelta, anchorSteps: anchorSteps };
   }
 
   /* §1.3 TONAL ANCHOR — footwear vs bottoms on the linear 7-tone strip */
@@ -176,7 +196,8 @@
     assert(!(r.pass && (r.state === 'soft_heavy' || r.state === 'hard_heavy' || r.state === 'total')), 'ratio state/pass mismatch');
     assert(!r.pass || (r.direction === 'hard' || r.direction === 'soft'), 'ratio pass requires a lane');
     assert(r.pass === ((r.hardPct >= 60 && r.hardPct <= 80) || (r.hardPct >= 20 && r.hardPct <= 40)), 'ratio lane bands');
-    assert(entries.length >= 4, 'complete fit resolves at least four forms');
+    assert(entries.length >= 3, 'complete fit resolves at least three forms');
+    assert(!v.pass || v.anchorSteps <= 1, 'volume pass implies bottoms/footwear within one step');
 
     return {
       complete: true, entries: entries,
@@ -188,14 +209,19 @@
 
   /* ALIGNMENT — derived display only (no rule logic): how many of the six
      rules currently hold. Rules 1–5 count by pass; rule 6 (MODE
-     ATTRIBUTION) counts when the affinity argmax is unambiguous. */
+     ATTRIBUTION) counts when the fit is claimed by a mode.
+     RULES v2 (4 Aug 2026): a passing fit is ALWAYS claimed — an affinity
+     tie is settled by the deterministic tiebreak, so it no longer costs
+     the point (the TIE corpus voice still speaks). 6/6 is reachable.
+     A failing fit still counts rule 6 only on an unambiguous argmax. */
   function alignment(ev) {
     if (!ev || !ev.complete) return { n: null, of: 6 };
     var n = 0;
     [ev.ratio, ev.volume, ev.anchor, ev.deviation, ev.light].forEach(function (r) {
       if (r.pass) n++;
     });
-    if (ev.mode.winner !== null) n++;
+    if (ev.allPass || ev.mode.winner !== null) n++;
+    assert(!ev.allPass || n === 6, 'a fit passing rules 1–5 reaches 6/6');
     assert(n >= 0 && n <= 6, 'alignment out of range');
     return { n: n, of: 6 };
   }

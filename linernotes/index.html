@@ -27,8 +27,12 @@
   }
   * { box-sizing:border-box; }
   html { -webkit-text-size-adjust:100%; }
+  /* overflow-x:clip, not hidden — `hidden` turns the viewport into a scroll
+     container, which fights position:sticky and confuses the visual viewport
+     while the user is pinched in. `clip` suppresses the same overflow without
+     the scroll container. The `hidden` line stays as the pre-Safari-16 fallback. */
   body { margin:0; background:var(--dark2); color:var(--onDark); font-family:var(--sans);
-         -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+         -webkit-font-smoothing:antialiased; overflow-x:hidden; overflow-x:clip; }
   a { color:inherit; }
   ::selection { background:var(--accent); color:var(--dark); }
 
@@ -57,7 +61,10 @@
 
   /* the machine — rail (drop + actions) beside the sleeve */
   .machine { display:grid; grid-template-columns:280px minmax(0,1fr); gap:clamp(28px,4vw,64px); align-items:start; padding-bottom:clamp(40px,7vh,90px); }
-  @media (max-width:860px) { .machine { grid-template-columns:1fr; } }
+  /* minmax(0,1fr), not 1fr: a bare 1fr track takes its floor from the items'
+     min-content, and the stage's child is a printed board with fixed-width
+     parts — it would push the single column wider than the page. */
+  @media (max-width:860px) { .machine { grid-template-columns:minmax(0,1fr); } }
 
   .dropzone { border:1px solid var(--line-d); padding:34px 22px; text-align:center; cursor:pointer;
               transition:border-color 0.35s ease, background 0.35s ease; background:transparent; }
@@ -67,6 +74,19 @@
   .dropzone .dz-main { display:block; font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--onDark); }
   .dropzone .dz-sub { display:block; margin-top:10px; font-family:var(--mono); font-size:10px; letter-spacing:0.1em; color:var(--mutedInk); }
   .privacy { margin:14px 0 0; font-family:var(--mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+
+  /* the box has done its job — once a photograph is in, it folds down to a
+     one-line chip so the sleeve, not the intake, owns the screen. Still the
+     same button: same click/keydown handlers, same drop target. */
+  .dropzone .dz-done { display:none; }
+  .dropzone.compact { display:flex; align-items:center; justify-content:center; gap:10px;
+                      min-height:46px; padding:12px 16px; text-align:left; }
+  .dropzone.compact::before { content:""; flex:none; width:6px; height:6px; border-radius:50%;
+                              background:var(--accent); }
+  .dropzone.compact .dz-rule, .dropzone.compact .dz-main, .dropzone.compact .dz-sub { display:none; }
+  .dropzone.compact .dz-done { display:block; font-family:var(--mono); font-size:10px;
+                               letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
+  .dropzone.compact:hover .dz-done, .dropzone.compact.over .dz-done { color:var(--onDark); }
 
   .actions { margin-top:30px; display:flex; flex-direction:column; gap:16px; align-items:flex-start; }
   .act { appearance:none; background:none; border:none; padding:0 0 4px; cursor:pointer;
@@ -176,6 +196,109 @@
   .gb-credit { width:420px; height:13px; margin-top:14px; }
   .sleeve-empty .t-row { padding:10px 0; }
 
+  /* ============ MOBILE (<=700px) — the sleeve reflows to portrait ============
+     A 1400² board has to shrink to ~0.27× to fit a 390px phone, which puts the
+     prose at 6px: a picture of a record sleeve rather than a readable one. So
+     below 700px we drop the transform entirely and re-set the SAME skeleton as
+     a narrow column at native sizes — same hairlines, same accent, same
+     families, same order as the STORY export (cover · masthead · tracks ·
+     credits · prose · foot). Portrait instead of square; nothing to pinch.
+     rescale() and fit() stand down in this mode (see sleeve.js); the
+     !important flags below are belt-and-braces against their inline writes. */
+  @media (max-width:700px) {
+    body { padding-bottom:calc(92px + env(safe-area-inset-bottom, 0px)); }
+
+    .stage { overflow:visible; height:auto !important; }
+    .sleeve { width:100%; height:auto; transform:none !important;
+              --ts:1 !important; --gapscale:1 !important;
+              box-shadow:0 16px 44px rgba(0,0,0,0.45); }
+    .sleeve-inner { height:auto; padding:22px; overflow:visible; }
+
+    /* both plates stack; the cover goes full-bleed-within-the-margin */
+    .plate-top, .plate-low { flex-direction:column; }
+    .plate-top { margin-bottom:0; }
+    .plate-low { gap:0; }
+    .thumb { width:100%; height:auto; aspect-ratio:1 / 1; }
+    .thumb canvas { height:auto; }
+
+    /* masthead: label · catalog · channel collapse into one micro-type row */
+    .mast-col { padding-left:0; padding-top:16px; }
+    .sleeve:not(.sleeve-empty) .mast-block { display:flex; flex-wrap:wrap; align-items:baseline;
+                                             justify-content:space-between; gap:4px 14px;
+                                             text-align:left; padding-top:0; }
+    .mast-label { font-size:10px; letter-spacing:0.16em; }
+    .mast-cat, .sleeve[data-era="80s"] .mast-cat { margin-top:0; font-size:11px; letter-spacing:0.06em; }
+    .mast-channel, .sleeve[data-era="70s"] .mast-channel { margin-top:0; font-size:10px; letter-spacing:0.06em; }
+
+    .head-block { margin-top:20px; }
+    .head-rule { margin-bottom:14px; }
+    .artist { font-size:30px; line-height:1.06; }
+    .album { margin-top:8px; font-size:19px; line-height:1.16; }
+    .yearline { margin-top:12px; font-size:11px; }
+
+    .hairline { margin:18px 0; }
+
+    .col-tracks { width:auto; }
+    .col-notes { margin-top:22px; }
+    .side-head { margin:14px 0 4px; font-size:10px; }
+    .t-row { gap:12px; padding:5px 0; }
+    .t-title { font-size:15px; }
+    .t-time { font-size:13px; }
+    .sleeve[data-era="90s"] .t-leader { transform:translateY(-4px); }
+
+    .credits { margin-bottom:18px; }
+    .credit { font-size:12px; }
+    .prose { font-size:15px; max-width:none; }
+
+    .foot { padding-top:22px; flex-wrap:wrap; gap:6px 18px; }
+    .foot-right { gap:16px; }
+    .press-line, .press-count, .site-credit { font-size:10px; }
+
+    /* empty state: the ghost bars are drawn at board scale — re-cut them as
+       proportions so they cannot out-measure the column */
+    .ghost-bar { max-width:100%; }
+    .gb-1 { width:120px; height:14px; }
+    .gb-2 { width:80px; height:12px; margin-top:10px; }
+    .gb-artist { width:72%; height:30px; }
+    .gb-title { width:52%; height:20px; margin-top:12px; }
+    .gb-track { width:58%; height:14px; }
+    .gb-time { width:44px; height:14px; }
+    .gb-credit { width:82%; height:11px; }
+    .sleeve-empty .t-row { padding:7px 0; }
+
+    /* --- the actions become a fixed bottom rail ---------------------------
+       The rail's reveal animation is disabled here first: an animating
+       ancestor carries a transform, and a transform makes that ancestor the
+       containing block for position:fixed children — the bar would ride the
+       rail for a second before snapping down. */
+    .reveal-on .rail[data-reveal] { opacity:1; animation:none; }
+
+    .actions { position:fixed; left:0; right:0; bottom:0; z-index:60;
+               margin:0; display:flex; flex-direction:row; flex-wrap:wrap;
+               align-items:stretch; gap:0;
+               background:var(--dark2); border-top:1px solid var(--line-d);
+               padding-bottom:env(safe-area-inset-bottom, 0px); }
+    .actions .counter { order:-1; flex:0 0 100%; padding:7px 0 6px; text-align:center;
+                        border-bottom:1px solid var(--line-dd); }
+    .actions .counter:empty { display:none; }
+    /* 10px/0.05em with 5px gutters is what lets the longest label
+       ("EXPORT — SLEEVE", 15 mono characters) hold one line in a third of a
+       360px screen; wrapping is still allowed rather than clipping. */
+    .act { flex:1 1 0; min-width:0; min-height:48px; padding:6px 5px;
+           display:flex; align-items:center; justify-content:center; text-align:center;
+           white-space:normal; line-height:1.3; font-size:10px; letter-spacing:0.05em;
+           border-bottom:none; border-left:1px solid var(--line-dd); }
+    .act:first-of-type { border-left:none; }
+    .act:hover:not(:disabled) { color:var(--onDark); border-bottom-color:transparent; }
+    .act:active:not(:disabled) { background:rgba(176,131,90,0.10); color:var(--onDark); }
+    .act:focus-visible { outline-offset:-3px; }
+  }
+
+  /* pinch-zoom survival — see the zoom island at the foot of the page */
+  .is-zoomed .grain { display:none; }
+  .is-zoomed .sleeve::after { display:none; }
+  .is-zoomed .sleeve { box-shadow:none; }
+
   footer.site { margin-top:clamp(30px,5vh,60px); padding:clamp(40px,6vh,64px) 0 clamp(48px,7vh,72px); border-top:1px solid var(--line-dd); display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
   .foot-line { font-family:var(--serif); font-style:italic; font-size:clamp(16px,1.6vw,20px); color:rgba(237,231,219,0.66); }
   .foot-domains { font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--muted); }
@@ -209,6 +332,7 @@
         <span class="dz-rule"></span>
         <span class="dz-main">Drop a photograph</span>
         <span class="dz-sub">or click to choose</span>
+        <span class="dz-done">Photograph loaded &mdash; replace</span>
       </div>
       <p class="privacy">Analyzed here. Never uploaded.</p>
       <input class="visually-hidden" type="file" accept="image/*" data-file aria-hidden="true" tabindex="-1">
@@ -244,10 +368,35 @@
   }, { rootMargin:'0px 0px -6% 0px', threshold:0.04 });
   els.forEach(function(e){ io.observe(e); });
 })();
+
+// Pinch-zoom survival island.
+// Two full-bleed layers on this page paint with mix-blend-mode: the fixed
+// .grain sheet and the sleeve's own noise overlay. Blending forces the whole
+// group into one composited layer that is read back against its backdrop —
+// and under a pinched visual viewport that backdrop is re-rasterised out from
+// under it, which is how the card ends up blank on iOS. The blend is pure
+// decoration, so while the user is zoomed in we simply drop it and put it back
+// at 1x. Zooming itself is never blocked (no user-scalable=no here, ever).
+(function(){
+  var vv = window.visualViewport;
+  if (!vv) return;
+  var zoomed = false, raf = null;
+  function sync(){
+    raf = null;
+    var z = vv.scale > 1.02;
+    if (z === zoomed) return;
+    zoomed = z;
+    document.documentElement.classList.toggle('is-zoomed', z);
+  }
+  function queue(){ if (raf === null) raf = requestAnimationFrame(sync); }
+  vv.addEventListener('resize', queue);
+  vv.addEventListener('scroll', queue);
+  sync();
+})();
 </script>
 <script src="corpus.js" defer></script>
 <script src="features.js" defer></script>
 <script src="plant.js?v=2" defer></script>
-<script src="sleeve.js" defer></script>
+<script src="sleeve.js?v=3" defer></script>
 </body>
 </html>

@@ -172,10 +172,90 @@
   @media (prefers-reduced-motion: reduce) {
     .ratio-fill, .anchor-pair .sw, .anchor-pair .tie, .tone, .compose-btn { transition:none !important; }
   }
-  @media (max-width:420px) {
-    .slot-row { grid-template-columns:76px 1fr; gap:10px; padding:10px; }
-    .sil { width:76px; height:90px; } .sil svg { width:72px; height:88px; }
-    .form-label { font-size:17px; }
+  /* ==================================================================
+     MOBILE PASS (≤700px) — the instrument, thumb-first.
+     Desktop keeps the cycle-on-tap silhouette + the tall plumb rail.
+     On a phone the same state is driven by horizontal snap rows of form
+     chips (you SEE the catalog instead of cycling blind), the tone strip
+     sits beneath each row, and the three readouts you compose against
+     ride a sticky bar with a short plumb. Nothing needs pinching.
+     ================================================================== */
+  .chips-wrap { display:none; }
+  .mobile-bar { display:none; }
+  .only-narrow { display:none; }
+  @media (max-width:700px) { .only-wide { display:none; } .only-narrow { display:inline; } }
+
+  @media (max-width:700px) {
+    /* the tall rail and the big cycling silhouette are desktop affordances */
+    .column-rig { grid-template-columns:1fr; gap:0; max-width:none; }
+    .plumb-rail { display:none; }
+    .slot-row { grid-template-columns:1fr; gap:10px; padding:14px 12px; }
+    .slot-row .sil { display:none; }
+    .slots { gap:12px; }
+
+    .slot-name { font-size:11px; }
+    .form-label { margin:2px 0 0; font-size:20px; }
+    .form-label.empty { font-size:17px; }
+
+    /* form chips — horizontal snap row, one chip per selectable form */
+    .chips-wrap { display:block; margin:10px -12px 0; padding:0 12px;
+                  overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
+                  scroll-snap-type:x mandatory; scrollbar-width:none; }
+    .chips-wrap::-webkit-scrollbar { display:none; }
+    .chips { display:flex; gap:8px; padding-bottom:2px; width:max-content; }
+    .chip-form { flex:none; width:64px; min-height:44px; scroll-snap-align:start;
+                 display:flex; flex-direction:column; align-items:center; gap:4px;
+                 border:1px solid var(--line-dd); border-radius:3px; padding:6px 4px 5px;
+                 background:rgba(237,231,219,0.02); transition:border-color 0.3s ease, background 0.3s ease; }
+    .chip-form svg { width:44px; height:52px; display:block; }
+    /* two clamped lines, not an ellipsis — "unstructured blazer" has to be
+       readable enough to pick without opening anything */
+    .chip-form .cl { font-family:var(--mono); font-size:8px; letter-spacing:0.02em; line-height:1.18;
+                     text-transform:uppercase; color:var(--mutedInk); text-align:center;
+                     max-width:100%; height:2.36em; overflow:hidden; white-space:normal;
+                     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+    .chip-form { width:70px; }
+    .chip-form[aria-pressed="true"] { border-color:var(--accent); background:rgba(176,131,90,0.10); }
+    .chip-form[aria-pressed="true"] .cl { color:var(--onDark); }
+    .chip-form .ghost { stroke:var(--mutedInk); stroke-dasharray:4 5; stroke-width:1.6; fill:none; opacity:0.75; }
+
+    /* tone strip beneath — 44pt hit areas via an expanded ::after */
+    .tones { gap:10px; margin-top:12px; }
+    .tone { width:32px; height:32px; }
+    .tone::after { content:""; position:absolute; inset:-6px; }
+    .sheen-chip { padding:11px 14px; }
+
+    /* the detail instruments stay in flow; RATIO/ALIGNMENT/NEAREST move to
+       the sticky bar, so they are hidden here rather than duplicated */
+    .inst[data-mobile="bar"] { display:none; }
+    .instruments { gap:16px; }
+    .composer { gap:22px; }
+    .panel { position:static; }
+
+    /* verdict card full-width, edge to edge */
+    .verdict-card { margin-left:calc(-1 * clamp(22px,6vw,96px)); margin-right:calc(-1 * clamp(22px,6vw,96px));
+                    border-left:none; border-right:none; padding:22px clamp(22px,6vw,96px); }
+    .verdict-lines li { font-size:16px; }
+
+    /* sticky readout bar — plumb (short) beside the three numbers */
+    body { padding-bottom:86px; }
+    .mobile-bar { display:flex; position:fixed; z-index:60; left:0; right:0; bottom:0;
+                  align-items:center; gap:14px;
+                  padding:10px clamp(16px,5vw,24px) calc(10px + env(safe-area-inset-bottom));
+                  background:rgba(16,12,6,0.94); backdrop-filter:blur(10px);
+                  border-top:1px solid var(--line-d); }
+    .mb-plumb { flex:none; width:26px; height:46px; display:block; }
+    .mb-reads { display:flex; flex-direction:column; gap:3px; min-width:0; flex:1; }
+    .mb-align { font-family:var(--mono); font-size:13px; letter-spacing:0.16em; color:var(--accent); }
+    .mb-sub { font-family:var(--mono); font-size:9px; letter-spacing:0.14em; text-transform:uppercase;
+              color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .mb-compose { flex:none; font-family:var(--mono); font-size:10px; letter-spacing:0.14em;
+                  text-transform:uppercase; color:var(--dark); background:var(--accent);
+                  padding:13px 18px; border-radius:100px; min-height:44px; }
+    .mb-compose[data-armed="false"] { opacity:0.4; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chip-form, .chips-wrap { scroll-behavior:auto; }
   }
 </style>
 </head>
@@ -202,9 +282,11 @@
     <p class="p-lead">Compose a fit; six rules judge it. Pass, and the strongest mode names the verdict.</p>
     <dl class="p-keys">
       <div><dt>Ratio 70/30</dt><dd>Hard structure to soft texture, seventy to thirty &mdash; either lane, within ten.</dd></div>
-      <div><dt>Volume</dt><dd>Bottoms and footwear agree on width; the top half may sit one step off.</dd></div>
+      <div><dt>Volume &plusmn;1</dt><dd>Bottoms and footwear agree on width, or sit one step apart &mdash; noticed, not failed. Two steps fail, and are told which way.</dd></div>
+      <div><dt>Layers optional</dt><dd>Base, bottoms and footwear are required. Mid and outer are yours to add; the rules judge what is present.</dd></div>
       <div><dt>Deviation 0&ndash;1</dt><dd>At most one statement form. Zero is valid; two is a violation.</dd></div>
       <div><dt>Light</dt><dd>At most one non-matte surface &mdash; the Nocturnal Shield excepted.</dd></div>
+      <div><dt>Alignment /6</dt><dd>How many rules hold. Pass all five and the mode claims the fit &mdash; six of six.</dd></div>
     </dl>
   </section>
 
@@ -212,7 +294,7 @@
 
     <!-- ==================== THE COLUMN (slots + plumb) ==================== -->
     <div data-reveal>
-      <h2 style="margin:0 0 18px; font-family:var(--mono); font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:var(--mutedInk); font-weight:400;">Compose — tap a form to cycle · tone strip below</h2>
+      <h2 style="margin:0 0 18px; font-family:var(--mono); font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:var(--mutedInk); font-weight:400;"><span class="only-wide">Compose — tap a form to cycle · tone strip below</span><span class="only-narrow">Compose — swipe the forms · tone strip below</span></h2>
       <div class="column-rig">
         <div class="plumb-rail" aria-hidden="true">
           <svg id="plumbSvg" preserveAspectRatio="none"></svg>
@@ -225,15 +307,15 @@
     <div class="panel" data-reveal>
       <h2>Instruments</h2>
       <div class="instruments">
-        <div class="inst">
+        <div class="inst" data-mobile="bar">
           <span class="lbl">Alignment</span>
           <span class="counter" id="alignVal">ALIGNMENT —/6</span>
         </div>
-        <div class="inst">
+        <div class="inst" data-mobile="bar">
           <span class="lbl">Mode</span>
           <span class="counter" id="nearestVal">NEAREST — —</span>
         </div>
-        <div class="inst">
+        <div class="inst" data-mobile="bar">
           <span class="lbl">Ratio <span class="val" id="ratioVal">H — / S —</span></span>
           <div class="ratio-track" role="img" aria-label="Hard to soft ratio against the seventy-thirty target, either lane">
             <div class="ratio-band"></div>
@@ -261,7 +343,7 @@
 
       <div class="compose-row">
         <button class="compose-btn" id="composeBtn" data-ev="column-compose" data-armed="false">Compose</button>
-        <span class="compose-hint" id="composeHint">The base four are required</span>
+        <span class="compose-hint" id="composeHint">Base, bottoms and footwear are required</span>
       </div>
 
       <div class="verdict-card" id="verdictCard" hidden data-reveal>
@@ -292,6 +374,18 @@
     <span class="foot-domains" data-reveal><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a><span class="sep">·</span><a href="/">departive.com</a></span>
   </footer>
 
+</div>
+
+<!-- MOBILE READOUT BAR (≤700px) — the three numbers you compose against,
+     plus the plumb rendered short. Hidden on desktop, where the full
+     instrument panel and the tall plumb rail do this job. -->
+<div class="mobile-bar" id="mobileBar" aria-hidden="true">
+  <svg class="mb-plumb" id="mbPlumb" viewBox="0 0 26 46" aria-hidden="true"></svg>
+  <span class="mb-reads">
+    <span class="mb-align" id="mbAlign">ALIGNMENT —/6</span>
+    <span class="mb-sub" id="mbSub">H — / S — &middot; NEAREST —</span>
+  </span>
+  <button class="mb-compose" id="mbCompose" data-armed="false" data-ev="column-compose-mobile">Compose</button>
 </div>
 
 <div class="grain" aria-hidden="true"></div>
@@ -501,8 +595,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var INK = 'rgba(237,231,219,0.8)';
   var SVG_NS = 'http://www.w3.org/2000/svg';
 
+  /* Forms selectable in a slot — includes dual-slot visitors (rules v2 §3),
+     so the blazer is offered in OUTER as well as MID. */
+  function slotForms(s) { return forms.formsForSlot(s); }
+
   /* ---------------- state ---------------- */
-  // per slot: { idx: -1 (empty) .. 5, tone, sheen }
+  // per slot: { idx: -1 (empty) .. n-1, tone, sheen }
   var state = {};
   forms.SLOTS.forEach(function (s) { state[s] = { idx: -1, tone: 'GREY', sheen: false }; });
   var history = []; // last verdicts for the corpus no-reuse rule (keep 2)
@@ -512,7 +610,7 @@ document.addEventListener('DOMContentLoaded', function () {
     forms.SLOTS.forEach(function (s) {
       var st = state[s];
       fit[s] = st.idx < 0 ? null :
-        { form: forms.CATALOG[s][st.idx].id, tone: st.tone, sheen: st.sheen };
+        { form: slotForms(s)[st.idx].id, tone: st.tone, sheen: st.sheen };
     });
     return fit;
   }
@@ -523,9 +621,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!m) return;
     decodeURIComponent(m[1]).split(',').forEach(function (tok) {
       var p = tok.split('.');
-      var slot = p[0], id = p[1];
-      var list = forms.CATALOG[slot];
-      if (!list) return;
+      var slot = p[0], id = forms.resolveId(p[1]);
+      var list = slotForms(slot);
+      // Retired ids resolve to null (prune §D) — that slot just loads empty
+      // rather than breaking the whole shared fit.
+      if (!list.length || !id) return;
       for (var i = 0; i < list.length; i++) {
         if (list[i].id === id) {
           state[slot].idx = i;
@@ -547,12 +647,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (st.idx < 0) {
       // empty slot: dashed archetype ghost (first form's outline, unfilled)
       var g = document.createElementNS(SVG_NS, 'path');
-      g.setAttribute('d', forms.CATALOG[slot][0].d);
+      g.setAttribute('d', slotForms(slot)[0].d);
       g.setAttribute('class', 'ghost');
       svg.appendChild(g);
       return;
     }
-    var fm = forms.CATALOG[slot][st.idx];
+    var fm = slotForms(slot)[st.idx];
     var outline = document.createElementNS(SVG_NS, 'path');
     outline.setAttribute('d', fm.d);
     outline.setAttribute('fill', forms.TONE_FILL[st.tone]);
@@ -586,6 +686,30 @@ document.addEventListener('DOMContentLoaded', function () {
       glint.setAttribute('clip-path', 'url(#' + clipId + ')');
       svg.appendChild(glint);
     }
+  }
+
+  /* A chip's drawing: same ink, no sheen glint (chips stay quiet) — the
+     slot's tone fills them, so the strip below visibly repaints the row. */
+  function paintChip(svg, fm, tone) {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute('viewBox', '0 0 100 120');
+    var outline = document.createElementNS(SVG_NS, 'path');
+    outline.setAttribute('d', fm.d);
+    outline.setAttribute('stroke-width', '2.4');
+    outline.setAttribute('stroke-linejoin', 'round');
+    outline.setAttribute('stroke-linecap', 'round');
+    if (fm === null) return;
+    outline.setAttribute('fill', forms.TONE_FILL[tone]);
+    outline.setAttribute('stroke', INK);
+    svg.appendChild(outline);
+    var inner = document.createElementNS(SVG_NS, 'path');
+    inner.setAttribute('d', fm.line);
+    inner.setAttribute('fill', 'none');
+    inner.setAttribute('stroke', INK);
+    inner.setAttribute('stroke-width', '1.8');
+    inner.setAttribute('stroke-linecap', 'round');
+    inner.setAttribute('opacity', '0.5');
+    svg.appendChild(inner);
   }
 
   forms.SLOTS.forEach(function (slot) {
@@ -637,16 +761,63 @@ document.addEventListener('DOMContentLoaded', function () {
 
     silBtn.addEventListener('click', function () {
       var st = state[slot];
-      st.idx = st.idx >= forms.CATALOG[slot].length - 1 ? -1 : st.idx + 1;
-      var fm = st.idx >= 0 ? forms.CATALOG[slot][st.idx] : null;
+      st.idx = st.idx >= slotForms(slot).length - 1 ? -1 : st.idx + 1;
+      var fm = st.idx >= 0 ? slotForms(slot)[st.idx] : null;
       if (!fm || !fm.sheen) st.sheen = false;
       update();
     });
 
-    meta.appendChild(name); meta.appendChild(label); meta.appendChild(tones); meta.appendChild(chip);
+    /* MOBILE — a horizontal snap row of every form selectable in this slot
+       (dual-slot visitors included), leading with an "empty" chip so the
+       slot can be cleared without cycling all the way round. CSS hides
+       this on desktop, where the silhouette cycles on tap instead. */
+    var chipsWrap = document.createElement('div');
+    chipsWrap.className = 'chips-wrap';
+    var chipsRow = document.createElement('div');
+    chipsRow.className = 'chips';
+    var chipBtns = [];
+    var list = slotForms(slot);
+    for (var ci = -1; ci < list.length; ci++) {
+      (function (idx) {
+        var b = document.createElement('button');
+        b.className = 'chip-form';
+        b.setAttribute('aria-pressed', 'false');
+        var csvg = document.createElementNS(SVG_NS, 'svg');
+        csvg.setAttribute('aria-hidden', 'true');
+        csvg.setAttribute('viewBox', '0 0 100 120');
+        var cl = document.createElement('span');
+        cl.className = 'cl';
+        if (idx < 0) {
+          var g = document.createElementNS(SVG_NS, 'path');
+          g.setAttribute('d', list[0].d);
+          g.setAttribute('class', 'ghost');
+          csvg.appendChild(g);
+          cl.textContent = 'empty';
+          b.setAttribute('aria-label', slot + ' — clear');
+        } else {
+          cl.textContent = list[idx].label;
+          b.setAttribute('aria-label', slot + ' — ' + list[idx].label);
+        }
+        b.appendChild(csvg); b.appendChild(cl);
+        b.addEventListener('click', function () {
+          var st = state[slot];
+          st.idx = idx;
+          var fm = idx >= 0 ? list[idx] : null;
+          if (!fm || !fm.sheen) st.sheen = false;
+          update();
+        });
+        chipBtns.push({ btn: b, svg: csvg, idx: idx });
+        chipsRow.appendChild(b);
+      })(ci);
+    }
+    chipsWrap.appendChild(chipsRow);
+
+    meta.appendChild(name); meta.appendChild(label); meta.appendChild(chipsWrap);
+    meta.appendChild(tones); meta.appendChild(chip);
     row.appendChild(silBtn); row.appendChild(meta);
     slotsEl.appendChild(row);
-    slotEls[slot] = { row: row, svg: svg, silBtn: silBtn, label: label, tones: tones, chip: chip };
+    slotEls[slot] = { row: row, svg: svg, silBtn: silBtn, label: label,
+                      tones: tones, chip: chip, chips: chipBtns };
   });
 
   /* ---------------- plumb ---------------- */
@@ -684,6 +855,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   var plumbRAF = null;
   function updatePlumb() {
+    // The rail is display:none under 700px. Measuring it there yields a 0×0
+    // box, which would cache a degenerate viewBox and leave the line flat
+    // when the viewport grows back past the breakpoint — so don't draw.
+    var railBox = plumbSvg.parentNode.getBoundingClientRect();
+    if (!railBox.width || !railBox.height) { plumbCurrent = null; return; }
     var target = plumbTargets();
     if (reduce || !plumbCurrent || plumbCurrent.length !== target.length) {
       plumbCurrent = target; renderPlumb(target); return; // discrete states
@@ -704,6 +880,14 @@ document.addEventListener('DOMContentLoaded', function () {
     plumbRAF = requestAnimationFrame(step);
   }
   window.addEventListener('resize', function () { plumbCurrent = null; updatePlumb(); });
+  /* crossing the mobile breakpoint swaps which plumb is on screen — redraw
+     the tall one once the rail actually has a box again */
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(max-width:700px)');
+    var onMq = function () { plumbCurrent = null; requestAnimationFrame(updatePlumb); };
+    if (mq.addEventListener) mq.addEventListener('change', onMq);
+    else if (mq.addListener) mq.addListener(onMq);
+  }
 
   /* ---------------- instruments ---------------- */
   var ratioFill = document.getElementById('ratioFill');
@@ -719,6 +903,19 @@ document.addEventListener('DOMContentLoaded', function () {
   var sheenVal = document.getElementById('sheenVal');
   var composeBtn = document.getElementById('composeBtn');
   var composeHint = document.getElementById('composeHint');
+  var mbAlign = document.getElementById('mbAlign');
+  var mbSub = document.getElementById('mbSub');
+  var mbCompose = document.getElementById('mbCompose');
+  var mbPlumb = document.getElementById('mbPlumb');
+  var barPlumbLine = document.createElementNS(SVG_NS, 'polyline');
+  barPlumbLine.setAttribute('fill', 'none');
+  barPlumbLine.setAttribute('stroke', 'rgba(237,231,219,0.55)');
+  barPlumbLine.setAttribute('stroke-width', '1.4');
+  barPlumbLine.setAttribute('stroke-linejoin', 'round');
+  var barPlumbBob = document.createElementNS(SVG_NS, 'circle');
+  barPlumbBob.setAttribute('r', '3');
+  barPlumbBob.setAttribute('fill', 'var(--accent)');
+  mbPlumb.appendChild(barPlumbLine); mbPlumb.appendChild(barPlumbBob);
 
   function updateInstruments() {
     var fit = currentFit();
@@ -762,19 +959,45 @@ document.addEventListener('DOMContentLoaded', function () {
     // COMPOSE arming
     var complete = rules.isComplete(fit);
     composeBtn.dataset.armed = String(complete);
-    composeHint.textContent = complete ? 'Ready' : 'The base four are required';
+    composeHint.textContent = complete ? 'Ready' : 'Base, bottoms and footwear are required';
 
     // ALIGNMENT — derived readout (rules.alignment; display only)
     var al = rules.alignment(complete ? rules.evaluate(fit) : null);
     alignVal.textContent = 'ALIGNMENT ' + (al.n === null ? '—' : al.n) + '/' + al.of;
 
     // NEAREST MODE — always identified once forms are placed (ruling 31 Jul)
+    var nearName = '—';
     if (entries.length) {
       var nm = verdictM.nearestMode(m.scores, verdictM.hashFit(fit));
-      nearestVal.textContent = 'NEAREST — ' + forms.MODE_NAMES[nm];
+      nearName = forms.MODE_NAMES[nm];
+      nearestVal.textContent = 'NEAREST — ' + nearName;
     } else {
       nearestVal.textContent = 'NEAREST — —';
     }
+
+    /* MOBILE BAR — the same three readouts, compressed. Kept in sync here
+       so there is exactly one source of truth for the numbers. */
+    mbAlign.textContent = 'ALIGNMENT ' + (al.n === null ? '—' : al.n) + '/' + al.of;
+    mbSub.textContent = (entries.length
+        ? 'H ' + Math.round(rules.ratio(entries).hardPct) + ' / S ' + Math.round(100 - rules.ratio(entries).hardPct)
+        : 'H — / S —') + ' · ' + nearName;
+    mbCompose.dataset.armed = String(complete);
+    renderBarPlumb();
+  }
+
+  /* The plumb, short: the same per-slot offsets the tall rail draws, in a
+     26×46 box. Empty slots inherit the last offset, so the line only kinks
+     where a real form disagrees about width. */
+  function renderBarPlumb() {
+    var offsets = rules.plumbOffsets(currentFit());
+    var cx = 13, amp = 4.2, top = 4, step = 38 / (forms.SLOTS.length - 1);
+    var pts = [[cx, 0]];
+    offsets.forEach(function (o, i) { pts.push([cx + o * amp, top + i * step]); });
+    pts.push([pts[pts.length - 1][0], 46]);
+    barPlumbLine.setAttribute('points', pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '));
+    var bob = pts[pts.length - 1];
+    barPlumbBob.setAttribute('cx', bob[0].toFixed(1));
+    barPlumbBob.setAttribute('cy', '42');
   }
 
   /* ---------------- update loop ---------------- */
@@ -782,7 +1005,7 @@ document.addEventListener('DOMContentLoaded', function () {
     forms.SLOTS.forEach(function (slot) {
       var els = slotEls[slot], st = state[slot];
       buildSilhouette(els.svg, slot);
-      var fm = st.idx >= 0 ? forms.CATALOG[slot][st.idx] : null;
+      var fm = st.idx >= 0 ? slotForms(slot)[st.idx] : null;
       if (fm) {
         els.label.className = 'form-label';
         els.label.innerHTML = fm.label + (fm.statement ? ' <span class="st">STATEMENT</span>' : '');
@@ -798,6 +1021,12 @@ document.addEventListener('DOMContentLoaded', function () {
       els.chip.hidden = !(fm && fm.sheen);
       els.chip.setAttribute('aria-pressed', String(st.sheen));
       els.chip.textContent = st.sheen ? 'SHEEN' : 'MATTE';
+      // mobile chips: mark the selection and repaint them in the slot tone
+      var slotList = slotForms(slot);
+      els.chips.forEach(function (c) {
+        c.btn.setAttribute('aria-pressed', String(c.idx === st.idx));
+        if (c.idx >= 0) paintChip(c.svg, slotList[c.idx], st.tone);
+      });
     });
     updateInstruments();
     updatePlumb();
@@ -838,6 +1067,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!reduce) requestAnimationFrame(function () { verdictCard.classList.add('is-in'); });
     if (verdictCard.scrollIntoView) verdictCard.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
   });
+  // the mobile bar's button IS the compose button — one code path, one verdict
+  mbCompose.addEventListener('click', function () { composeBtn.click(); });
 
   /* ---------------- PNG export — CARD 720×1080 / STORY 1080×1920, @2× ----
      Both run through renderVerdictExport (one measured flow, above). */

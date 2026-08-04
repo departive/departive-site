@@ -55,9 +55,20 @@
       "One silhouette, committed. The plumb hangs straight.",
       "Nothing is arguing about width. Good."
     ],
-    volume_clash: [
+    volume_near: [
+      /* rules v2 · authored 4 Aug 2026 pending David read-back — the ±1
+         tolerance needed its own register: a pass, but a noticed one
+         (modelled on anchor_adjacent's "Acceptable. Noticed."). */
+      "The shoe sits one step off the trouser's volume. Acceptable — and noticed."
+    ],
+    /* v2: the clash family SPLITS by direction — a fit is told what is
+       actually wrong with it. Lines are the original corpus text, re-filed
+       (underbuilt = footwear too light; heavy = footwear too heavy). */
+    volume_clash_underbuilt: [
       "Wide legs, whisper shoes. The base can't carry the width — go heavier underfoot.",
-      "The footwear is underbuilt for those bottoms. Mass answers mass.",
+      "The footwear is underbuilt for those bottoms. Mass answers mass."
+    ],
+    volume_clash_heavy: [
       "Linear trouser, heavy shoe. One of them is in the wrong fit."
     ],
     volume_fighting: [
@@ -216,8 +227,18 @@
 
     // RATIO
     push('ratio_' + ev.ratio.state, 'ratio_' + ev.ratio.state);
-    // VOLUME
+    // VOLUME — v2: the failure family must agree with the computed
+    // direction. David was shown "Linear trouser, heavy shoe" for a VOLUME
+    // jean under a STANDARD loafer; this assertion is that bug's tripwire.
     push('volume_' + ev.volume.state, 'volume_' + ev.volume.state);
+    if (rules.DEV && ev.volume.direction) {
+      var famKey = 'volume_clash_' + ev.volume.direction;
+      var drawn = lines[lines.length - 1].text;
+      if (CORPUS[famKey].indexOf(drawn) < 0) {
+        throw new Error('COLUMN verdict assertion: volume line family "' +
+          ev.volume.state + '" contradicts direction "' + ev.volume.direction + '"');
+      }
+    }
     // ANCHOR
     push('anchor_' + ev.anchor.state, 'anchor_' + ev.anchor.state);
     // DEVIATION
