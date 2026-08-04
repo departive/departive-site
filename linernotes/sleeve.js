@@ -749,7 +749,10 @@
       var canvas = renderExport(state.record, state.cover, kind);
       var name = 'linernotes-' + state.record.catalog.replace(/[^A-Za-z0-9]+/g, '-').toLowerCase() +
         (state.k > 0 ? '-p' + (state.k + 1) : '') + (kind === 'story' ? '-story' : '') + '.png';
+      // assets/save-image.js — download on desktop, share sheet on a phone
+      // (on iOS that sheet's "Save Image" is the only way into the camera roll)
       canvas.toBlob(function (blob) {
+        if (window.saveImage) { window.saveImage(blob, name); return; }
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
         a.download = name;

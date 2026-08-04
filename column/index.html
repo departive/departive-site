@@ -390,6 +390,7 @@
 
 <div class="grain" aria-hidden="true"></div>
 
+<script src="/assets/save-image.js" defer></script>
 <script src="forms.js" defer></script>
 <script src="rules.js" defer></script>
 <script src="verdict.js" defer></script>
@@ -1086,10 +1087,19 @@ document.addEventListener('DOMContentLoaded', function () {
           align: rules.alignment(lastVerdict.ev.complete ? lastVerdict.ev : null),
           nearestName: (!lastVerdict.v.headline && lastVerdict.v.nearest) ? forms.MODE_NAMES[lastVerdict.v.nearest] : null
         }, forms);
-        var a = document.createElement('a');
-        a.download = filename;
-        a.href = canvas.toDataURL('image/png');
-        a.click();
+        /* assets/save-image.js: toBlob + a real download on desktop, the
+           native share sheet on a phone (the only route to the camera roll
+           on iOS). The old path clicked a DETACHED anchor pointing at a
+           base64 data: URL — both halves of which mobile Safari handles
+           badly, and when it does work the file lands in Files → Downloads
+           where nobody finds it. */
+        if (window.saveCanvas) window.saveCanvas(canvas, filename);
+        else {
+          var a = document.createElement('a');
+          a.download = filename;
+          a.href = canvas.toDataURL('image/png');
+          document.body.appendChild(a); a.click(); a.remove();
+        }
       };
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(run); else run();
     });
