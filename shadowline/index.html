@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<title>The Shadow Line — watch the shade climb the wall · departive</title>
+<meta name="description" content="A Stockholm street in cross-section, live. Pick the street's direction, width and height; the sun is computed in your browser and the shade line climbs the wall in real time.">
+<meta name="theme-color" content="#100c06">
+<link rel="canonical" href="https://departive.com/shadowline/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141009'/%3E%3Ccircle cx='16' cy='16' r='4.4' fill='%23b0835a'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Deep Field">
+<meta property="og:title" content="The Shadow Line">
+<meta property="og:description" content="Pick a street; watch the shade climb the wall.">
+<meta property="og:url" content="https://departive.com/shadowline/">
+<meta property="og:image" content="https://departive.com/assets/og/shadowline.jpg"><!-- PLACEHOLDER — export a 1200×630 card to this path -->
+<style>
+  :root {
+    --accent:#b0835a; --dark:#141009; --dark2:#100c06; --ink:#1a150d;
+    --onDark:#ede7db; --muted:#9e9484; --mutedInk:#6b6252;
+    --line-d:rgba(237,231,219,0.14); --line-dd:rgba(237,231,219,0.08);
+    --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+    --sans:'Instrument Sans',system-ui,-apple-system,sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,monospace;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--dark2); color:var(--onDark); font-family:var(--sans);
+         -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a { color:inherit; }
+  ::selection { background:var(--accent); color:var(--dark); }
+
+  @keyframes riseIn { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+  .reveal-on [data-reveal] { opacity:0; }
+  .reveal-on [data-reveal].is-in { animation:riseIn 1s cubic-bezier(0.22,1,0.36,1) both; }
+  @media (prefers-reduced-motion: reduce) { .reveal-on [data-reveal] { opacity:1 !important; animation:none !important; } html { scroll-behavior:auto; } }
+
+  .wrap { max-width:1180px; margin:0 auto; padding:0 clamp(22px,6vw,96px); }
+  header.site { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:clamp(24px,3vw,40px) clamp(22px,5vw,64px); }
+  .logo { text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-family:var(--sans); font-weight:500; font-size:15px; letter-spacing:0.14em; color:var(--onDark); transition:opacity 0.35s ease; }
+  .logo:hover { opacity:0.7; }
+  .logo span { color:var(--accent); }
+  .back { text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); transition:color 0.35s ease; }
+  .back:hover { color:var(--onDark); }
+
+  .masthead { padding:clamp(36px,7vh,84px) 0 clamp(24px,4vh,44px); }
+  .kicker { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+  .kicker .rule { width:22px; height:1px; background:var(--accent); }
+  .kicker .lbl { font-family:var(--mono); font-size:11px; letter-spacing:0.26em; text-transform:uppercase; color:var(--accent); }
+  h1 { margin:0 0 20px; font-family:var(--serif); font-weight:400; font-size:clamp(42px,6vw,84px); line-height:0.97; letter-spacing:-0.015em; color:#f2eee6; }
+  .sub { margin:0; max-width:52ch; font-family:var(--sans); font-size:clamp(14px,1.2vw,16px); line-height:1.66; color:var(--muted); }
+
+  /* ---------- the section drawing ---------- */
+  .canyon-sec { padding:clamp(16px,3vh,36px) 0 clamp(10px,2vh,20px); }
+  .canyon-frame { border:1px solid var(--line-d); background:var(--dark); }
+  .canyon-frame svg { display:block; width:100%; height:auto; }
+
+  /* ---------- readouts ---------- */
+  .reads { padding:clamp(22px,4vh,36px) 0 clamp(8px,1vh,12px); }
+  .read-main { margin:0; font-family:var(--serif); font-size:clamp(26px,3.4vw,44px); line-height:1.15; color:#f2eee6; }
+  .read-main em { font-style:italic; color:var(--accent); }
+  .read-next { margin:12px 0 0; font-family:var(--sans); font-size:clamp(13px,1.15vw,15px); line-height:1.6; color:var(--muted); }
+  .read-solar { margin:6px 0 0; font-family:var(--mono); font-size:11px; letter-spacing:0.08em; color:var(--mutedInk); }
+
+  /* ---------- controls ---------- */
+  .controls { padding:clamp(20px,3.5vh,36px) 0 clamp(48px,7vh,80px); border-top:1px solid var(--line-dd); margin-top:clamp(22px,3.5vh,36px); }
+  .ctl-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:12px 0; }
+  .ctl-lbl { flex:0 0 92px; font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--mutedInk); }
+  .chips { display:flex; gap:8px; flex-wrap:wrap; }
+  .chip { appearance:none; border:1px solid var(--line-d); background:transparent; color:var(--muted); font-family:var(--mono); font-size:11px; letter-spacing:0.08em; padding:9px 14px; cursor:pointer; transition:color 0.3s ease, border-color 0.3s ease; min-height:34px; }
+  .chip:hover { color:var(--onDark); }
+  .chip[aria-pressed="true"] { color:var(--accent); border-color:var(--accent); }
+  .ctl-val { font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--muted); min-width:74px; text-align:right; }
+  input[type="range"] { -webkit-appearance:none; appearance:none; flex:1 1 160px; min-width:140px; height:26px; background:transparent; cursor:pointer; }
+  input[type="range"]::-webkit-slider-runnable-track { height:1px; background:var(--line-d); }
+  input[type="range"]::-moz-range-track { height:1px; background:var(--line-d); }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:15px; height:15px; border-radius:50%; background:var(--accent); margin-top:-7px; border:none; }
+  input[type="range"]::-moz-range-thumb { width:15px; height:15px; border-radius:50%; background:var(--accent); border:none; }
+  .now-chip { margin-left:auto; }
+
+  .thread { padding:clamp(48px,8vh,96px) 0 0; border-top:1px solid var(--line-dd); }
+  .thread .lbl { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mutedInk); }
+  .thread p { margin:clamp(18px,3vh,28px) 0 0; max-width:62ch; font-family:var(--sans); font-size:clamp(15px,1.3vw,18px); line-height:1.68; color:var(--muted); }
+  .thread .in { color:rgba(237,231,219,0.85); }
+  .thread a { text-decoration:none; color:rgba(237,231,219,0.85); border-bottom:1px solid var(--accent); padding-bottom:1px; transition:color 0.4s ease; }
+  .thread a:hover { color:var(--accent); }
+
+  footer.site { margin-top:clamp(64px,10vh,120px); padding:clamp(40px,6vh,64px) 0 clamp(48px,7vh,72px); border-top:1px solid var(--line-dd); display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .foot-line { font-family:var(--serif); font-style:italic; font-size:clamp(16px,1.6vw,20px); color:rgba(237,231,219,0.66); }
+  .foot-domains { font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--muted); }
+  .foot-domains a { text-decoration:none; color:var(--muted); transition:color 0.35s ease; }
+  .foot-domains a:hover { color:var(--onDark); }
+  .foot-domains .sep { color:var(--mutedInk); padding:0 8px; }
+
+  .grain { position:fixed; inset:0; pointer-events:none; z-index:9999; mix-blend-mode:soft-light; opacity:0.05; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:140px 140px; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a class="logo" href="/">departive<span>.</span></a>
+  <a class="back" href="/">&larr; departive.com</a>
+</header>
+
+<div class="wrap">
+
+  <section class="masthead">
+    <div class="kicker" data-reveal><span class="rule"></span><span class="lbl">Instrument &middot; 59.32&deg; N 18.07&deg; E</span></div>
+    <h1 data-reveal style="animation-delay:0.09s">The shadow line.</h1>
+    <p class="sub" data-reveal style="animation-delay:0.18s">A Stockholm street in cross-section. Pick its direction, width and height; the sun is computed in your browser, live, and the shade climbs the wall the way it does outside. Scrub the day to see when your side of the street loses the light &mdash; and when it gets it back.</p>
+  </section>
+
+  <section class="canyon-sec" data-reveal style="animation-delay:0.27s">
+    <div class="canyon-frame">
+      <svg id="canyonSvg" viewBox="0 0 800 460" role="img" aria-label="Cross-section of a street canyon showing the current shade line"></svg>
+    </div>
+  </section>
+
+  <section class="reads" aria-live="polite">
+    <p class="read-main" id="readMain" data-reveal>&nbsp;</p>
+    <p class="read-next" id="readNext"></p>
+    <p class="read-solar" id="readSolar"></p>
+  </section>
+
+  <section class="controls" data-reveal>
+    <div class="ctl-row">
+      <span class="ctl-lbl">Time</span>
+      <input type="range" id="timeScrub" min="0" max="1439" step="1" aria-label="Time of day">
+      <span class="ctl-val" id="timeVal">--:--</span>
+      <button class="chip now-chip" id="nowChip" type="button" aria-pressed="true">now</button>
+    </div>
+    <div class="ctl-row">
+      <span class="ctl-lbl">Street</span>
+      <div class="chips" id="axisChips">
+        <button class="chip" type="button" data-axis="90" aria-pressed="true">E&ndash;W</button>
+        <button class="chip" type="button" data-axis="0" aria-pressed="false">N&ndash;S</button>
+        <button class="chip" type="button" data-axis="45" aria-pressed="false">NE&ndash;SW</button>
+        <button class="chip" type="button" data-axis="135" aria-pressed="false">NW&ndash;SE</button>
+      </div>
+    </div>
+    <div class="ctl-row">
+      <span class="ctl-lbl">Width</span>
+      <input type="range" id="widthCtl" min="8" max="24" step="1" value="14" aria-label="Street width in meters">
+      <span class="ctl-val" id="widthVal">14 m</span>
+    </div>
+    <div class="ctl-row">
+      <span class="ctl-lbl">Height</span>
+      <input type="range" id="floorsCtl" min="3" max="7" step="1" value="5" aria-label="Building height in floors">
+      <span class="ctl-val" id="floorsVal">5 floors</span>
+    </div>
+  </section>
+
+  <section class="thread" data-reveal>
+    <span class="lbl">About this instrument</span>
+    <p><span class="in">The sun is math; the street is geometry; the rest is patience.</span> This section runs the same NOAA solar arithmetic as <a href="/light/">Stockholm Light</a>, pointed at a wall &mdash; and checked against reality on foot: the model behind it was field-verified on S&ouml;dermalm in August 2026, photograph by photograph. Sun on real building geometry, venue by venue, to the minute, is <a href="/studies/">a study</a>, coming 2026.</p>
+    <!-- READ-BACK (David): credit-line options — current copy keeps the app unnamed.
+         Alt A: "…is Study 03 — Solplats — coming 2026."
+         Alt B: name neither study; drop the studies link entirely. -->
+  </section>
+
+  <footer class="site">
+    <span class="foot-line" data-reveal>Crafted in the low light of Stockholm.</span>
+    <span class="foot-domains" data-reveal><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a><span class="sep">&middot;</span><a href="/">departive.com</a></span>
+  </footer>
+
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<script src="/shadowline/canyon.js"></script>
+<script>
+(function(){
+  'use strict';
+  var C = window.Canyon;
+  var svg = document.getElementById('canyonSvg');
+  var readMain = document.getElementById('readMain'), readNext = document.getElementById('readNext'), readSolar = document.getElementById('readSolar');
+  var scrub = document.getElementById('timeScrub'), timeVal = document.getElementById('timeVal'), nowChip = document.getElementById('nowChip');
+  var widthCtl = document.getElementById('widthCtl'), widthVal = document.getElementById('widthVal');
+  var floorsCtl = document.getElementById('floorsCtl'), floorsVal = document.getElementById('floorsVal');
+
+  var street = { axisDeg: 90, w: 14, floors: 5, H: 15 };
+  var live = true;            // ticking with the real clock until first scrub
+  var scrubMs = null;
+  var firstTouch = false;
+
+  // URL params: ?axis=90&w=14&fl=5&t=HH:MM
+  (function fromURL(){
+    var q = new URLSearchParams(location.search);
+    if (q.get('axis') != null) street.axisDeg = Math.max(0, Math.min(180, +q.get('axis') || 0));
+    if (q.get('w')) street.w = Math.max(8, Math.min(24, +q.get('w')));
+    if (q.get('fl')) street.floors = Math.max(3, Math.min(7, +q.get('fl')));
+    street.H = street.floors * 3;
+    var t = q.get('t');
+    if (t && /^\d{2}:\d{2}$/.test(t)) {
+      var p = C.sthlmParts(Date.now());
+      scrubMs = C.wallToUTC(p.y, p.mo, p.d, +t.slice(0,2), +t.slice(3,5));
+      live = false;
+    }
+  })();
+
+  function nowMs(){ return live ? Date.now() : scrubMs; }
+
+  function ev(name){
+    if (firstTouch) return; firstTouch = true;
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path:name, title:name, event:true });
+  }
+
+  /* ---------- drawing ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(n, attrs){ var e = document.createElementNS(NS, n); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+  function draw(L){
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = 800, Hpx = 460, ground = 400;
+    var scale = 300 / 21;                          // px per meter (21 m tallest case)
+    var wallW = 150;
+    var streetPx = Math.max(120, street.w * 14);   // exaggerated street width for legibility
+    var cx = W / 2;
+    var lx = cx - streetPx/2 - wallW, rx = cx + streetPx/2;
+    var wallH = street.H * scale;
+    var sunSide = (L.state === 'line' || L.state === 'full-sun') ? (L.side === 'right' ? 'left' : 'right') : null;
+
+    // sky hairline + ground
+    svg.appendChild(el('line', { x1:0, y1:ground, x2:W, y2:ground, stroke:'rgba(237,231,219,0.3)', 'stroke-width':1 }));
+
+    // sun disc + rays (drawn on the sun side, at the sun's altitude above the roofline)
+    if (L.alt > -0.833) {
+      var sx = sunSide === 'left' ? lx + wallW/2 : (sunSide === 'right' ? rx + wallW/2 : cx);
+      var sy = ground - wallH - 26 - Math.min(120, Math.max(8, L.alt * 2.2));
+      svg.appendChild(el('circle', { cx:sx, cy:sy, r:11, fill:'#b0835a' }));
+      if (L.state === 'line' || L.state === 'full-sun') {
+        // one indicative ray: from the sun-side roof lip to the line point on the far wall
+        var lipX = sunSide === 'left' ? lx + wallW : rx + wallW - wallW;  // inner lip of sun-side wall
+        lipX = sunSide === 'left' ? lx + wallW : rx;
+        var lipY = ground - wallH;
+        var farX = sunSide === 'left' ? rx : lx + wallW;
+        var lineY = ground - (L.h || 0) * scale;
+        svg.appendChild(el('line', { x1:lipX, y1:lipY, x2:farX, y2:lineY, stroke:'rgba(176,131,90,0.55)', 'stroke-width':1, 'stroke-dasharray':'5 6' }));
+      }
+    }
+
+    // the two facades
+    [ {x:lx, side:'left'}, {x:rx, side:'right'} ].forEach(function(f){
+      var isLine = L.state === 'line' && L.side === f.side;
+      var isLitWall = (L.state === 'full-sun' && L.side === f.side) || isLine;
+      var isSunSide = sunSide === f.side;
+      // wall body
+      svg.appendChild(el('rect', { x:f.x, y:ground - wallH, width:wallW, height:wallH, fill: isSunSide ? '#171208' : '#1d160c', stroke:'rgba(237,231,219,0.28)', 'stroke-width':1 }));
+      // floor hairlines
+      for (var i = 1; i < street.floors; i++) {
+        var fy = ground - i * 3 * scale;
+        svg.appendChild(el('line', { x1:f.x, y1:fy, x2:f.x + wallW, y2:fy, stroke:'rgba(237,231,219,0.10)', 'stroke-width':1 }));
+      }
+      if (isLitWall) {
+        var hMet = isLine ? L.h : 0;
+        var litTop = ground - wallH, litH = wallH - hMet * scale;
+        if (litH > 0.5) svg.appendChild(el('rect', { x:f.x, y:litTop, width:wallW, height:litH, fill:'rgba(176,131,90,0.34)' }));
+        if (isLine) {
+          var ly = ground - hMet * scale;
+          svg.appendChild(el('line', { x1:f.x - 6, y1:ly, x2:f.x + wallW + 6, y2:ly, stroke:'#b0835a', 'stroke-width':2 }));
+        }
+      }
+    });
+
+    // pavement state
+    if (L.state === 'full-sun') {
+      svg.appendChild(el('rect', { x:lx + wallW, y:ground - 3, width:streetPx, height:3, fill:'rgba(176,131,90,0.5)' }));
+    }
+    // axial: light runs down the street — center glow line
+    if (L.state === 'axial' && L.alt > 0) {
+      svg.appendChild(el('line', { x1:lx + wallW, y1:ground - 1, x2:rx, y2:ground - 1, stroke:'rgba(176,131,90,0.7)', 'stroke-width':2, 'stroke-dasharray':'2 7' }));
+    }
+    // compass caption under ground
+    var axisName = { 0:'N–S', 45:'NE–SW', 90:'E–W', 135:'NW–SE' }[street.axisDeg] || (street.axisDeg + '°');
+    var cap = el('text', { x:cx, y:ground + 34, fill:'#6b6252', 'text-anchor':'middle', 'font-size':'11', 'letter-spacing':'2', style:'font-family:ui-monospace,SF Mono,Menlo,monospace; text-transform:uppercase;' });
+    cap.textContent = 'section · street ' + axisName + ' · ' + street.w + ' m · ' + street.floors + ' floors';
+    svg.appendChild(cap);
+  }
+
+  /* ---------- readouts ---------- */
+  var KIND_LINE = {
+    'shade-reaches-pavement': 'the shade reaches the pavement at ',
+    'wall-goes-dark': 'the wall goes dark at ',
+    'sun-returns': 'the sun returns at ',
+    'light-turns-axial': 'the light turns down the street at ',
+    'pavement-regains-sun': 'the pavement regains the sun at '
+  };
+  function render(){
+    var t = nowMs();
+    var L = C.lineAt(t, { axisDeg: street.axisDeg, w: street.w, H: street.H });
+    draw(L);
+    var main;
+    if (L.state === 'night') main = 'Night. <em>The street belongs to the lamps.</em>';
+    else if (L.state === 'axial') main = 'The light <em>runs down the street</em>.';
+    else if (L.state === 'full-sun') main = 'The pavement <em>holds the sun</em>.';
+    else if (L.state === 'dark') main = 'The wall is <em>dark</em>; the roofline keeps the last of it.';
+    else main = 'The shade stands at <em>' + C.fmtFloors(L.h) + '</em>.';
+    readMain.innerHTML = main;
+    var ev2 = C.nextEvent(t, { axisDeg: street.axisDeg, w: street.w, H: street.H });
+    readNext.textContent = ev2 ? (KIND_LINE[ev2.kind] + C.fmtTime(ev2.atMs)) : '';
+    readSolar.textContent = 'sun ' + (L.alt >= 0 ? '+' : '−') + Math.abs(L.alt).toFixed(1) + '° · azimuth ' + L.az.toFixed(0) + '° · ' + C.fmtTime(t) + ' Stockholm';
+    // scrub reflects time
+    var p = C.sthlmParts(t);
+    if (document.activeElement !== scrub) scrub.value = p.h * 60 + p.mi;
+    timeVal.textContent = C.fmtTime(t);
+    nowChip.setAttribute('aria-pressed', String(live));
+  }
+
+  /* ---------- wiring ---------- */
+  scrub.addEventListener('input', function(){
+    ev('shadowline-scrub');
+    live = false;
+    var p = C.sthlmParts(Date.now());
+    scrubMs = C.wallToUTC(p.y, p.mo, p.d, Math.floor(scrub.value / 60), scrub.value % 60);
+    render();
+  });
+  nowChip.addEventListener('click', function(){ live = true; render(); });
+  document.getElementById('axisChips').addEventListener('click', function(e){
+    var b = e.target.closest('[data-axis]'); if (!b) return;
+    ev('shadowline-scrub');
+    street.axisDeg = +b.dataset.axis;
+    [].forEach.call(this.querySelectorAll('.chip'), function(c){ c.setAttribute('aria-pressed', String(c === b)); });
+    render();
+  });
+  widthCtl.addEventListener('input', function(){ ev('shadowline-scrub'); street.w = +this.value; widthVal.textContent = street.w + ' m'; render(); });
+  floorsCtl.addEventListener('input', function(){ ev('shadowline-scrub'); street.floors = +this.value; street.H = street.floors * 3; floorsVal.textContent = street.floors + ' floors'; render(); });
+
+  widthCtl.value = street.w; widthVal.textContent = street.w + ' m';
+  floorsCtl.value = street.floors; floorsVal.textContent = street.floors + ' floors';
+  [].forEach.call(document.querySelectorAll('#axisChips .chip'), function(c){ c.setAttribute('aria-pressed', String(+c.dataset.axis === street.axisDeg)); });
+
+  render();
+  setInterval(function(){ if (live) render(); }, 30000);
+})();
+</script>
+<script>
+// Islands: reveal-on-scroll — same pattern as /light.
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  document.documentElement.classList.add('reveal-on');
+  var els = [].slice.call(document.querySelectorAll('[data-reveal]'));
+  if (!('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('is-in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); } });
+  }, { rootMargin:'0px 0px -6% 0px', threshold:0.04 });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+<!-- click → GoatCounter events (delegated; outbound + data-ev) -->
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-ev], a[href]');
+    if (!el || !(window.goatcounter && window.goatcounter.count)) return;
+    var name, title;
+    if (el.dataset && el.dataset.ev) { name = title = el.dataset.ev; }
+    else {
+      var u; try { u = new URL(el.href, location.href); } catch (_) { return; }
+      if (u.protocol === 'mailto:') { name = 'email'; title = el.href; }
+      else if (u.host === location.host) return;
+      else { name = 'out-' + u.host; title = el.href; }
+    }
+    window.goatcounter.count({ path: name, title: title, event: true });
+  }, true);
+})();
+</script>
+<!-- GoatCounter --><script data-goatcounter="https://departive.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><!-- End GoatCounter -->
+</body>
+</html>
