@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<title>The Realignment — set two wheels against each other · departive</title>
+<meta name="description" content="A polymeter engine. Two wheels tick against each other — 25 against 16, 5+7 against 8 — drift apart, and come home. Every sound is synthesized in your browser.">
+<meta name="theme-color" content="#100c06">
+<link rel="canonical" href="https://departive.com/realign/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141009'/%3E%3Ccircle cx='16' cy='16' r='4.4' fill='%23b0835a'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Deep Field">
+<meta property="og:title" content="The Realignment">
+<meta property="og:description" content="Set two wheels against each other; wait for them to come home.">
+<meta property="og:url" content="https://departive.com/realign/">
+<meta property="og:image" content="https://departive.com/assets/og/realign.jpg"><!-- PLACEHOLDER — export a 1200×630 card to this path -->
+<style>
+  :root {
+    --accent:#b0835a; --dark:#141009; --dark2:#100c06; --ink:#1a150d;
+    --onDark:#ede7db; --muted:#9e9484; --mutedInk:#6b6252;
+    --line-d:rgba(237,231,219,0.14); --line-dd:rgba(237,231,219,0.08);
+    --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+    --sans:'Instrument Sans',system-ui,-apple-system,sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,monospace;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--dark2); color:var(--onDark); font-family:var(--sans); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a { color:inherit; }
+  ::selection { background:var(--accent); color:var(--dark); }
+  @keyframes riseIn { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+  .reveal-on [data-reveal] { opacity:0; }
+  .reveal-on [data-reveal].is-in { animation:riseIn 1s cubic-bezier(0.22,1,0.36,1) both; }
+  @media (prefers-reduced-motion: reduce) { .reveal-on [data-reveal] { opacity:1 !important; animation:none !important; } html { scroll-behavior:auto; } }
+
+  .wrap { max-width:1180px; margin:0 auto; padding:0 clamp(22px,6vw,96px); }
+  header.site { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:clamp(24px,3vw,40px) clamp(22px,5vw,64px); }
+  .logo { text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-weight:500; font-size:15px; letter-spacing:0.14em; color:var(--onDark); transition:opacity 0.35s ease; }
+  .logo:hover { opacity:0.7; } .logo span { color:var(--accent); }
+  .back { text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); transition:color 0.35s ease; }
+  .back:hover { color:var(--onDark); }
+
+  .masthead { padding:clamp(36px,6vh,72px) 0 clamp(20px,3vh,36px); }
+  .kicker { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+  .kicker .rule { width:22px; height:1px; background:var(--accent); }
+  .kicker .lbl { font-family:var(--mono); font-size:11px; letter-spacing:0.26em; text-transform:uppercase; color:var(--accent); }
+  h1 { margin:0 0 20px; font-family:var(--serif); font-weight:400; font-size:clamp(42px,6vw,84px); line-height:0.97; letter-spacing:-0.015em; color:#f2eee6; }
+  .sub { margin:0; max-width:54ch; font-size:clamp(14px,1.2vw,16px); line-height:1.66; color:var(--muted); }
+
+  .stage { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr); gap:clamp(24px,4vw,56px); align-items:center; padding:clamp(16px,3vh,32px) 0; }
+  @media (max-width:860px){ .stage { grid-template-columns:1fr; } }
+  .wheel-frame { position:relative; border:1px solid var(--line-d); background:var(--dark); }
+  .wheel-frame svg { display:block; width:100%; height:auto; }
+  #playBtn { position:absolute; inset:0; width:100%; height:100%; background:none; border:none; cursor:pointer; }
+  #playBtn:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+
+  .reads .read-main { margin:0; font-family:var(--serif); font-size:clamp(24px,2.8vw,38px); line-height:1.2; color:#f2eee6; }
+  .reads .read-main em { font-style:italic; color:var(--accent); }
+  .reads .read-next { margin:12px 0 0; font-size:clamp(13px,1.15vw,15px); line-height:1.6; color:var(--muted); }
+  .reads .read-note { margin:8px 0 0; font-family:var(--mono); font-size:10.5px; letter-spacing:0.08em; color:var(--mutedInk); }
+
+  .controls { padding:clamp(20px,3.5vh,36px) 0 clamp(48px,7vh,80px); border-top:1px solid var(--line-dd); margin-top:clamp(18px,3vh,30px); }
+  .ctl-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:11px 0; }
+  .ctl-lbl { flex:0 0 92px; font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--mutedInk); }
+  .chips { display:flex; gap:8px; flex-wrap:wrap; }
+  .chip { appearance:none; border:1px solid var(--line-d); background:transparent; color:var(--muted); font-family:var(--mono); font-size:11px; letter-spacing:0.08em; padding:9px 14px; cursor:pointer; transition:color 0.3s ease, border-color 0.3s ease; min-height:34px; }
+  .chip:hover { color:var(--onDark); }
+  .chip[aria-pressed="true"] { color:var(--accent); border-color:var(--accent); }
+  .ctl-val { font-family:var(--mono); font-size:11px; letter-spacing:0.06em; color:var(--muted); min-width:64px; text-align:right; }
+  input[type="range"] { -webkit-appearance:none; appearance:none; flex:1 1 160px; min-width:140px; height:26px; background:transparent; cursor:pointer; }
+  input[type="range"]::-webkit-slider-runnable-track { height:1px; background:var(--line-d); }
+  input[type="range"]::-moz-range-track { height:1px; background:var(--line-d); }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:15px; height:15px; border-radius:50%; background:var(--accent); margin-top:-7px; border:none; }
+  input[type="range"]::-moz-range-thumb { width:15px; height:15px; border-radius:50%; background:var(--accent); border:none; }
+  .stepper { display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line-d); padding:4px 8px; }
+  .stepper button { appearance:none; background:none; border:none; color:var(--muted); font-family:var(--mono); font-size:15px; cursor:pointer; padding:4px 8px; min-height:30px; }
+  .stepper button:hover { color:var(--accent); }
+  .stepper .v { font-family:var(--mono); font-size:12px; color:var(--onDark); min-width:26px; text-align:center; }
+  .hint { font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--mutedInk); }
+
+  .thread { padding:clamp(48px,8vh,96px) 0 0; border-top:1px solid var(--line-dd); }
+  .thread .lbl { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mutedInk); }
+  .thread p { margin:clamp(18px,3vh,28px) 0 0; max-width:62ch; font-size:clamp(15px,1.3vw,18px); line-height:1.68; color:var(--muted); }
+  .thread .in { color:rgba(237,231,219,0.85); }
+  .thread a { text-decoration:none; color:rgba(237,231,219,0.85); border-bottom:1px solid var(--accent); padding-bottom:1px; transition:color 0.4s ease; }
+  .thread a:hover { color:var(--accent); }
+
+  footer.site { margin-top:clamp(64px,10vh,120px); padding:clamp(40px,6vh,64px) 0 clamp(48px,7vh,72px); border-top:1px solid var(--line-dd); display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .foot-line { font-family:var(--serif); font-style:italic; font-size:clamp(16px,1.6vw,20px); color:rgba(237,231,219,0.66); }
+  .foot-domains { font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--muted); }
+  .foot-domains a { text-decoration:none; color:var(--muted); transition:color 0.35s ease; }
+  .foot-domains a:hover { color:var(--onDark); }
+  .foot-domains .sep { color:var(--mutedInk); padding:0 8px; }
+  .grain { position:fixed; inset:0; pointer-events:none; z-index:9999; mix-blend-mode:soft-light; opacity:0.05; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:140px 140px; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a class="logo" href="/">departive<span>.</span></a>
+  <a class="back" href="/">&larr; departive.com</a>
+</header>
+
+<div class="wrap">
+
+  <section class="masthead">
+    <div class="kicker" data-reveal><span class="rule"></span><span class="lbl">Instrument &middot; a rhythm engine</span></div>
+    <h1 data-reveal style="animation-delay:0.09s">The realignment.</h1>
+    <p class="sub" data-reveal style="animation-delay:0.18s">Two wheels tick at the same speed around different circumferences. They drift apart, fight the grid, and &mdash; this is the whole point of the music this nods to &mdash; come home. Every sound here is synthesized in your browser; the songs it gestures at appear only as numbers, which belong to everyone.</p>
+  </section>
+
+  <section class="stage" data-reveal style="animation-delay:0.27s">
+    <div class="wheel-frame">
+      <svg id="wheel" viewBox="0 0 440 440" role="img" aria-label="Two rings ticking against each other with an inscribed accent polygon"></svg>
+      <button id="playBtn" aria-label="Play or pause the engine"></button>
+    </div>
+    <div class="reads" aria-live="off">
+      <p class="read-main" id="readMain">Press the wheel <em>to set it turning</em>.</p>
+      <p class="read-next" id="readNext"></p>
+      <p class="read-note" id="readNote"></p>
+    </div>
+  </section>
+
+  <section class="controls" data-reveal>
+    <div class="ctl-row">
+      <span class="ctl-lbl">Pattern</span>
+      <div class="chips" id="presetChips"></div>
+    </div>
+    <div class="ctl-row">
+      <span class="ctl-lbl">Custom</span>
+      <span class="stepper" data-st="pulse"><button data-d="-1" aria-label="Fewer pulse ticks">&minus;</button><span class="v" id="pulseV">16</span><button data-d="1" aria-label="More pulse ticks">+</button></span>
+      <span class="hint">pulse</span>
+      <span class="stepper" data-st="riff"><button data-d="-1" aria-label="Fewer riff ticks">&minus;</button><span class="v" id="riffV">23</span><button data-d="1" aria-label="More riff ticks">+</button></span>
+      <span class="hint">riff &middot; tap the inner ring to move accents</span>
+    </div>
+    <div class="ctl-row">
+      <span class="ctl-lbl">Tempo</span>
+      <input type="range" id="bpmCtl" min="60" max="180" step="1" value="115" aria-label="Tempo in beats per minute">
+      <span class="ctl-val" id="bpmV">115 bpm</span>
+    </div>
+    <div class="ctl-row">
+      <span class="ctl-lbl">Sound</span>
+      <div class="chips">
+        <button class="chip" id="muteChip" type="button" aria-pressed="false">sound on</button>
+        <button class="chip" id="exportBtn" type="button" data-ev="realign-export">export the pattern &darr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="thread" data-reveal>
+    <span class="lbl">About this instrument</span>
+    <p><span class="in">Polymeter is arithmetic with feelings.</span> A riff that loops in twenty-five while the band holds sixteen realigns every four hundred ticks &mdash; and the distance between those meetings is where the tension in this music lives. This engine plays that arithmetic with clicks of its own making: no recordings, no samples, nothing borrowed. The patterns it ships are the time signatures of songs we love, stated as numbers &mdash; facts, which belong to everyone.</p>
+    <!-- READ-BACK (David): HERTA tease, currently disabled.
+    <p>The version of this that plays the actual records — synced to your Apple Music, tapped into your palm — is HERTA, coming from Deep Field.</p>
+    -->
+  </section>
+
+  <footer class="site">
+    <span class="foot-line" data-reveal>Crafted in the low light of Stockholm.</span>
+    <span class="foot-domains" data-reveal><a href="https://deepfield.se" target="_blank" rel="noopener">deepfield.se</a><span class="sep">&middot;</span><a href="/">departive.com</a></span>
+  </footer>
+
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<script src="/realign/engine.js"></script>
+<script>
+(function(){
+  'use strict';
+  var R = window.Realign;
+  var state = { pulse:16, riff:23, accents:[0,3,6,8,11,14,17,19], bpm:115, preset:'herta' };
+  var svg = document.getElementById('wheel');
+  var readMain = document.getElementById('readMain'), readNext = document.getElementById('readNext'), readNote = document.getElementById('readNote');
+  var firstPlay = false, flashUntil = 0, lastPos = 0;
+
+  var transport = R.Transport(state, function(tick){
+    var period = R.periodTicks(state.pulse, state.riff);
+    if (tick % period === 0 && tick > 0) flashUntil = performance.now() + 700;
+  });
+
+  function ev(name){
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path:name, title:name, event:true });
+  }
+
+  var NS='http://www.w3.org/2000/svg';
+  function draw(pos){
+    var s='', cx=220, cy=220;
+    var rP=186, rR=138, rPoly=96;
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+rP+'" fill="none" stroke="rgba(237,231,219,0.20)"/>';
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(rP-16)+'" fill="none" stroke="rgba(237,231,219,0.08)"/>';
+    for(var i=0;i<state.pulse;i++){var a=i/state.pulse*2*Math.PI-Math.PI/2, w=(i%4===0)?0.55:0.22;
+      s+='<line x1="'+(cx+Math.cos(a)*(rP-7))+'" y1="'+(cy+Math.sin(a)*(rP-7))+'" x2="'+(cx+Math.cos(a)*(rP+7))+'" y2="'+(cy+Math.sin(a)*(rP+7))+'" stroke="rgba(237,231,219,'+w+')"/>';}
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+rR+'" fill="none" stroke="rgba(237,231,219,0.20)"/>';
+    for(var i=0;i<state.riff;i++){var a=i/state.riff*2*Math.PI-Math.PI/2;
+      var isAcc = state.accents.indexOf(i)>=0;
+      s+='<line data-acc="'+i+'" x1="'+(cx+Math.cos(a)*(rR-8))+'" y1="'+(cy+Math.sin(a)*(rR-8))+'" x2="'+(cx+Math.cos(a)*(rR+8))+'" y2="'+(cy+Math.sin(a)*(rR+8))+'" stroke="'+(isAcc?'#b0835a':'rgba(237,231,219,0.30)')+'" stroke-width="'+(isAcc?2:1)+'"/>';}
+    // accent polygon
+    if(state.accents.length>1){var d='';
+      state.accents.slice().sort(function(a,b){return a-b;}).forEach(function(ai,j){var a=ai/state.riff*2*Math.PI-Math.PI/2;
+        d+=(j?'L':'M')+(cx+Math.cos(a)*rPoly)+','+(cy+Math.sin(a)*rPoly);});
+      s+='<path d="'+d+'Z" fill="rgba(176,131,90,0.10)" stroke="rgba(176,131,90,0.75)" stroke-width="1.2"/>';
+      state.accents.forEach(function(ai){var a=ai/state.riff*2*Math.PI-Math.PI/2;
+        s+='<circle cx="'+(cx+Math.cos(a)*rPoly)+'" cy="'+(cy+Math.sin(a)*rPoly)+'" r="3" fill="#b0835a"/>';});}
+    // markers + wake
+    var period=R.periodTicks(state.pulse,state.riff);
+    var k=pos%period;
+    var aP=-Math.PI/2+(k%state.pulse)/state.pulse*2*Math.PI;
+    var aR=-Math.PI/2+(k%state.riff)/state.riff*2*Math.PI;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(transport.running() && !reduce){
+      for(var w2=0;w2<24;w2++){var aw=aR-w2*0.03;
+        s+='<circle cx="'+(cx+Math.cos(aw)*rR)+'" cy="'+(cy+Math.sin(aw)*rR)+'" r="1.5" fill="rgba(176,131,90,'+(0.45*(1-w2/24))+')"/>';}}
+    s+='<circle cx="'+(cx+Math.cos(aP)*rP)+'" cy="'+(cy+Math.sin(aP)*rP)+'" r="5" fill="#ede7db"/>';
+    s+='<circle cx="'+(cx+Math.cos(aR)*rR)+'" cy="'+(cy+Math.sin(aR)*rR)+'" r="5" fill="#b0835a"/>';
+    // flash
+    var now=performance.now();
+    if(now<flashUntil){var o=(flashUntil-now)/700;
+      if(reduce){ s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+rPoly+'" fill="rgba(176,131,90,'+(0.25*o)+')"/>'; }
+      else { s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(rPoly+(1-o)*220)+'" fill="none" stroke="rgba(176,131,90,'+(0.8*o)+')" stroke-width="'+(2.5*o)+'"/>'; } }
+    // center
+    var barsLeft = transport.running() ? Math.max(0,Math.ceil((period - k)/state.pulse)) : R.periodBars(state.pulse,state.riff);
+    var center = transport.running() ? (now<flashUntil?'—':String(barsLeft)) : '▶';
+    s+='<text x="'+cx+'" y="'+(cy+9)+'" text-anchor="middle" style="font-family:Instrument Serif,Georgia,serif;font-size:'+(transport.running()?'34':'30')+'px;fill:#f2eee6">'+center+'</text>';
+    s+='<text x="'+cx+'" y="'+(cy+30)+'" text-anchor="middle" style="font-family:ui-monospace,Menlo,monospace;font-size:8.5px;fill:#6b6252;letter-spacing:2px">'+(transport.running()?(now<flashUntil?'REALIGNED':'BARS TO REALIGN'):'PRESS TO TURN')+'</text>';
+    svg.innerHTML=s;
+  }
+
+  function readouts(){
+    var period=R.periodTicks(state.pulse,state.riff), bars=R.periodBars(state.pulse,state.riff);
+    var secs=(period*(60/state.bpm/(state.pulse/4))).toFixed(0);
+    readMain.innerHTML='They agree every <em>'+period+' ticks</em>.';
+    readNext.textContent = bars+' bars of the pulse — '+secs+' seconds of tension at '+state.bpm+' bpm.';
+    var p = R.PRESETS.filter(function(x){return x.id===state.preset;})[0];
+    readNote.textContent = (p? p.label+' · '+p.note : 'custom · '+state.riff+' against '+state.pulse) + ' · ' + state.accents.length + ' accents';
+  }
+
+  /* ---------- wiring ---------- */
+  var chips=document.getElementById('presetChips');
+  R.PRESETS.forEach(function(p){
+    var b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=p.label;
+    b.setAttribute('aria-pressed', String(p.id===state.preset));
+    b.addEventListener('click', function(){
+      state.pulse=p.pulse; state.riff=p.riff; state.accents=p.accents.slice(); state.bpm=p.bpm; state.preset=p.id;
+      document.getElementById('bpmCtl').value=p.bpm; document.getElementById('bpmV').textContent=p.bpm+' bpm';
+      document.getElementById('pulseV').textContent=p.pulse; document.getElementById('riffV').textContent=p.riff;
+      [].forEach.call(chips.children,function(c){c.setAttribute('aria-pressed',String(c===b));});
+      readouts();
+    });
+    chips.appendChild(b);
+  });
+  [].forEach.call(document.querySelectorAll('.stepper'), function(st){
+    st.addEventListener('click', function(e){
+      var b=e.target.closest('button'); if(!b) return;
+      var d=+b.dataset.d, which=st.dataset.st;
+      if(which==='pulse') state.pulse=Math.max(3,Math.min(32,state.pulse+d));
+      else { state.riff=Math.max(3,Math.min(32,state.riff+d)); state.accents=state.accents.filter(function(a){return a<state.riff;}); if(!state.accents.length) state.accents=[0]; }
+      state.preset=null;
+      document.getElementById('pulseV').textContent=state.pulse; document.getElementById('riffV').textContent=state.riff;
+      [].forEach.call(chips.children,function(c){c.setAttribute('aria-pressed','false');});
+      readouts();
+    });
+  });
+  svg.addEventListener('click', function(e){
+    // tap inner ring tick → toggle accent (only when paused, so play button owns running taps)
+    var t=e.target.closest('[data-acc]'); if(!t) return;
+    e.stopPropagation();
+    var i=+t.dataset.acc, ix=state.accents.indexOf(i);
+    if(ix>=0){ if(state.accents.length>1) state.accents.splice(ix,1); } else state.accents.push(i);
+    state.preset=null; [].forEach.call(chips.children,function(c){c.setAttribute('aria-pressed','false');});
+    readouts();
+  }, true);
+  document.getElementById('playBtn').addEventListener('click', function(){
+    if(transport.running()){ transport.stop(); }
+    else { transport.start(); if(!firstPlay){ firstPlay=true; ev('realign-play'); } }
+  });
+  document.getElementById('bpmCtl').addEventListener('input', function(){
+    state.bpm=+this.value; document.getElementById('bpmV').textContent=state.bpm+' bpm'; readouts();
+  });
+  document.getElementById('muteChip').addEventListener('click', function(){
+    var m=this.getAttribute('aria-pressed')==='false';
+    this.setAttribute('aria-pressed',String(m)); this.textContent=m?'muted':'sound on'; R.setMuted(m);
+  });
+
+  /* ---------- export: the pattern as a poster (canvas, all ours) ---------- */
+  document.getElementById('exportBtn').addEventListener('click', function(){
+    var W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;
+    var g=c.getContext('2d');
+    g.fillStyle='#100c06';g.fillRect(0,0,W,H);
+    var cx=W/2, cy=560, rP=380, rR=282, rPoly=196;
+    function ring(r,alpha){g.beginPath();g.arc(cx,cy,r,0,7);g.strokeStyle='rgba(237,231,219,'+alpha+')';g.lineWidth=2;g.stroke();}
+    ring(rP,0.2); ring(rP-30,0.08); ring(rR,0.2);
+    for(var i=0;i<state.pulse;i++){var a=i/state.pulse*2*Math.PI-Math.PI/2;
+      g.beginPath();g.moveTo(cx+Math.cos(a)*(rP-13),cy+Math.sin(a)*(rP-13));g.lineTo(cx+Math.cos(a)*(rP+13),cy+Math.sin(a)*(rP+13));
+      g.strokeStyle='rgba(237,231,219,'+((i%4===0)?0.55:0.22)+')';g.lineWidth=2;g.stroke();}
+    for(var i=0;i<state.riff;i++){var a=i/state.riff*2*Math.PI-Math.PI/2, acc=state.accents.indexOf(i)>=0;
+      g.beginPath();g.moveTo(cx+Math.cos(a)*(rR-15),cy+Math.sin(a)*(rR-15));g.lineTo(cx+Math.cos(a)*(rR+15),cy+Math.sin(a)*(rR+15));
+      g.strokeStyle=acc?'#b0835a':'rgba(237,231,219,0.3)';g.lineWidth=acc?4:2;g.stroke();}
+    var sorted=state.accents.slice().sort(function(a,b){return a-b;});
+    g.beginPath();
+    sorted.forEach(function(ai,j){var a=ai/state.riff*2*Math.PI-Math.PI/2;
+      g[j?'lineTo':'moveTo'](cx+Math.cos(a)*rPoly,cy+Math.sin(a)*rPoly);});
+    g.closePath();g.fillStyle='rgba(176,131,90,0.10)';g.fill();g.strokeStyle='rgba(176,131,90,0.85)';g.lineWidth=2.5;g.stroke();
+    sorted.forEach(function(ai){var a=ai/state.riff*2*Math.PI-Math.PI/2;
+      g.beginPath();g.arc(cx+Math.cos(a)*rPoly,cy+Math.sin(a)*rPoly,6,0,7);g.fillStyle='#b0835a';g.fill();});
+    var period=R.periodTicks(state.pulse,state.riff);
+    g.fillStyle='#f2eee6';g.font='400 84px "Instrument Serif", Georgia, serif';g.textAlign='center';
+    g.fillText(state.riff+' against '+state.pulse, cx, 1105);
+    g.fillStyle='#9e9484';g.font='26px ui-monospace, Menlo, monospace';
+    g.fillText('THEY AGREE EVERY '+period+' TICKS · '+R.periodBars(state.pulse,state.riff)+' BARS', cx, 1160);
+    g.fillStyle='#6b6252';g.font='22px ui-monospace, Menlo, monospace';
+    g.fillText('THE REALIGNMENT · DEPARTIVE.COM', cx, 1290);
+    var a2=document.createElement('a');a2.download='realignment-'+state.riff+'v'+state.pulse+'.png';a2.href=c.toDataURL('image/png');a2.click();
+  });
+
+  /* ---------- frame loop ---------- */
+  function frame(){
+    var pos = transport.running() ? transport.pos() : 0;
+    if (transport.running() || performance.now() < flashUntil || pos !== lastPos) draw(pos);
+    lastPos = pos;
+    requestAnimationFrame(frame);
+  }
+  readouts(); draw(0); frame();
+})();
+</script>
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  document.documentElement.classList.add('reveal-on');
+  var els = [].slice.call(document.querySelectorAll('[data-reveal]'));
+  if (!('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('is-in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); } });
+  }, { rootMargin:'0px 0px -6% 0px', threshold:0.04 });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+<!-- click → GoatCounter events (delegated; outbound + data-ev) -->
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-ev], a[href]');
+    if (!el || !(window.goatcounter && window.goatcounter.count)) return;
+    var name, title;
+    if (el.dataset && el.dataset.ev) { name = title = el.dataset.ev; }
+    else {
+      var u; try { u = new URL(el.href, location.href); } catch (_) { return; }
+      if (u.protocol === 'mailto:') { name = 'email'; title = el.href; }
+      else if (u.host === location.host) return;
+      else { name = 'out-' + u.host; title = el.href; }
+    }
+    window.goatcounter.count({ path: name, title: title, event: true });
+  }, true);
+})();
+</script>
+<!-- GoatCounter --><script data-goatcounter="https://departive.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><!-- End GoatCounter -->
+</body>
+</html>
