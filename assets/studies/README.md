@@ -15,6 +15,7 @@ assets/studies/echo-frame/
 assets/studies/sightline/
 assets/studies/solplats/
 assets/studies/archived/     ← ARCHIVE/D
+assets/studies/herta/        ← Study 05 (empty; placeholders showing)
 assets/studies/studio/       ← the opener overture (not an app)
 ```
 
