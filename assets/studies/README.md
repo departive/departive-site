@@ -13,9 +13,9 @@ CTAs, signature) sits in the centred content column between the bands.
 ```
 assets/studies/echo-frame/
 assets/studies/sightline/
+assets/studies/herta/        ← Study 03 (empty; placeholders showing)
 assets/studies/solplats/
 assets/studies/archived/     ← ARCHIVE/D
-assets/studies/herta/        ← Study 05 (empty; placeholders showing)
 assets/studies/studio/       ← the opener overture (not an app)
 ```
 
