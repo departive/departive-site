@@ -40,6 +40,8 @@
   [data-gallery="travel"] { grid-template-columns: repeat(3, 1fr); }
   @media (max-width: 900px) { [data-gallery="travel"] { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { [data-gallery="travel"] { grid-template-columns: 1fr; } }
+  [data-gallery="interlude"] { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 700px) { [data-gallery="interlude"] { grid-template-columns: 1fr; } }
   [data-apps-grid] { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 900px) { [data-apps-grid] { grid-template-columns: 1fr; } }
   [data-catalog-grid] { grid-template-columns: repeat(2, 1fr); }
@@ -202,9 +204,9 @@
         <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Night market · Bangkok<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1050072.jpg" width="1333" height="2000" loading="lazy" alt="A Thai temple spire against blossom" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1072043.jpg" width="1331" height="2000" loading="lazy" alt="A figure in red crosses the glowing mock-up of the First Lunar Space Station" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
         <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
-        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Ancient Siam · Thailand<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Space Center Houston<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
         <img src="images/img-5184-3.jpg" width="1333" height="2000" loading="lazy" alt="Aerial of a boat cutting through drift ice" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
@@ -288,6 +290,24 @@
       </figure>
     </div>
 
+    <!-- interlude — Houston, two-up (3:2 pair; stacks under 700px) -->
+    <div data-reveal style="display:flex; align-items:center; gap:14px; margin-top:clamp(52px,8vh,88px); margin-bottom:clamp(18px,3vh,30px);">
+      <span style="width:30px; height:1px; background:var(--accent);"></span>
+      <span style="font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted);">Interlude &middot; Building 30, Houston</span>
+    </div>
+    <div data-gallery="interlude" style="display:grid; gap:clamp(8px,1.4vw,16px); align-items:start;">
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1072054.jpg" width="1600" height="1065" loading="lazy" alt="Apollo-era spacesuit, launch light reflected in the gold visor" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Space Center Houston<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
+      </figure>
+      <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
+        <img src="images/l1072276.jpg" width="1600" height="1064" loading="lazy" alt="Flight controller's log and a full ashtray, Mission Control" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,9,6,0.5), transparent 42%); pointer-events:none;"></div>
+        <figcaption style="position:absolute; left:20px; bottom:18px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; line-height:1.6; color:var(--onDark); pointer-events:none;">Mission Control · Houston<br><span style="color:var(--muted);">Leica Q3 43 · 43mm</span></figcaption>
+      </figure>
+    </div>
+
     <!-- portraits -->
     <div data-reveal style="display:flex; align-items:center; gap:14px; margin-top:clamp(52px,8vh,88px); margin-bottom:clamp(18px,3vh,30px);">
       <span style="width:30px; height:1px; background:var(--accent);"></span>
@@ -298,10 +318,10 @@
         <img src="images/02-2.jpg" width="1333" height="2000" loading="lazy" alt="Portrait — a monk in a doorway" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1050282.jpg" width="1333" height="2000" loading="lazy" alt="Portrait — traditional Thai dress" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1070055.jpg" width="1333" height="2000" loading="lazy" alt="Portrait in raking sun against a green and ochre wall" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
       </figure>
       <figure data-reveal style="position:relative; margin:0; background:#0c0906; overflow:hidden;">
-        <img src="images/l1000935.jpg" width="1333" height="2000" loading="lazy" alt="Portrait in a park, late light" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
+        <img src="images/l1062327.jpg" width="1500" height="2000" loading="lazy" alt="Portrait in a plaid shirt against a pink wall and dark green door" style="display:block; width:100%; height:auto; transition:transform 1.5s cubic-bezier(0.22,1,0.36,1);" style-hover="transform:scale(1.05)">
       </figure>
     </div>
 
