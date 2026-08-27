@@ -258,13 +258,41 @@
   @media (prefers-reduced-motion: reduce) {
     .chip-form, .chips-wrap { scroll-behavior:auto; }
   }
+
+  /* shelf nav (replaces the lone back link) */
+  .shelfnav { display:flex; align-items:baseline; gap:clamp(14px,2.4vw,26px); flex-wrap:wrap; }
+  .shelfnav a { text-decoration:none; font-family:var(--mono,ui-monospace,monospace); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted,#9e9484); transition:color 0.35s ease; }
+  .shelfnav a:hover { color:var(--onDark,#ede7db); }
+  .shelfnav a.here { color:var(--onDark,#ede7db); }
+  .shelfnav a.door::before { content:"\00b7"; color:transparent; margin-right:6px; }
+  .shelfnav a.door { color:var(--onDark,#ede7db); }
+  .shelfnav a.here::before { color:var(--accent,#b0835a); }
+
+  /* another instrument (lateral exit) */
+  .also { margin:clamp(56px,9vh,96px) 0 clamp(20px,3vh,36px); }
+  .also-kicker { display:flex; align-items:center; gap:12px; margin-bottom:18px; font-family:var(--mono,ui-monospace,monospace); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted,#9e9484); }
+  .also-kicker span { width:26px; height:1px; background:var(--accent,#b0835a); }
+  .also-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(8px,1.4vw,14px); max-width:680px; }
+  @media (max-width:640px) { .also-grid { grid-template-columns:1fr; } }
+  .also-grid a { display:block; text-decoration:none; border:1px solid var(--line-d,rgba(237,231,219,0.14)); padding:clamp(16px,2.4vw,24px); color:var(--onDark,#ede7db); transition:border-color 0.4s ease; }
+  .also-grid a:hover { border-color:var(--accent,#b0835a); }
+  .also-grid .t { font-family:var(--serif,Georgia,serif); font-size:clamp(19px,2vw,24px); line-height:1.1; margin-bottom:7px; }
+  .also-grid .d { font-family:var(--sans,system-ui,sans-serif); font-size:12.5px; line-height:1.55; color:var(--muted,#9e9484); }
+  .also-all { display:inline-block; margin-top:18px; text-decoration:none; font-family:var(--mono,ui-monospace,monospace); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted,#9e9484); border-bottom:1px solid var(--line-d,rgba(237,231,219,0.14)); padding-bottom:5px; transition:color 0.4s ease, border-color 0.4s ease; }
+  .also-all:hover { color:var(--accent,#b0835a); border-color:var(--accent,#b0835a); }
 </style>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-BUE1nzWvXcM16kslfLdc8.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 </head>
 <body>
 
 <header class="site">
   <a class="logo" href="/">departive<span>.</span></a>
-  <a class="back" href="/">&larr; departive.com</a>
+  <nav class="shelfnav" aria-label="Site sections"><a href="/#work">Work</a><a href="/#photography">Photography</a><a href="/#now">Lately</a><a href="/studies/" class="door">Studies</a><a href="/stories/" class="door">Stories</a><a href="/instruments/" class="door here">Instruments</a></nav>
 </header>
 
 <div class="wrap">
@@ -368,6 +396,12 @@
 
   <section class="thread" data-reveal>
     <p>The system behind this page runs in full inside <a href="/studies/">ARCHIVE/D</a> — the wardrobe study. The Column is its manifesto, made operable.</p>
+  </section>
+
+  <section class="also" data-reveal>
+    <div class="also-kicker"><span></span>Another instrument</div>
+    <div class="also-grid"><a href="/realign"><span class="t" style="display:block;">The Realignment</span><span class="d" style="display:block;">Two wheels tick against each other, drift apart, and come home.</span></a><a href="/linernotes"><span class="t" style="display:block;">Liner Notes</span><span class="d" style="display:block;">Every photograph is the cover of a record that doesn&rsquo;t exist.</span></a></div>
+    <a class="also-all" href="/instruments/">All instruments &rarr;</a>
   </section>
 
   <footer class="site">
@@ -1138,6 +1172,7 @@ document.addEventListener('DOMContentLoaded', function () {
       else { name = 'out-' + u.host; title = el.href; }
     }
     window.goatcounter.count({ path: name, title: title, event: true });
+    if (window.plausible) plausible(name);
   }, true);
 })();
 </script>

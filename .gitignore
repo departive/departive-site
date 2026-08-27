@@ -8,3 +8,8 @@ node_modules/
 
 # macOS
 .DS_Store
+
+# Local tooling cache + parked files + analytics exports — never tracked
+.wrangler/
+_to_delete/
+plausible-import/

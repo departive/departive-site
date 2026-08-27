@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-BUE1nzWvXcM16kslfLdc8.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 </head>
 <body>
 <x-dc>
@@ -12,21 +18,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <title>David Gheorghita — Design leader & photographer</title>
-<meta name="description" content="David Gheorghita — Head of UX Design at Volvo Group, one of Leica's 100 Photographers, and the small studio behind Echo Frame. Design leadership at scale, and the light in between.">
+<meta name="description" content="David Gheorghita — Head of UX Design at Volvo Group, one of Leica's 100 Photographers, and the small independent studio behind Echo Frame. Design leadership at scale, and the light in between.">
 <meta name="theme-color" content="#141009">
 <link rel="canonical" href="https://departive.com/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141009'/%3E%3Ccircle cx='16' cy='16' r='4.4' fill='%23b0835a'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="departive">
 <meta property="og:title" content="David Gheorghita — Design leader & photographer">
-<meta property="og:description" content="Head of UX Design at Volvo Group, one of Leica's 100 Photographers, and a small studio shipping iOS apps.">
+<meta property="og:description" content="Head of UX Design at Volvo Group, one of Leica's 100 Photographers, and a small independent studio shipping iOS apps.">
 <meta property="og:url" content="https://departive.com/">
 <meta property="og:image" content="https://departive.com/images/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="David Gheorghita — Design leader & photographer">
-<meta name="twitter:description" content="Head of UX Design at Volvo Group, one of Leica's 100 Photographers, and a small studio shipping iOS apps.">
+<meta name="twitter:description" content="Head of UX Design at Volvo Group, one of Leica's 100 Photographers, and a small independent studio shipping iOS apps.">
 <meta name="twitter:image" content="https://departive.com/images/og-cover.jpg">
 <style>
   * { box-sizing: border-box; }
@@ -114,11 +120,10 @@
     <nav>
       <a href="#work">Work</a>
       <a href="#photography">Photography</a>
-      <a href="#craft">Craft</a>
-      <a href="#apps">Apps</a>
       <a href="#now">Lately</a>
       <a href="/studies/" class="sn-page">Studies</a>
       <a href="/stories/" class="sn-page">Stories</a>
+      <a href="/instruments/" class="sn-page">Instruments</a>
     </nav>
   </div>
 
@@ -135,14 +140,13 @@
     <!-- top bar -->
     <header data-hero-topbar style="position:relative; z-index:4; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; padding:clamp(24px,3vw,40px) clamp(22px,5vw,64px);">
       <a href="#top" style="text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-family:var(--sans); font-weight:500; font-size:15px; letter-spacing:0.14em; color:var(--onDark); transition:opacity 0.35s ease;" style-hover="opacity:0.7">departive<span style="color:var(--accent); display:inline-block; animation:dotBreath 5s ease-in-out infinite;">.</span></a>
-      <nav data-hero-nav style="display:flex; flex-wrap:wrap; justify-content:flex-end; gap:clamp(14px,2.4vw,34px); font-family:var(--sans); font-size:clamp(10px,2.6vw,11px); font-weight:500; letter-spacing:0.18em; text-transform:uppercase;">
+      <nav data-hero-nav style="display:flex; flex-wrap:wrap; justify-content:flex-end; gap:clamp(14px,2.4vw,26px); font-family:var(--mono); font-size:11px; font-weight:400; letter-spacing:0.12em; text-transform:uppercase;">
         <a href="#work" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Work</a>
         <a href="#photography" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Photography</a>
-        <a href="#craft" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Craft</a>
-        <a href="#apps" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Apps</a>
         <a href="#now" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Lately</a>
-        <a href="/studies/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:var(--accent);">·&nbsp;</span>Studies</a>
-        <a href="/stories/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:var(--accent);">·&nbsp;</span>Stories</a>
+        <a href="/studies/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:transparent; margin-right:6px;">·</span>Studies</a>
+        <a href="/stories/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:transparent; margin-right:6px;">·</span>Stories</a>
+        <a href="/instruments/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:transparent; margin-right:6px;">·</span>Instruments</a>
       </nav>
     </header>
 
@@ -436,22 +440,13 @@
     </div>
     <!-- editorial rows, not cards — same index anatomy as THE WORK; the footer ledger keeps its /light link -->
     <div data-reveal>
-      <a href="/linernotes" data-idx-row data-ev="instrument-linernotes" style="display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.5fr) 96px; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(20px,2.8vh,28px) 0; border-top:1px solid var(--line-d); color:var(--onDark); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
+      <a href="/linernotes" data-idx-row data-ev="instrument-linernotes" style="display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.5fr) 96px; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(20px,2.8vh,28px) 0; border-top:1px solid var(--line-d); border-bottom:1px solid var(--line-d); color:var(--onDark); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
         <span style="font-family:var(--serif); font-size:clamp(24px,2.8vw,40px); line-height:1.05;">Liner Notes</span>
         <span style="font-family:var(--sans); font-size:14px; line-height:1.5; color:var(--muted);">Drop a photograph; receive the sleeve back of a record that doesn&rsquo;t exist.</span>
         <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--muted); text-align:right;">/linernotes</span>
       </a>
-      <a href="/column" data-idx-row data-ev="instrument-column" style="display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.5fr) 96px; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(20px,2.8vh,28px) 0; border-top:1px solid var(--line-d); color:var(--onDark); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
-        <span style="font-family:var(--serif); font-size:clamp(24px,2.8vw,40px); line-height:1.05;">The Northern Column</span>
-        <span style="font-family:var(--sans); font-size:14px; line-height:1.5; color:var(--muted);">Compose a fit; six rules judge it.</span>
-        <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--muted); text-align:right;">/column</span>
-      </a>
-      <a href="/light" data-idx-row data-ev="instrument-light" style="display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.5fr) 96px; gap:clamp(18px,3vw,44px); align-items:baseline; text-decoration:none; padding:clamp(20px,2.8vh,28px) 0; border-top:1px solid var(--line-d); border-bottom:1px solid var(--line-d); color:var(--onDark); transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);" style-hover="padding-left:14px">
-        <span style="font-family:var(--serif); font-size:clamp(24px,2.8vw,40px); line-height:1.05;">The light today</span>
-        <span style="font-family:var(--sans); font-size:14px; line-height:1.5; color:var(--muted);">Stockholm&rsquo;s light, live.</span>
-        <span style="font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--muted); text-align:right;">/light</span>
-      </a>
     </div>
+    <a data-reveal href="/instruments/" data-ev="all-instruments" style="display:inline-flex; align-items:center; gap:8px; margin-top:clamp(24px,4vh,40px); text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--line-d); padding-bottom:5px; transition:color 0.4s ease, border-color 0.4s ease;" style-hover="color:var(--accent); border-color:var(--accent)">All instruments <span style="font-family:var(--sans);">&rarr;</span></a>
   </section>
 
   <!-- ==================== NOW ==================== -->
@@ -624,6 +619,7 @@
     <div data-reveal style="display:flex; gap:clamp(22px,3vw,40px); flex-wrap:wrap; margin-top:clamp(44px,7vh,80px);">
       <a href="/studies/" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Studies</a>
       <a href="/stories/" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Stories</a>
+        <a href="/instruments/" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Instruments</a>
       <a href="https://deepfield.se" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--onDark);" style-hover="color:var(--accent)"><span style="color:var(--accent);">·</span>&nbsp;Deep Field <span style="font-family:var(--mono); font-size:11px;">&#8599;</span></a>
     </div>
     <div data-reveal style="display:flex; gap:clamp(22px,3vw,40px); flex-wrap:wrap; margin-top:clamp(18px,3vh,28px);">
@@ -1381,9 +1377,28 @@ class Component extends DCLogic {
       else { name = 'out-' + u.host; title = el.href; }     // group outbound by destination
     }
     window.goatcounter.count({ path: name, title: title, event: true });
+    if (window.plausible) plausible(name);
   }, true);
 })();
 </script>
 <!-- GoatCounter --><script data-goatcounter="https://departive.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><!-- End GoatCounter -->
+<script>
+/* hash-arrival scroll: the page body mounts async, so on arrival with a #hash
+   wait for the target section to exist, then jump to it (instant, not smooth). */
+(function(){
+  var h = location.hash;
+  if (!h || h === '#top') return;
+  var tries = 0;
+  var t = setInterval(function(){
+    var el = document.querySelector(h);
+    tries++;
+    if (el) {
+      clearInterval(t);
+      var y = el.getBoundingClientRect().top + window.pageYOffset - 64;
+      window.scrollTo({ top: y, behavior: 'instant' });
+    } else if (tries > 100) { clearInterval(t); }
+  }, 80);
+})();
+</script>
 </body>
 </html>
