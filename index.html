@@ -59,45 +59,32 @@
   @media (max-width: 700px) { [data-now-echoes] { grid-template-columns: 1fr; } [data-now-lists] { grid-template-columns: 1fr; gap: 40px !important; } }
   @media (max-width: 768px) { [data-hero-kb] { object-position: 88% 38% !important; } }
   @media (max-width: 480px) { [data-hero-kb] { object-position: 92% 34% !important; } }
-  @media (max-width: 700px) {
-    /* align-items !important beats the inline align-items:center on the topbar,
-       so the logo left-aligns with the nav rows (prompt_09 B) */
-    [data-hero-topbar] { flex-direction: column; align-items: flex-start !important; gap: 18px !important; }
-    [data-hero-nav] { justify-content: flex-start !important; width: 100%; row-gap: 12px; column-gap: 20px !important; }
-    /* page doors distinguish by colour/weight on mobile; drop the leading
-       interpunct so their text hangs from the same left edge as WORK…LATELY */
-    [data-hero-nav] .nav-door-sep { display: none; }
-  }
   @media (max-width: 640px) {
     [data-idx-row] { grid-template-columns: 1fr !important; gap: 6px !important; }
     [data-idx-row] > span:last-child { text-align: left !important; }
     [data-colophon-meta] { text-align: left !important; }
   }
-  html { scroll-padding-top: 64px; }
-  #stickyNav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 13px clamp(22px,7vw,150px); background: rgba(242,238,230,0.82); -webkit-backdrop-filter: saturate(1.3) blur(14px); backdrop-filter: saturate(1.3) blur(14px); border-bottom: 1px solid rgba(26,21,13,0.10); transform: translateY(-102%); opacity: 0; pointer-events: none; transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease; }
-  #stickyNav.is-visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
-  #stickyNav .sn-logo { display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.14em; color: #1a150d; }
-  #stickyNav .sn-logo span { color: #b0835a; }
-  #stickyNav nav { display: flex; align-items: center; gap: clamp(16px,2.4vw,32px); }
-  #stickyNav nav a { text-decoration: none; font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6252; transition: color 0.3s ease; }
-  #stickyNav nav a:hover { color: #1a150d; }
-  /* page links (doors) vs anchors (glances): accent interpunct + inked color */
-  #stickyNav nav a.sn-page { color: #1a150d; }
-  #stickyNav nav a.sn-page::before { content: "\00b7"; color: #b0835a; margin-right: 6px; }
-  #stickyNav nav a.sn-page:hover { color: #b0835a; }
-  @media (max-width: 640px) {
-    #stickyNav { padding: 11px clamp(16px,6vw,40px); }
-    #stickyNav .sn-logo { display: none; }
-    /* prompt_09 C: always one line — drop interpunct, tighten, and scroll
-       horizontally with 24px fade masks both ends rather than clip or wrap */
-    #stickyNav nav { width: 100%; justify-content: flex-start; gap: 9px; flex-wrap: nowrap;
-      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
-      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%); }
-    #stickyNav nav::-webkit-scrollbar { display: none; }
-    #stickyNav nav a { font-size: 9.5px; letter-spacing: 0.08em; flex: 0 0 auto; white-space: nowrap; }
-    #stickyNav nav a.sn-page::before { content: none; margin: 0; } /* step 1: drop interpunct on mobile */
+
+  #stickyNav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:clamp(16px,2.2vw,24px) clamp(22px,5vw,64px);
+    background:rgba(16,12,6,0.82); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(237,231,219,0.14);
+    transform:translateY(-102%); opacity:0; pointer-events:none;
+    transition:transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease; }
+  #stickyNav.is-visible { transform:translateY(0); opacity:1; pointer-events:auto; }
+  #stickyNav .sn-logo { display:inline-flex; align-items:baseline; gap:2px; text-decoration:none; font-family:var(--sans,'Instrument Sans',system-ui,-apple-system,sans-serif); font-weight:500; font-size:15px; letter-spacing:0.14em; color:#ede7db; }
+  #stickyNav .sn-logo span { color:#b0835a; }
+  #stickyNav nav { display:flex; align-items:baseline; gap:clamp(16px,2.6vw,30px); }
+  #stickyNav nav a { text-decoration:none; font-family:var(--mono,ui-monospace,'SF Mono',Menlo,monospace); font-size:11px; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:#ede7db; transition:color 0.3s ease; }
+  #stickyNav nav a:hover { color:#b0835a; }
+  @media (max-width:480px) {
+    #stickyNav { gap:12px; }
+    #stickyNav .sn-logo { font-size:13px; }
+    #stickyNav nav { gap:12px; }
+    #stickyNav nav a { font-size:9.5px; letter-spacing:0.08em; }
   }
+  html { scroll-padding-top: 64px; }
+  /* page links (doors) vs anchors (glances): accent interpunct + inked color */
   #echoRefresh, #rotationRefresh, #fitRefresh, #objectsRefresh { background:none; border:0; padding:2px; margin:-2px 0; cursor:pointer; color:var(--muted); display:inline-flex; align-items:center; transition:color 0.3s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1); }
   #echoRefresh:hover, #rotationRefresh:hover, #fitRefresh:hover, #objectsRefresh:hover { color:var(--accent); }
   [data-exif-line] { display:block; margin-top:4px; font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--muted); opacity:0; transform:translateY(2px); transition:opacity 0.5s ease, transform 0.5s ease; }
@@ -109,6 +96,26 @@
     [data-sun-arc] { justify-content: flex-start !important; }
     [data-sun-arc] svg { margin-left: 0 !important; }
   }
+
+  /* ===== canonical site header (single source: tools/nav_system) ===== */
+  .site-head { position:sticky; top:0; z-index:160; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:clamp(16px,2.2vw,24px) clamp(22px,5vw,64px);
+    background:rgba(16,12,6,0.82); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line-d,rgba(237,231,219,0.14)); }
+  .site-head--overlay { position:relative; background:transparent; border-bottom:0; -webkit-backdrop-filter:none; backdrop-filter:none; z-index:4; }
+  .sh-logo { text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-family:var(--sans,'Instrument Sans',system-ui,-apple-system,sans-serif); font-weight:500; font-size:15px; letter-spacing:0.14em; color:var(--onDark,#ede7db); transition:opacity 0.35s ease; }
+  .sh-logo:hover { opacity:0.7; }
+  .sh-logo span { color:var(--accent,#b0835a); }
+  .sh-nav { display:flex; align-items:baseline; gap:clamp(16px,2.6vw,30px); }
+  .sh-nav a { text-decoration:none; font-family:var(--mono,ui-monospace,'SF Mono',Menlo,monospace); font-size:11px; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--onDark,#ede7db); transition:color 0.35s ease; }
+  .sh-nav a:hover { color:var(--accent,#b0835a); }
+  .sh-nav a.here { color:var(--accent,#b0835a); }
+  @media (max-width:480px) {
+    .site-head { gap:12px; }
+    .sh-logo { font-size:13px; }
+    .sh-nav { gap:12px; }
+    .sh-nav a { font-size:9.5px; letter-spacing:0.08em; }
+  }
 </style>
 </helmet>
 
@@ -118,12 +125,9 @@
   <div id="stickyNav">
     <a href="#top" class="sn-logo">departive<span>.</span></a>
     <nav>
-      <a href="#work">Work</a>
-      <a href="#photography">Photography</a>
-      <a href="#now">Lately</a>
-      <a href="/studies/" class="sn-page">Studies</a>
-      <a href="/stories/" class="sn-page">Stories</a>
-      <a href="/instruments/" class="sn-page">Instruments</a>
+      <a href="/studies/">Studies</a>
+      <a href="/stories/">Stories</a>
+      <a href="/instruments/">Instruments</a>
     </nav>
   </div>
 
@@ -138,17 +142,8 @@
     <span style="position:absolute; bottom:26px; right:clamp(22px,5vw,64px); z-index:4; font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(237,231,219,0.5);">Nazaré, Portugal · Leica Q3 43</span>
 
     <!-- top bar -->
-    <header data-hero-topbar style="position:relative; z-index:4; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; padding:clamp(24px,3vw,40px) clamp(22px,5vw,64px);">
-      <a href="#top" style="text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-family:var(--sans); font-weight:500; font-size:15px; letter-spacing:0.14em; color:var(--onDark); transition:opacity 0.35s ease;" style-hover="opacity:0.7">departive<span style="color:var(--accent); display:inline-block; animation:dotBreath 5s ease-in-out infinite;">.</span></a>
-      <nav data-hero-nav style="display:flex; flex-wrap:wrap; justify-content:flex-end; gap:clamp(14px,2.4vw,26px); font-family:var(--mono); font-size:11px; font-weight:400; letter-spacing:0.12em; text-transform:uppercase;">
-        <a href="#work" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Work</a>
-        <a href="#photography" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Photography</a>
-        <a href="#now" style="text-decoration:none; color:rgba(237,231,219,0.66);" style-hover="color:var(--onDark)">Lately</a>
-        <a href="/studies/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:transparent; margin-right:6px;">·</span>Studies</a>
-        <a href="/stories/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:transparent; margin-right:6px;">·</span>Stories</a>
-        <a href="/instruments/" style="text-decoration:none; color:var(--onDark);" style-hover="color:var(--accent)"><span class="nav-door-sep" style="color:transparent; margin-right:6px;">·</span>Instruments</a>
-      </nav>
-    </header>
+    <header data-hero-topbar class="site-head site-head--overlay"><a class="sh-logo" href="/">departive<span>.</span></a><nav class="sh-nav" aria-label="Site"><a href="/studies/">Studies</a><a href="/stories/">Stories</a><a href="/instruments/">Instruments</a></nav></header>
+    <nav data-hero-contents style="position:relative; z-index:4; display:flex; flex-wrap:wrap; align-items:center; column-gap:clamp(16px,2.4vw,26px); row-gap:10px; padding:2px clamp(22px,5vw,64px) 0; font-family:var(--mono); font-size:10px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase;"><a href="#work" style="text-decoration:none; color:rgba(237,231,219,0.55); transition:color 0.3s ease;" style-hover="color:var(--onDark)">Work</a><a href="#photography" style="text-decoration:none; color:rgba(237,231,219,0.55); transition:color 0.3s ease;" style-hover="color:var(--onDark)">Photography</a><a href="#now" style="text-decoration:none; color:rgba(237,231,219,0.55); transition:color 0.3s ease;" style-hover="color:var(--onDark)">Lately</a></nav>
 
     <!-- hero content -->
     <div style="position:relative; z-index:4; margin-top:auto; padding:0 clamp(22px,5vw,64px) clamp(72px,12vh,130px); max-width:1180px;">

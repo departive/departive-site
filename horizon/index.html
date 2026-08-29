@@ -93,19 +93,26 @@
   .grain { position:fixed; inset:0; pointer-events:none; z-index:9999; mix-blend-mode:soft-light; opacity:0.05; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:140px 140px; }
 
   /* shelf nav (replaces the lone back link) */
-  .shelfnav { display:flex; align-items:baseline; gap:clamp(14px,2.4vw,26px); flex-wrap:wrap; }
-  .shelfnav a { text-decoration:none; font-family:var(--mono,ui-monospace,monospace); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted,#9e9484); transition:color 0.35s ease; }
-  .shelfnav a:hover { color:var(--onDark,#ede7db); }
-  .shelfnav a.here { color:var(--onDark,#ede7db); }
-  .shelfnav a.door::before { content:"\00b7"; color:transparent; margin-right:6px; }
-  .shelfnav a.door { color:var(--onDark,#ede7db); }
-  .shelfnav a.here::before { color:var(--accent,#b0835a); }
 
-  @media (max-width:700px) {
-    header.site, .intro-hero .chrome { flex-direction:column; align-items:flex-start; gap:14px; }
-    .shelfnav { width:100%; justify-content:flex-start; row-gap:10px; column-gap:18px; }
-    .shelfnav a.door::before { content:none; }
-    .shelfnav a.here { color:var(--accent,#b0835a); }
+
+  /* ===== canonical site header (single source: tools/nav_system) ===== */
+  .site-head { position:sticky; top:0; z-index:160; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:clamp(16px,2.2vw,24px) clamp(22px,5vw,64px);
+    background:rgba(16,12,6,0.82); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line-d,rgba(237,231,219,0.14)); }
+  .site-head--overlay { position:relative; background:transparent; border-bottom:0; -webkit-backdrop-filter:none; backdrop-filter:none; z-index:4; }
+  .sh-logo { text-decoration:none; display:inline-flex; align-items:baseline; gap:2px; font-family:var(--sans,'Instrument Sans',system-ui,-apple-system,sans-serif); font-weight:500; font-size:15px; letter-spacing:0.14em; color:var(--onDark,#ede7db); transition:opacity 0.35s ease; }
+  .sh-logo:hover { opacity:0.7; }
+  .sh-logo span { color:var(--accent,#b0835a); }
+  .sh-nav { display:flex; align-items:baseline; gap:clamp(16px,2.6vw,30px); }
+  .sh-nav a { text-decoration:none; font-family:var(--mono,ui-monospace,'SF Mono',Menlo,monospace); font-size:11px; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--onDark,#ede7db); transition:color 0.35s ease; }
+  .sh-nav a:hover { color:var(--accent,#b0835a); }
+  .sh-nav a.here { color:var(--accent,#b0835a); }
+  @media (max-width:480px) {
+    .site-head { gap:12px; }
+    .sh-logo { font-size:13px; }
+    .sh-nav { gap:12px; }
+    .sh-nav a { font-size:9.5px; letter-spacing:0.08em; }
   }
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
@@ -117,10 +124,7 @@
 </head>
 <body>
 
-<header class="site">
-  <a class="logo" href="/">departive<span>.</span></a>
-  <nav class="shelfnav" aria-label="Site sections"><a href="/#work">Work</a><a href="/#photography">Photography</a><a href="/#now">Lately</a><a href="/studies/" class="door">Studies</a><a href="/stories/" class="door">Stories</a><a href="/instruments/" class="door here">Instruments</a></nav>
-</header>
+<header class="site-head"><a class="sh-logo" href="/">departive<span>.</span></a><nav class="sh-nav" aria-label="Site"><a href="/studies/">Studies</a><a href="/stories/">Stories</a><a href="/instruments/" class="here">Instruments</a></nav></header>
 
 <div class="wrap">
 
