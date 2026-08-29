@@ -35,3 +35,4 @@ tools/
 
 # story WIP parked at repo ROOT (Cambodia draft — originals must never serve)
 cambodia/
+assets/**/raw/
