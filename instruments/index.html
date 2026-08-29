@@ -77,6 +77,13 @@
 
   .grain { position:fixed; inset:0; pointer-events:none; opacity:0.05; z-index:9;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E"); }
+
+  @media (max-width:700px) {
+    header.site, .intro-hero .chrome { flex-direction:column; align-items:flex-start; gap:14px; }
+    .shelfnav { width:100%; justify-content:flex-start; row-gap:10px; column-gap:18px; }
+    .shelfnav a.door::before { content:none; }
+    .shelfnav a.here { color:var(--accent,#b0835a); }
+  }
 </style>
 </head>
 <body>

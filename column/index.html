@@ -280,6 +280,13 @@
   .also-grid .d { font-family:var(--sans,system-ui,sans-serif); font-size:12.5px; line-height:1.55; color:var(--muted,#9e9484); }
   .also-all { display:inline-block; margin-top:18px; text-decoration:none; font-family:var(--mono,ui-monospace,monospace); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted,#9e9484); border-bottom:1px solid var(--line-d,rgba(237,231,219,0.14)); padding-bottom:5px; transition:color 0.4s ease, border-color 0.4s ease; }
   .also-all:hover { color:var(--accent,#b0835a); border-color:var(--accent,#b0835a); }
+
+  @media (max-width:700px) {
+    header.site, .intro-hero .chrome { flex-direction:column; align-items:flex-start; gap:14px; }
+    .shelfnav { width:100%; justify-content:flex-start; row-gap:10px; column-gap:18px; }
+    .shelfnav a.door::before { content:none; }
+    .shelfnav a.here { color:var(--accent,#b0835a); }
+  }
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-BUE1nzWvXcM16kslfLdc8.js"></script>

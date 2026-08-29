@@ -78,6 +78,13 @@
   .shelfnav a.door::before { content:"\00b7"; color:transparent; margin-right:6px; }
   .shelfnav a.door { color:var(--onDark,#ede7db); }
   .shelfnav a.here::before { color:var(--accent,#b0835a); }
+
+  @media (max-width:700px) {
+    header.site, .intro-hero .chrome { flex-direction:column; align-items:flex-start; gap:14px; }
+    .shelfnav { width:100%; justify-content:flex-start; row-gap:10px; column-gap:18px; }
+    .shelfnav a.door::before { content:none; }
+    .shelfnav a.here { color:var(--accent,#b0835a); }
+  }
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-BUE1nzWvXcM16kslfLdc8.js"></script>
