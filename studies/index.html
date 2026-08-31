@@ -220,11 +220,11 @@
      tall on mobile. The media covers the slot 1:1; tilt.js's data-tilt-scale overscans it while
      rotating so an edge is never exposed (scale is immune to the slot's grid centering). Tilt is
      inert on touch, so mobile keeps a plain cover of the vertical clip. */
-  .hero-band .m-tall { display:none; }
+  .hero-band .m-tall, .tv-band .m-tall { display:none; }
   @media (max-width:700px) {
-    .hero-band { aspect-ratio:3/4; max-height:none; }
-    .hero-band .m-wide { display:none; }
-    .hero-band .m-tall { display:block; }
+    .hero-band, .tv-band:has(.m-tall) { aspect-ratio:3/4; max-height:none; }
+    .hero-band .m-wide, .tv-band .m-wide { display:none; }
+    .hero-band .m-tall, .tv-band .m-tall { display:block; }
   }
   .tv-band { aspect-ratio:16/9; max-height:82vh; }
   .diptych { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
@@ -236,9 +236,9 @@
 
   /* apple tv copy block — sits in the FOOT room, below the media block, before the foot row */
   .tvsub { margin:0 0 clamp(40px,6vh,56px); }
-  .tvsub .lbl { font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--chap-accent,var(--accent)); display:block; }
+  .tvsub .lbl { font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--chap-accent,var(--accent)); display:block; margin-bottom:14px; }
   .tvsub .copy { display:flex; gap:clamp(20px,4vw,64px); flex-wrap:wrap; align-items:flex-start; }
-  .tvsub h3 { margin:0; flex:1 1 320px; font-family:var(--serif); font-weight:400; font-size:clamp(24px,2.8vw,38px); line-height:1.08; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance; }
+  .tvsub h3 { margin:0; flex:1 1 320px; font-family:var(--serif); font-weight:400; font-size:clamp(27px,2.8vw,38px); line-height:1.08; letter-spacing:-0.01em; color:var(--onDark); text-wrap:balance; }
   .tvsub p { margin:0; flex:1 1 340px; max-width:520px; font-family:var(--sans); font-size:clamp(14px,1.1vw,16px); line-height:1.7; color:var(--muted); }
   .tvsub .link { color:var(--onDark); text-decoration:none; border-bottom:1px solid var(--chap-accent,var(--accent)); padding-bottom:1px; transition:color 0.4s ease; }
   .tvsub .link:hover { color:var(--chap-accent,var(--accent)); }
@@ -510,6 +510,20 @@
       </div>
     </div>
 
+    <div class="plates" data-reveal>
+      <div class="slot tv-band" data-tilt data-tilt-max="4" data-tilt-scale="1.16">
+        <video class="media m-wide" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/studio/hero.mp4" type="video/mp4">
+        </video>
+        <video class="media m-tall" autoplay muted loop playsinline preload="metadata"
+               onloadeddata="this.closest('.slot').classList.add('has-img')" onerror="this.remove()">
+          <source src="/assets/studies/studio/hero-vertical.mp4" type="video/mp4">
+        </video>
+        <span class="ph"><span class="dev"></span>The shadows, live &middot; 16:9</span>
+      </div>
+    </div>
+
     <div class="room" data-reveal>
       <div class="tvsub">
         <span class="lbl">The engine</span>
@@ -552,7 +566,7 @@
         <span class="word">Herta</span>
       </div>
       <p class="tagline">The rhythm is the instrument.</p>
-      <p class="spec">Meshuggah, Tool, Dream Theater. What these musicians do with rhythm has fascinated me for years. Lateralus is built on the Fibonacci sequence, the riff counting 9, 8, 7 while the vocal line climbs 1, 1, 2, 3, 5, 8. The Dance of Eternity changes time signature over a hundred times in six minutes. Playing any of it means your hands and feet counting different numbers at once. Herta is my attempt to do that justice on a phone: the rhythm drawn as a turning shape while the record plays, every hit tapped into your hand. Not for everyone, but a few people will find it mesmerising. <span class="refuse">The music comes from your own Apple Music. Herta is what you see and feel while it plays.</span></p>
+      <p class="spec">There&rsquo;s a kind of music built on rhythm you can&rsquo;t count on the first listen, or the tenth, and it has fascinated me for years. Lateralus is built on the Fibonacci sequence, the riff counting 9, 8, 7 while the vocal line climbs 1, 1, 2, 3, 5, 8. The Dance of Eternity changes time signature over a hundred times in six minutes. There are many more like them, and playing any of it means your hands and feet counting different numbers at once. Herta is my attempt to do that justice on a phone: the rhythm drawn as a turning shape while the record plays, every hit tapped into your hand. Not for everyone, but a few people will find it mesmerising. <span class="refuse">The music comes from your own Apple Music. Herta is what you see and feel while it plays.</span></p>
     </div>
 
     <div class="plates" data-reveal>
