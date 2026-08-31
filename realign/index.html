@@ -148,7 +148,7 @@
   <section class="masthead">
     <div class="kicker" data-reveal><span class="rule"></span><span class="lbl">Instrument &middot; a rhythm engine</span></div>
     <h1 data-reveal style="animation-delay:0.09s">The realignment.</h1>
-    <p class="sub" data-reveal style="animation-delay:0.18s">Two wheels tick at the same speed around different circumferences. They drift apart, fight the grid, and &mdash; this is the whole point of the music this nods to &mdash; come home. Every sound here is synthesized in your browser; the songs it gestures at appear only as numbers, which belong to everyone.</p>
+    <p class="sub" data-reveal style="animation-delay:0.18s">Two wheels tick at the same speed around circles of different sizes. They drift apart and, after a while, meet again. That meeting is the whole point of the music this comes from. Every sound is synthesised in your browser. The patterns are the time signatures of songs I love, stated as numbers.</p>
   </section>
 
   <section class="stage" data-reveal style="animation-delay:0.27s">
@@ -172,13 +172,13 @@
       <span class="ctl-lbl">Custom</span>
       <span class="stepper" data-st="pulse"><button data-d="-1" aria-label="Fewer pulse ticks">&minus;</button><span class="v" id="pulseV">16</span><button data-d="1" aria-label="More pulse ticks">+</button></span>
       <span class="hint">pulse</span>
-      <span class="stepper" data-st="riff"><button data-d="-1" aria-label="Fewer riff ticks">&minus;</button><span class="v" id="riffV">23</span><button data-d="1" aria-label="More riff ticks">+</button></span>
+      <span class="stepper" data-st="riff"><button data-d="-1" aria-label="Fewer riff ticks">&minus;</button><span class="v" id="riffV">25</span><button data-d="1" aria-label="More riff ticks">+</button></span>
       <span class="hint">riff &middot; tap the inner ring to move accents</span>
     </div>
     <div class="ctl-row">
       <span class="ctl-lbl">Tempo</span>
-      <input type="range" id="bpmCtl" min="60" max="180" step="1" value="115" aria-label="Tempo in beats per minute">
-      <span class="ctl-val" id="bpmV">115 bpm</span>
+      <input type="range" id="bpmCtl" min="60" max="180" step="1" value="133" aria-label="Tempo in beats per minute">
+      <span class="ctl-val" id="bpmV">133 bpm</span>
     </div>
     <div class="ctl-row">
       <span class="ctl-lbl">Sound</span>
@@ -191,10 +191,8 @@
 
   <section class="thread" data-reveal>
     <span class="lbl">About this instrument</span>
-    <p><span class="in">Polymeter is arithmetic with feelings.</span> A riff that loops in twenty-five while the band holds sixteen realigns every four hundred ticks &mdash; and the distance between those meetings is where the tension in this music lives. This engine plays that arithmetic with clicks of its own making: no recordings, no samples, nothing borrowed. The patterns it ships are the time signatures of songs we love, stated as numbers &mdash; facts, which belong to everyone.</p>
-    <!-- READ-BACK (David): HERTA tease, currently disabled.
-    <p>The version of this that plays the actual records — synced to your Apple Music, tapped into your palm — is HERTA, coming from Deep Field.</p>
-    -->
+    <p><span class="in">Polymeter is counting two things at once.</span> A riff that loops in twenty-five while the drums hold sixteen lines up again every four hundred ticks, and the wait between those meetings is where the tension in this music lives. This engine plays that arithmetic with clicks of its own making; nothing here is a recording. The presets are the patterns from Bleed, Rational Gaze, Schism and Lateralus, checked against the maps I made for Herta. Time signatures belong to everyone.</p>
+    <p>The version that plays the actual records, with every hit tapped into your hand, is <a class="link" href="/studies/#study-03">Herta</a>.</p>
   </section>
 
   <section class="also" data-reveal>
@@ -217,7 +215,7 @@
 (function(){
   'use strict';
   var R = window.Realign;
-  var state = { pulse:16, riff:23, accents:[0,3,6,8,11,14,17,19], bpm:115, preset:'herta' };
+  var state = { pulse:16, riff:25, accents:[0,6,10,13,16,20], bpm:133, preset:'rg' };
   var svg = document.getElementById('wheel');
   var readMain = document.getElementById('readMain'), readNext = document.getElementById('readNext'), readNote = document.getElementById('readNote');
   var firstPlay = false, flashUntil = 0, lastPos = 0;

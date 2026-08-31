@@ -21,10 +21,10 @@
 
   /* ---------- presets: factual arithmetic only (labels read-back gated) ---------- */
   var PRESETS = [
-    { id: 'rg',   label: '25 against 16', pulse: 16, riff: 25, accents: [0, 6, 10, 13, 16, 20], note: 'grouping 6+4+3+3+4+5', bpm: 100 },
-    { id: 'herta',label: '23 against 16', pulse: 16, riff: 23, accents: [0, 3, 6, 8, 11, 14, 17, 19], note: 'herta-cell family · MOCK until transcription', bpm: 115 },
-    { id: 'schism', label: '5+7 against 8', pulse: 8, riff: 12, accents: [0, 5], note: 'the “6½/8” alternation', bpm: 108 },
-    { id: '987',  label: '9 · 8 · 7', pulse: 8, riff: 24, accents: [0, 9, 17], note: 'the descending chorus', bpm: 96 }
+    { id: 'rg',     label: 'Rational Gaze · 25 against 16', pulse: 16, riff: 25, accents: [0, 6, 10, 13, 16, 20], note: 'grouping 6+4+3+3+4+5 · home every 25 bars', bpm: 133 },
+    { id: 'bleed',  label: 'Bleed · 6 against 32',          pulse: 32, riff: 6,  accents: [0, 1, 2, 4],           note: 'the herta itself: four strokes every three sixteenths · home every 3 bars', bpm: 115 },
+    { id: 'schism', label: 'Schism · 13 against 12',        pulse: 12, riff: 13, accents: [3, 5, 7, 10, 12],      note: 'the caesura: six and seven, one eighth longer than the divide', bpm: 107 },
+    { id: '987',    label: 'Lateralus · 9 · 8 · 7',         pulse: 8,  riff: 24, accents: [0, 9, 17],             note: 'nine, eight, seven · 24 eighths, 8 chugs', bpm: 91 }
   ];
 
   function periodTicks(pulse, riff) { return lcm(pulse, riff); }
